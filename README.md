@@ -71,13 +71,12 @@ dotnet ef database update
 ```sh
 dotnet run
 ```
-Aplikasi akan berjalan di **http://localhost:5000**
 
 ---
 
 ## 📂 Struktur Folder
 ```
-/pos-angkringan
+/pos-system
 │-- /Controllers
 │-- /Models
 │-- /Views
