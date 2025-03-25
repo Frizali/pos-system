@@ -19,8 +19,7 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<TblCategory> categories = await _context.TblCategory.ToListAsync();
-            return View(categories);
+            return View();
         }
 
         public IActionResult Privacy()

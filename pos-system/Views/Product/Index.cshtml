@@ -1,0 +1,45 @@
+﻿@model ProductFormModelView
+<link href="~/Views/Product/index.cshtml.css" />
+
+<div class="d-flex flex-column gap-2">
+    <div>
+        <label for="name" class="form-label">ProductName</label>
+        <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
+    </div>
+    <div>
+        <label for="category" class="form-label">Product Category</label>
+        <select class="form-select" aria-label="Default select example" id="category" name="Product.CategoryID">
+            <option selected>Open this select menu</option>
+            @foreach (var category in Model.ProductCategories)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+        </select>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="hasVariant">
+        <label class="form-check-label" for="hasVariant">
+            Has Variant
+        </label>
+    </div>
+    <div id="variant">
+        <button class="btn btn-primary" id="addVariant">Add Variant</button>
+        <div id="variant-container">
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">SKU</th>
+                    <th scope="col">Variant Price</th>
+                    <th scope="col">Variant Stock</th>
+                    <th scope="col">Limited Stock</th>
+                    <th scope="col">Available</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Views/Product/index.cshtml.js"></script>
