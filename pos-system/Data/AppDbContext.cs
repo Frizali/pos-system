@@ -24,6 +24,82 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblVariantOption> TblVariantOption { get; set; }
 
+    public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
+    {
+        List<string> skipField = new List<string>() { "createat", "updateat" };
+        var changedEntities = ChangeTracker.Entries()
+            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
+            .ToList();
+
+        foreach (var entity in changedEntities)
+        {
+            string entityName = entity.Metadata.ClrType.Name;
+
+            var primaryKey = entity.Metadata.FindPrimaryKey();
+            var logKeyName = new List<string>();
+            var logKeyValue = new List<string>();
+            if (primaryKey != null)
+            {
+                foreach (var keyProp in primaryKey.Properties)
+                {
+                    string keyName = keyProp.Name;
+                    var keyValue = entity.Property(keyName).CurrentValue;
+
+                    logKeyName.Add(keyName);
+                    logKeyValue.Add(keyValue?.ToString() ?? "NULL");
+                }
+            }
+
+            if (entity.State == EntityState.Added)
+            {
+                await this.Database.ExecuteSqlRawAsync("INSERT INTO tblLogAudit (LogAction, LogEntityName, LogKeyName, LogKeyValue, LogUsername, LogDateTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5})",
+                    "Added", entityName, string.Join("?", logKeyName), string.Join("?", logKeyValue), username, DateTime.Now);
+            }
+
+            if (entity.State == EntityState.Modified)
+            {
+                var modifiedFields = entity.Properties.Where(x => x.IsModified);
+
+                foreach (var field in modifiedFields)
+                {
+                    string fieldName = field.Metadata.Name;
+                    if (skipField.Contains(fieldName.ToLower()))
+                        continue;
+                    var currentValue = field.OriginalValue;
+                    var modifiedValue = field.CurrentValue;
+
+                    await this.Database.ExecuteSqlRawAsync("INSERT INTO tblLogAudit (LogAction, LogEntityName, LogKeyName, LogKeyValue, LogUsername, LogFldName, LogFldOldValue, LogFldNewValue, LogDateTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
+                    "Modified", entityName, string.Join("?", logKeyName), string.Join("?", logKeyValue), username, fieldName, currentValue, modifiedValue, DateTime.Now);
+                }
+            }
+
+            if (entity.State == EntityState.Deleted)
+            {
+                await this.Database.ExecuteSqlRawAsync("INSERT INTO tblLogAudit (LogAction, LogEntityName, LogKeyName, LogKeyValue, LogUsername, LogDateTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5})",
+                    "Deleted", entityName, string.Join("?", logKeyName), string.Join("?", logKeyValue), username, DateTime.Now);
+            }
+
+            if (entity.State == EntityState.Added)
+            {
+                var createAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.ToLower() == "createat");
+
+                if (createAtProp is not null)
+                {
+                    createAtProp.CurrentValue = DateTime.Now;
+                }
+            }else if((entity.State == EntityState.Modified && entity.Properties.Where(x => x.IsModified && !skipField.Contains(x.Metadata.Name.ToLower())).Count() > 0))
+            {
+                var updateAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.ToLower() == "updateat");
+
+                if (updateAtProp is not null)
+                {
+                    updateAtProp.CurrentValue = DateTime.Now;
+                }
+            }
+        }
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblProduct>(entity =>

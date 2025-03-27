@@ -9,6 +9,17 @@
     });
 });
 
+$(function () {
+    $("#addons").hide();
+    $("#hasAddons").change(function () {
+        if ($(this).is(":checked")) {
+            $("#addons").attr("class", "d-flex flex-column gap-2");
+        } else {
+            $("#addons").attr("class", "d-none");
+        };
+    });
+});
+
 //Handle Input Tag
 $(document).ready(function () {
     let selectedTags = [];
@@ -18,7 +29,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             let tag = $(this).val().trim();
-            let $tagContainer = $(this).closest(".col-8").find(".tagContainer");
+            let $tagContainer = $(this).closest(".col-7").find(".tagContainer");
 
             if (!$tagContainer.find(`.tag:contains(${tag})`).length) {
                 $tagContainer.append(`<span class="tag">${tag} <span class="remove" role="button">&times;</span></span>`);
@@ -49,7 +60,7 @@ $(document).ready(function () {
                 return result;
             }
 
-            $("#table-body").empty();
+            $("#table-variant-body").empty();
 
             let combinations = tagLists.length > 0 ? tagLists[0] : [];
 
@@ -60,7 +71,7 @@ $(document).ready(function () {
             for (var i = 0; i < combinations.length; i++) {
                 let isFound = false;
 
-                $("#table-body tr").each(function () {
+                $("#table-variant-body tr").each(function () {
                     let firstTdText = $(this).find("td:first").text().trim();
                     if (firstTdText === combinations[i]) {
                         isFound = true;
@@ -73,14 +84,31 @@ $(document).ready(function () {
                 let rowData = `
                     <tr>
                         <td>${combinations[i]}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">Rp</span>
+                              </div>
+                              <input type="text" class="form-control variant-price" id="variant-price" name="ProductVariants[${i}].VariantPrice">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control variant-stock" id="variant-stock" name="ProductVariants[${i}].VariantStock">
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input islimited" type="checkbox" value="" id="isLimited" checked name="ProductVariants[${i}].IsLimitedStock">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input isavailable" type="checkbox" value="" id="isAvailable" checked name="ProductVariants[${i}].IsAvailable">
+                            </div>
+                        </td>
                     </tr>
                 `;
 
-                $("#table-body").append(rowData);
+                $("#table-variant-body").append(rowData);
             }
         }
     });
@@ -88,24 +116,76 @@ $(document).ready(function () {
     $(document).on("click", ".remove", function () {
         $(this).parent().remove();
     });
+
+    $(document).on("change", ".islimited", function () {
+        $(this).closest("tr").find(".variant-stock").prop("disabled", !$(this).is(":checked"));
+    });
+
+    $(document).on("change", ".isavailable", function () {
+        if ($(this).is(":checked")) {
+            $(this).closest("tr").css("background-color", "transparent");
+            $(this).closest("tr").find(".variant-stock").prop("disabled", false);
+            $(this).closest("tr").find(".variant-price").prop("disabled", false);
+            $(this).closest("tr").find(".islimited").prop("disabled", false);
+        } else {
+            $(this).closest("tr").css("background-color", "#e0e0e0");
+            $(this).closest("tr").find(".variant-stock").prop("disabled", true);
+            $(this).closest("tr").find(".variant-price").prop("disabled", true);
+            $(this).closest("tr").find(".islimited").prop("disabled", true);
+        }
+    });
+
+    $("#newAddon").click(function () {
+        let rowData = `
+               <tr>
+                    <td>
+                        <input type="text" class="form-control variant-price" aria-label="Amount (to the nearest dollar)">
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                            </div>
+                            <input type="text" class="form-control variant-price" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control variant-stock" id="name" name="Product.ProductStock">
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input islimited" type="checkbox" value="" id="isLimited" checked>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input isavailable" type="checkbox" value="" id="isAvailable" checked>
+                        </div>
+                    </td>
+               </tr>
+            `
+
+        $("#table-addons-body").append(rowData)
+    })
 });
 
 
 $(function () {
     let variantIndex = 0;
 
-    $("#addVariant").click(function () {
-        let variantHTML = `<div class="row">
+    $("#newVariant").click(function () {
+        let variantHTML =
+        `<div class="row">
             <div class="col-4">
-                <label for="variantGroup${variantIndex}" class="form-label" name="VariantGroups[${variantIndex}].VariantName">Tipe Variant</label>
-                <select class="form-select" aria-label="Default select example" id="variantGroup${variantIndex}">
+                <label for="variantGroups${variantIndex}" class="form-label" name="VariantGroups[${variantIndex}].VariantName">Tipe Variant</label>
+                <select class="form-select" aria-label="Default select example" id="variantGroups${variantIndex}">
                     <option selected>Open this select menu</option>
                     <option value="Bread">Bread</option>
                     <option value="Color">Color</option>
                     <option value="Size">Size</option>
                 </select>
             </div>            
-            <div class="col-8">
+            <div class="col-7">
                 <div>
                     <div class="form-group">
                         <label for="inputTag" class="form-label">Masukkan Item</label>
@@ -115,9 +195,16 @@ $(function () {
                     </div>
                 </div>
             </div>
+            <div class="col-1 remove-variant-group" role="button"> 
+                <span>&times;</span>
+            </div>
         </div>`;
 
         $("#variant-container").append(variantHTML);
         variantIndex++;
     });
 });
+
+$(document).on("click", ".remove-variant-group", function () {
+    $(this).parent().remove();
+})

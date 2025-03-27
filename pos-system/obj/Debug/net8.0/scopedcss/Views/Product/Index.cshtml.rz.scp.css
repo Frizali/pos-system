@@ -1,0 +1,18 @@
+.tag[b-4o40cfqi3y] {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 20px;
+}
+
+.tag .remove[b-4o40cfqi3y] {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #ff4d4d;
+}
+
+.form-check[b-4o40cfqi3y] {
+    background-color:red;
+}

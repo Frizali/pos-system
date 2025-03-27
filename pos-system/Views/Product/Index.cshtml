@@ -1,45 +1,76 @@
 ﻿@model ProductFormModelView
-<link href="~/Views/Product/index.cshtml.css" />
 
-<div class="d-flex flex-column gap-2">
-    <div>
-        <label for="name" class="form-label">ProductName</label>
-        <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
-    </div>
-    <div>
-        <label for="category" class="form-label">Product Category</label>
-        <select class="form-select" aria-label="Default select example" id="category" name="Product.CategoryID">
-            <option selected>Open this select menu</option>
-            @foreach (var category in Model.ProductCategories)
-            {
-                <option value="@category.CategoryId">@category.CategoryName</option>
-            }
-        </select>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="hasVariant">
-        <label class="form-check-label" for="hasVariant">
-            Has Variant
-        </label>
-    </div>
-    <div id="variant">
-        <button class="btn btn-primary" id="addVariant">Add Variant</button>
-        <div id="variant-container">
+@using (Html.BeginForm("Save", "Product", FormMethod.Post))
+{
+    <div class="d-flex flex-column gap-2">
+        <div>
+            <label for="name" class="form-label">Product Name</label>
+            <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
+        </div>    
+        <div>
+            <label for="description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="description" rows="2" name="Product.ProductDescription"></textarea>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SKU</th>
-                    <th scope="col">Variant Price</th>
-                    <th scope="col">Variant Stock</th>
-                    <th scope="col">Limited Stock</th>
-                    <th scope="col">Available</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-            </tbody>
-        </table>
+        <div>
+            <label for="category" class="form-label">Product Category</label>
+            <select class="form-select" aria-label="Product Category" id="category" name="Product.CategoryID">
+                <option selected>Open this select menu</option>
+                @foreach (var category in Model.ProductCategories)
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="hasVariant">
+            <label class="form-check-label" for="hasVariant">
+                Has Variant
+            </label>
+        </div>
+        <div id="variant">
+            <a class="btn btn-primary" id="newVariant">Add Variant</a>
+            <div id="variant-container" class="d-flex flex-column gap-2">
+            </div>
+            <table class="table table-variant">
+                <thead>
+                    <tr>
+                        <th scope="col">SKU</th>
+                        <th scope="col">Variant Price</th>
+                        <th scope="col">Variant Stock</th>
+                        <th scope="col">Limited Stock</th>
+                        <th scope="col">Available</th>
+                    </tr>
+                </thead>
+                <tbody id="table-variant-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="hasAddons">
+            <label class="form-check-label" for="hasAddons">
+                Has Addons
+            </label>
+        </div>
+        <div id="addons">
+            <a class="btn btn-primary" id="newAddon">Addons</a>
+            <table class="table table-addons">
+                <thead>
+                    <tr>
+                        <th scope="col">Addon Name</th>
+                        <th scope="col">Price Per Unit</th>
+                        <th scope="col">Addon Stock</th>
+                        <th scope="col">Limited Stock</th>
+                        <th scope="col">Available</th>
+                    </tr>
+                </thead>
+                <tbody id="table-addons-body">
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Save Product</button>
+        </div>
     </div>
-</div>
+}
 
 <script src="~/Views/Product/index.cshtml.js"></script>

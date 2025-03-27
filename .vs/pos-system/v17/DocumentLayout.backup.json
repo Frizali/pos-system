@@ -1,0 +1,500 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\product\\index.cshtml.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\product\\index.cshtml.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\models\\productformmodelview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\models\\productformmodelview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\models\\tblproductvariant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\models\\tblproductvariant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\models\\tblproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\models\\tblproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\models\\tblvariantgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\models\\tblvariantgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\product\\index.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\product\\index.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\repository\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\repository\\iproductrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\repository\\iproductcategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\repository\\iproductcategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\repository\\productcategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\repository\\productcategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|c:\\users\\rizal\\documents\\[00] fahrizal\\[01] college\\informatics engineering\\4th semester\\[00] project base learning\\pos-system\\pos-system\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0359986E-C0E7-41C7-997B-BB33DBC1D652}|pos-system\\pos-system.csproj|solutionrelative:pos-system\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TblProductVariant.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblProductVariant.cs",
+              "RelativeDocumentMoniker": "pos-system\\Models\\TblProductVariant.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblProductVariant.cs",
+              "RelativeToolTip": "pos-system\\Models\\TblProductVariant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T08:49:19.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Product\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACkAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-24T04:25:24.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.cshtml.js",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\index.cshtml.js",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Product\\index.cshtml.js",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\index.cshtml.js",
+              "RelativeToolTip": "pos-system\\Views\\Product\\index.cshtml.js",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAwGEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-03-25T03:59:08.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductFormModelView.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\ProductFormModelView.cs",
+              "RelativeDocumentMoniker": "pos-system\\Models\\ProductFormModelView.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\ProductFormModelView.cs",
+              "RelativeToolTip": "pos-system\\Models\\ProductFormModelView.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:54:20.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "pos-system\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "pos-system\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:25:42.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TblProduct.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblProduct.cs",
+              "RelativeDocumentMoniker": "pos-system\\Models\\TblProduct.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblProduct.cs",
+              "RelativeToolTip": "pos-system\\Models\\TblProduct.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T04:53:31.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "pos-system\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Services\\ProductService.cs",
+              "RelativeToolTip": "pos-system\\Services\\ProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:56:21.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Services\\IProductService.cs",
+              "RelativeDocumentMoniker": "pos-system\\Services\\IProductService.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Services\\IProductService.cs",
+              "RelativeToolTip": "pos-system\\Services\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:55:46.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TblVariantGroup.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblVariantGroup.cs",
+              "RelativeDocumentMoniker": "pos-system\\Models\\TblVariantGroup.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\TblVariantGroup.cs",
+              "RelativeToolTip": "pos-system\\Models\\TblVariantGroup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T02:55:31.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\Index.cshtml.css",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Product\\Index.cshtml.css",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\Index.cshtml.css",
+              "RelativeToolTip": "pos-system\\Views\\Product\\Index.cshtml.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-25T04:39:25.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-24T02:29:25.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ProductCategoryRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\ProductCategoryRepo.cs",
+              "RelativeDocumentMoniker": "pos-system\\Repository\\ProductCategoryRepo.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\ProductCategoryRepo.cs",
+              "RelativeToolTip": "pos-system\\Repository\\ProductCategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:48:29.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Program.cs",
+              "RelativeDocumentMoniker": "pos-system\\Program.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Program.cs",
+              "RelativeToolTip": "pos-system\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T08:07:47.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IProductRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\IProductRepo.cs",
+              "RelativeDocumentMoniker": "pos-system\\Repository\\IProductRepo.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\IProductRepo.cs",
+              "RelativeToolTip": "pos-system\\Repository\\IProductRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:45:40.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IProductCategoryRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\IProductCategoryRepo.cs",
+              "RelativeDocumentMoniker": "pos-system\\Repository\\IProductCategoryRepo.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Repository\\IProductCategoryRepo.cs",
+              "RelativeToolTip": "pos-system\\Repository\\IProductCategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T04:46:08.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-13T08:53:16.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-13T08:32:28.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\appsettings.json",
+              "RelativeDocumentMoniker": "pos-system\\appsettings.json",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\appsettings.json",
+              "RelativeToolTip": "pos-system\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-13T08:07:02.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "pos-system\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "pos-system\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T08:02:48.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "pos-system\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "pos-system\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T08:25:44.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "pos-system\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\appsettings.Development.json",
+              "RelativeToolTip": "pos-system\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-24T04:21:51.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "site.js",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "pos-system\\wwwroot\\js\\site.js",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "pos-system\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-03-24T04:21:44.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "pos-system\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "pos-system\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-24T04:18:00.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-24T03:54:05.253Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-13T08:53:17.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "pos-system\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "pos-system\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T08:34:44.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Shared\\_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeToolTip": "pos-system\\Views\\Shared\\_Layout.cshtml.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-24T03:12:48.961Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "pos-system\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "pos-system\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-13T08:49:25.152Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

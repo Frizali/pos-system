@@ -12,7 +12,7 @@ namespace pos_system.Repository
             _context = context;
         }
 
-        public async Task<List<TblProductCategory>> GetProductCategories()
+        public async Task<List<TblProductCategory>> GetList()
         {
             return await _context.TblProductCategory.ToListAsync().ConfigureAwait(false);
         }

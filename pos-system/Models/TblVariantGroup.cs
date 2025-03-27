@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace pos_system.Models;
+﻿namespace pos_system.Models;
 
 public partial class TblVariantGroup
 {
