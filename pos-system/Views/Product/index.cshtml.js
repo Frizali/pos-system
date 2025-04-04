@@ -30,7 +30,7 @@ $(document).ready(function () {
 
             let tag = $(this).val().trim();
             let $tagContainer = $(this).closest(".col-7").find(".tagContainer");
-
+            
             if (!$tagContainer.find(`.tag:contains(${tag})`).length) {
                 $tagContainer.append(`<span class="tag">${tag} <span class="remove" role="button">&times;</span></span>`);
             }
@@ -83,7 +83,10 @@ $(document).ready(function () {
 
                 let rowData = `
                     <tr>
-                        <td>${combinations[i]}</td>
+                        <td>
+                            ${combinations[i]}
+                            <input type="text" class="form-control d-none variant-sku" value="${combinations[i]}" name="ProductVariants[${i}].Sku">
+                        </td>
                         <td>
                             <div class="input-group">
                               <div class="input-group-prepend">
@@ -97,12 +100,14 @@ $(document).ready(function () {
                         </td>
                         <td>
                             <div class="form-check">
-                                <input class="form-check-input islimited" type="checkbox" value="" id="isLimited" checked name="ProductVariants[${i}].IsLimitedStock">
+                                <input class="d-none" name="ProductVariants[${i}].IsLimitedStock" value="false">
+                                <input class="form-check-input islimited" type="checkbox" value="true" id="isLimited" checked name="ProductVariants[${i}].IsLimitedStock">
                             </div>
                         </td>
                         <td>
                             <div class="form-check">
-                                <input class="form-check-input isavailable" type="checkbox" value="" id="isAvailable" checked name="ProductVariants[${i}].IsAvailable">
+                                <input class="d-none" name="ProductVariants[${i}].IsAvailable" value="false">
+                                <input class="form-check-input isavailable" type="checkbox" value="true" id="isAvailable" checked name="ProductVariants[${i}].IsAvailable">
                             </div>
                         </td>
                     </tr>
@@ -177,8 +182,8 @@ $(function () {
         let variantHTML =
         `<div class="row">
             <div class="col-4">
-                <label for="variantGroups${variantIndex}" class="form-label" name="VariantGroups[${variantIndex}].VariantName">Tipe Variant</label>
-                <select class="form-select" aria-label="Default select example" id="variantGroups${variantIndex}">
+                <label for="variantGroups[${variantIndex}]" class="form-label">Tipe Variant</label>
+                <select class="form-select variantGroup" id="variantGroups[${variantIndex}]" name="VariantGroups[${variantIndex}].VariantName">
                     <option selected>Open this select menu</option>
                     <option value="Bread">Bread</option>
                     <option value="Color">Color</option>

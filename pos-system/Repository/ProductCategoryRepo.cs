@@ -7,14 +7,16 @@ namespace pos_system.Repository
     public class ProductCategoryRepo : IProductCategoryRepo
     {
         readonly AppDbContext _context;
-        public ProductCategoryRepo(AppDbContext context)
+        readonly ICrudRepo<TblProductCategory> _repo;
+        public ProductCategoryRepo(AppDbContext context, ICrudRepo<TblProductCategory> repo)
         {
             _context = context;
+            _repo = repo;
         }
 
-        public async Task<List<TblProductCategory>> GetList()
+        public ICrudRepo<TblProductCategory> GetRepo()
         {
-            return await _context.TblProductCategory.ToListAsync().ConfigureAwait(false);
-        }
+            return _repo;
+        }   
     }
 }

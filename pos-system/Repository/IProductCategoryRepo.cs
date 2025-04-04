@@ -4,6 +4,6 @@ namespace pos_system.Repository
 {
     public interface IProductCategoryRepo
     {
-        Task<List<TblProductCategory>> GetList();
+        ICrudRepo<TblProductCategory> GetRepo();
     }
 }

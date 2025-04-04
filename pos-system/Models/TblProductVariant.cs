@@ -5,15 +5,15 @@ namespace pos_system.Models;
 
 public partial class TblProductVariant
 {
-    public string VariantId { get; set; } = null!;
+    public string? VariantId { get; set; } = null!;
 
-    public string ProductId { get; set; } = null!;
+    public string? ProductId { get; set; } = null!;
 
-    public string Sku { get; set; } = null!;
+    public string? Sku { get; set; } = null!;
 
-    public double VariantPrice { get; set; }
+    public double? VariantPrice { get; set; }
 
-    public int VariantStock { get; set; }
+    public int? VariantStock { get; set; }
 
     public bool IsLimitedStock { get; set; }
 
@@ -23,5 +23,5 @@ public partial class TblProductVariant
 
     public DateTime UpdatedAt { get; set; }
 
-    public virtual TblProduct Product { get; set; } = null!;
+    public virtual TblProduct? Product { get; set; } = null!;
 }

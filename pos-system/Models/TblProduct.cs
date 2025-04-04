@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace pos_system.Models;
 
 public partial class TblProduct
 {
-    public string ProductId { get; set; } = null!;
+    public string? ProductId { get; set; } = null!;
 
     public string CategoryId { get; set; } = null!;
 
-    public string ProductCode { get; set; } = null!;
+    public string? ProductCode { get; set; } = null!;
 
+    [Required(ErrorMessage = "Product name is required")]
     public string ProductName { get; set; } = null!;
 
     public string? ProductDescription { get; set; }
@@ -27,7 +27,7 @@ public partial class TblProduct
 
     public DateTime UpdatedAt { get; set; }
 
-    public virtual TblProductCategory Category { get; set; } = null!;
+    public virtual TblProductCategory? Category { get; set; } = null!;
 
     public virtual ICollection<TblProductVariant> TblProductVariants { get; set; } = new List<TblProductVariant>();
 

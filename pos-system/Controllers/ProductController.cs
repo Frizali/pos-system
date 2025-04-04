@@ -19,8 +19,11 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Save(ProductFormModelView data)
         {
-            await _productService.Save(data);
-            return View();
+            if (ModelState.IsValid)
+            {
+                await _productService.Save(data);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
