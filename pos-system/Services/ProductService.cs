@@ -1,4 +1,5 @@
-﻿using pos_system.Models;
+﻿using pos_system.Helpers;
+using pos_system.Models;
 using pos_system.Repository;
 
 namespace pos_system.Services
@@ -27,10 +28,9 @@ namespace pos_system.Services
 
         public async Task Save(ProductFormModelView data)
         {
-            var productId = Guid.NewGuid().ToString();
-            data.Product.ProductId = productId;
+            data.Product.ProductId = Unique.ID();
+            data.Product.ProductCode = Unique.GenerateCode(data.Product.ProductName,codeLength);
 
-            SetProductCode(data);
             SetVariantGroups(data);
             SetProductVariants(data);
 
@@ -44,7 +44,7 @@ namespace pos_system.Services
             {
                 foreach (var group in data.VariantGroups)
                 {
-                    group.GroupId = Guid.NewGuid().ToString();
+                    group.GroupId = Unique.ID();
                     group.ProductId = data.Product.ProductId;
                 }
             }
@@ -67,7 +67,7 @@ namespace pos_system.Services
                     {
                         TblVariantOption tblVariantOption = new TblVariantOption
                         {
-                            OptionId = Guid.NewGuid().ToString(),
+                            OptionId = Unique.ID(),
                             GroupId = variantGroupId,
                             Value = option
                         };
@@ -86,37 +86,11 @@ namespace pos_system.Services
             {
                 foreach (var variant in data.ProductVariants)
                 {
-                    variant.VariantId = Guid.NewGuid().ToString();
+                    variant.VariantId = Unique.ID();
                     variant.ProductId = data.Product.ProductId;
                 };
 
                 data.Product.TblProductVariants = data.ProductVariants;
-            }
-        }
-
-        private void SetProductCode(ProductFormModelView data)
-        {
-            var clearedProductName = data.Product.ProductName.Replace(" ", "");
-            var productCodeLength = clearedProductName.Length;
-
-            if (productCodeLength > codeLength)
-            {
-                var codeDevide = productCodeLength / codeLength;
-                var rawCode = String.Empty;
-
-                for (var i = 0; i < productCodeLength - codeDevide; i += codeDevide)
-                {
-                    rawCode += clearedProductName[i];
-                }
-
-                data.Product.ProductCode = rawCode.ToUpper();
-            }else if (productCodeLength == 4)
-            {
-                data.Product.ProductCode = data.Product.ProductName.ToUpper();
-            }
-            else
-            {
-                data.Product.ProductCode = "N/A";
             }
         }
     }
