@@ -47,6 +47,9 @@
           }
         }
       },
+      "FontAwesome/4.7.0": {
+        "type": "package"
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1648,6 +1651,27 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "FontAwesome/4.7.0": {
+      "sha512": "n4H/brfszElyoZ4kmGh8E75uqvLzLvFr3h2PFVdPH1LwUmWIpeqdaW2pcC4oZAhg7sESyObh0IZpAI8COCNeUg==",
+      "type": "package",
+      "path": "fontawesome/4.7.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Content/font-awesome.css",
+        "Content/Content/font-awesome.min.css",
+        "Content/fonts/FontAwesome.otf",
+        "Content/fonts/fontawesome-webfont.eot",
+        "Content/fonts/fontawesome-webfont.svg",
+        "Content/fonts/fontawesome-webfont.ttf",
+        "Content/fonts/fontawesome-webfont.woff",
+        "Content/fonts/fontawesome-webfont.woff2",
+        "fontawesome.4.7.0.nupkg.sha512",
+        "fontawesome.nuspec",
+        "tools/install.ps1"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -4728,6 +4752,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "FontAwesome >= 4.7.0",
       "Microsoft.EntityFrameworkCore >= 9.0.3",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.3",
@@ -4735,19 +4760,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rizal\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
+      "projectUniqueName": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
       "projectName": "pos-system",
-      "projectPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
-      "packagesPath": "C:\\Users\\Rizal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\obj\\",
+      "projectPath": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Rizal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4755,7 +4785,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4773,12 +4802,17 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "FontAwesome": {
+            "target": "Package",
+            "version": "[4.7.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[9.0.3, )"
@@ -4819,7 +4853,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

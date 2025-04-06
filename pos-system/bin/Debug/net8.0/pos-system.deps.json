@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "pos-system/1.0.0": {
         "dependencies": {
+          "FontAwesome": "4.7.0",
           "Microsoft.EntityFrameworkCore": "9.0.3",
           "Microsoft.EntityFrameworkCore.Design": "9.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.3",
@@ -52,6 +53,7 @@
           }
         }
       },
+      "FontAwesome/4.7.0": {},
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -1060,6 +1062,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "FontAwesome/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n4H/brfszElyoZ4kmGh8E75uqvLzLvFr3h2PFVdPH1LwUmWIpeqdaW2pcC4oZAhg7sESyObh0IZpAI8COCNeUg==",
+      "path": "fontawesome/4.7.0",
+      "hashPath": "fontawesome.4.7.0.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

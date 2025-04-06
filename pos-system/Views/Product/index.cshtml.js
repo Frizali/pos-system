@@ -144,7 +144,7 @@ $(document).ready(function () {
         let rowData = `
                <tr>
                     <td>
-                        <input type="text" class="form-control variant-price" aria-label="Amount (to the nearest dollar)">
+                        <input type="text" class="form-control variant-price">
                     </td>
                     <td>
                         <div class="input-group">

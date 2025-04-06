@@ -1,76 +1,113 @@
 ﻿@model ProductFormModelView
 
+<link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
+
 @using (Html.BeginForm("Save", "Product", FormMethod.Post))
 {
     <div class="d-flex flex-column gap-2">
-        <div>
-            <label for="name" class="form-label">Product Name</label>
-            <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
-        </div>    
-        <div>
-            <label for="description" class="form-label">Product Description</label>
-            <textarea class="form-control" id="description" rows="2" name="Product.ProductDescription"></textarea>
-        </div>
-        <div>
-            <label for="category" class="form-label">Product Category</label>
-            <select class="form-select" aria-label="Product Category" id="category" name="Product.CategoryID">
-                <option selected>Open this select menu</option>
-                @foreach (var category in Model.ProductCategories)
-                {
-                    <option value="@category.CategoryId">@category.CategoryName</option>
-                }
-            </select>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="hasVariant">
-            <label class="form-check-label" for="hasVariant">
-                Has Variant
-            </label>
-        </div>
-        <div id="variant">
-            <a class="btn btn-primary" id="newVariant">Add Variant</a>
-            <div id="variant-container" class="d-flex flex-column gap-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Product Information</h5>
+                <hr />
+                <div class="d-flex flex-column gap-2">
+                    <div>
+                        <label for="name" class="form-label">Product Name</label>
+                        <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
+                    </div>
+                    <div>
+                        <label for="description" class="form-label">Product Description</label>
+                        <textarea class="form-control" id="description" rows="2" name="Product.ProductDescription"></textarea>
+                    </div>
+                    <div>
+                        <label for="category" class="form-label">Product Category</label>
+                        <select class="form-select" aria-label="Product Category" id="category" name="Product.CategoryID">
+                            <option selected>Open this select menu</option>
+                            @foreach (var category in Model.ProductCategories)
+                            {
+                                <option value="@category.CategoryId">@category.CategoryName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
-            <table class="table table-variant">
-                <thead>
-                    <tr>
-                        <th scope="col">SKU</th>
-                        <th scope="col">Variant Price</th>
-                        <th scope="col">Variant Stock</th>
-                        <th scope="col">Limited Stock</th>
-                        <th scope="col">Available</th>
-                    </tr>
-                </thead>
-                <tbody id="table-variant-body">
-                </tbody>
-            </table>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="hasAddons">
-            <label class="form-check-label" for="hasAddons">
-                Has Addons
-            </label>
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title m-0">Variant Product</h5>
+                        <p class="card-text">Add a selection of product variants here. Specify the types and options available.</p>
+                    </div>
+                    @* <button class="btn btn-outline-primary">Add Variant</button> *@
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="hasVariant">
+                        <label class="form-check-label" for="hasVariant">
+                            Has Variant
+                        </label>
+                    </div>
+                </div>
+                <hr />
+                <div id="variant">
+                    <a class="btn btn-outline-primary" id="newVariant">Add Variant</a>
+                    <div id="variant-container" class="d-flex flex-column gap-2">
+                    </div>
+                    <table class="table table-variant">
+                        <thead>
+                            <tr>
+                                <th scope="col">SKU</th>
+                                <th scope="col">Variant Price</th>
+                                <th scope="col">Variant Stock</th>
+                                <th scope="col">Limited Stock</th>
+                                <th scope="col">Available</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-variant-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div id="addons">
-            <a class="btn btn-primary" id="newAddon">Addons</a>
-            <table class="table table-addons">
-                <thead>
-                    <tr>
-                        <th scope="col">Addon Name</th>
-                        <th scope="col">Price Per Unit</th>
-                        <th scope="col">Addon Stock</th>
-                        <th scope="col">Limited Stock</th>
-                        <th scope="col">Available</th>
-                    </tr>
-                </thead>
-                <tbody id="table-addons-body">
-                </tbody>
-            </table>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title m-0">Add-On Product</h5>
+                        <p class="card-text">Add complementary product options or upgrades that customers can choose alongside the main item.</p>
+                    </div>
+                    @* <button class="btn btn-outline-primary">Add Variant</button> *@
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="hasAddons">
+                        <label class="form-check-label" for="hasAddons">
+                            Has Addons
+                        </label>
+                    </div>
+                </div>
+                <hr />
+                <div id="addons">
+                    <a class="btn btn-outline-primary" id="newAddon">Addons</a>
+                    <table class="table table-addons">
+                        <thead>
+                            <tr>
+                                <th scope="col">Addon Name</th>
+                                <th scope="col">Price Per Unit</th>
+                                <th scope="col">Addon Stock</th>
+                                <th scope="col">Limited Stock</th>
+                                <th scope="col">Available</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-addons-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div>
-            <button class="btn btn-primary" type="submit">Save Product</button>
+        <div class="w-100">
+            <button class="btn btn-primary w-100" type="submit">Save Product</button>
         </div>
     </div>
 }
 
-<script src="~/Views/Product/index.cshtml.js"></script>
+<script src="~/Views/Product/Index.cshtml.js"></script>
