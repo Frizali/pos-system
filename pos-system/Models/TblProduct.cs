@@ -15,13 +15,13 @@ public partial class TblProduct
 
     public string? ProductDescription { get; set; }
 
-    public int ProductStock { get; set; }
+    public int? ProductStock { get; set; }
 
     public bool IsLimitedStock { get; set; }
 
     public bool IsAvailable { get; set; }
 
-    public double Price { get; set; }
+    public double? Price { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

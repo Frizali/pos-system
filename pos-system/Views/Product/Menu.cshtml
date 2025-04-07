@@ -11,12 +11,33 @@
             <div class="col-md-3 col-sm-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">@item.ProductName</h5>
-                        <p class="card-text">@item.ProductDescription</p>
-                        <p class="card-text">Stock: @item.ProductStock</p>
+                        <h6 class="card-title">@item.ProductName</h6>
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text m-0">@item.Category.CategoryName</p>
+                            <b><p class="card-text">@{
+                                        var priceText = String.Empty;
+                                        if (item.TblProductVariants.Count() > 1)
+                                        {
+                                            var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
+                                            var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
+
+                                            priceText = $"Rp{lowPrice}-{hightPrice}";
+                                        }else if (item.TblProductVariants.Count() == 1)
+                                        {
+                                            var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+
+                                            priceText = $"Rp{price}";
+                                        }
+                                        else
+                                        {
+                                            priceText = $"Rp{item.Price}";
+                                        }
+                                    }@priceText</p></b>
+                        </div>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+

@@ -27,6 +27,23 @@ $(document).on("click", ".remove-variant-group", function () {
     generateRowCombinations();
 })
 
+$(document).on("click", ".remove-add-on", function () {
+    $(this).closest("#data-action").parent().remove();
+    resetRowIndexes();
+})
+
+function resetRowIndexes() {
+    $("#table-addons-body tr").each(function (index) {
+        $(this).find("input").each(function () {
+            let name = $(this).attr("name");
+            if (name) {
+                let newName = name.replace(/\[\d+\]/, `[${index}]`);
+                $(this).attr("name", newName);
+            }
+        });
+    });
+}
+
 function generateRowCombinations() {
     let tagLists = [];
     $("#variant-container .tagContainer").each(function () {
@@ -152,6 +169,8 @@ $(document).ready(function () {
     });
 
     $("#newAddon").click(function () {
+        let rowCount = $("#table-addons-body tr").length;
+
         let rowData = `
                <tr>
                     <td>
@@ -176,6 +195,11 @@ $(document).ready(function () {
                     <td>
                         <div class="form-check">
                             <input class="form-check-input isavailable" type="checkbox" value="" id="isAvailable" checked>
+                        </div>
+                    </td>
+                    <td id="data-action">
+                        <div class="remove-add-on" role="button">
+                            <span>&times;</span>
                         </div>
                     </td>
                </tr>

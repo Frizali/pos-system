@@ -46,13 +46,13 @@ namespace pos_system.Services
         private void SetVariantGroups(ProductFormModelView data)
         {
             if (data.VariantGroups.Count() > 0)
-            {
-                foreach (var group in data.VariantGroups)
-                {
-                    group.GroupId = Unique.ID();
-                    group.ProductId = data.Product.ProductId;
-                }
-            }
+                data.VariantGroups = data.VariantGroups.Select(x => { x.GroupId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
+        }
+
+        private void SetProductVariants(ProductFormModelView data)
+        {
+            if (data.ProductVariants.Count() > 0)
+                data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.VariantId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
         }
 
         private async Task SetVariantOptions(ProductFormModelView data)
@@ -82,20 +82,6 @@ namespace pos_system.Services
                 }
 
                 await _variantGroupRepo.GetRepo().AddRange(data.VariantGroups).ConfigureAwait(false);
-            }
-        }
-
-        private void SetProductVariants(ProductFormModelView data)
-        {
-            if(data.ProductVariants.Count() > 0)
-            {
-                foreach (var variant in data.ProductVariants)
-                {
-                    variant.VariantId = Unique.ID();
-                    variant.ProductId = data.Product.ProductId;
-                };
-
-                data.Product.TblProductVariants = data.ProductVariants;
             }
         }
     }

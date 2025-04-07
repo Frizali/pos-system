@@ -50,6 +50,15 @@
                         <label for="name" class="form-label">Product Stock</label>
                         <input type="number" class="form-control" id="stock" name="Product.ProductStock">
                     </div>
+                    <div>
+                        <label for="product-price" class="form-label">Product Price</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp</span>
+                            </div>
+                            <input type="text" class="form-control product-price" id="product-price" name="Product.ProductPrice">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,6 +126,7 @@
                                 <th scope="col">Addon Stock</th>
                                 <th scope="col">Limited Stock</th>
                                 <th scope="col">Available</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody id="table-addons-body">

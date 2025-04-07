@@ -17,7 +17,7 @@
                 var codeDevide = nameLength / codeLength;
                 var rawCode = String.Empty;
 
-                for (var i = 0; i < nameLength - codeDevide; i += codeDevide)
+                for (var i = 0; i < codeLength * codeDevide; i += codeDevide)
                 {
                     rawCode += clearedName[i];
                 }
