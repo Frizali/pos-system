@@ -159,7 +159,6 @@ C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th 
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.pos-system.props
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.pos-system.props
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\scopedcss\Views\Product\Index.cshtml.rz.scp.css
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\scopedcss\bundle\pos-system.styles.css
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\scopedcss\projectbundle\pos-system.bundle.scp.css

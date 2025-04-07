@@ -3,8 +3,10 @@
     $("#hasVariant").change(function () {
         if ($(this).is(":checked")) {
             $("#variant").attr("class", "d-flex flex-column gap-2");
+            $("#product-management").attr("class", "d-none");
         } else {
             $("#variant").attr("class", "d-none");
+            $("#product-management").attr("class", "card");
         };
     });
 });
@@ -20,68 +22,44 @@ $(function () {
     });
 });
 
-//Handle Input Tag
-$(document).ready(function () {
-    let selectedTags = [];
+$(document).on("click", ".remove-variant-group", function () {
+    $(this).parent().remove();
+    generateRowCombinations();
+})
 
-    $(document).on("keypress", "#inputTag", function (e) {
-        if (e.key === "Enter" && $(this).val().trim() !== "") {
-            e.preventDefault();
+function generateRowCombinations() {
+    let tagLists = [];
+    $("#variant-container .tagContainer").each(function () {
+        let tags = [];
+        $(this).find(".tag").each(function () {
+            let tagText = $(this).text().trim().slice(0, -1);
+            tags.push(tagText);
+        });
+        tagLists.push(tags);
+    });
 
-            let tag = $(this).val().trim();
-            let $tagContainer = $(this).closest(".col-7").find(".tagContainer");
-            
-            if (!$tagContainer.find(`.tag:contains(${tag})`).length) {
-                $tagContainer.append(`<span class="tag">${tag} <span class="remove" role="button">&times;</span></span>`);
+    $("#table-variant-body").empty();
+
+    let combinations = tagLists.length > 0 ? tagLists[0] : [];
+
+    for (let i = 1; i < tagLists.length; i++) {
+        combinations = generateCombinations([combinations, tagLists[i]]);
+    }
+
+    for (var i = 0; i < combinations.length; i++) {
+        let isFound = false;
+
+        $("#table-variant-body tr").each(function () {
+            let firstTdText = $(this).find("td:first").text().trim();
+            if (firstTdText === combinations[i]) {
+                isFound = true;
+                return false;
             }
+        });
 
-            $(this).val("");
+        if (isFound) continue;
 
-            let tagLists = [];
-            $("#variant-container .tagContainer").each(function () {
-                let tags = [];
-                $(this).find(".tag").each(function () {
-                    let tagText = $(this).text().trim().slice(0, -1);
-                    tags.push(tagText);
-                });
-                tagLists.push(tags);
-            });
-
-            function generateCombinations(arr) {
-                let result = arr.reduce((acc, current) => {
-                    let combinations = [];
-                    acc.forEach(a => {
-                        current.forEach(c => {
-                            combinations.push(`${a.trim()}-${c}`);
-                        });
-                    });
-                    return combinations;
-                });
-                return result;
-            }
-
-            $("#table-variant-body").empty();
-
-            let combinations = tagLists.length > 0 ? tagLists[0] : [];
-
-            for (let i = 1; i < tagLists.length; i++) {
-                combinations = generateCombinations([combinations, tagLists[i]]);
-            } 
-
-            for (var i = 0; i < combinations.length; i++) {
-                let isFound = false;
-
-                $("#table-variant-body tr").each(function () {
-                    let firstTdText = $(this).find("td:first").text().trim();
-                    if (firstTdText === combinations[i]) {
-                        isFound = true;
-                        return false;
-                    }
-                });
-
-                if (isFound) continue;
-
-                let rowData = `
+        let rowData = `
                     <tr>
                         <td>
                             ${combinations[i]}
@@ -113,13 +91,46 @@ $(document).ready(function () {
                     </tr>
                 `;
 
-                $("#table-variant-body").append(rowData);
+        $("#table-variant-body").append(rowData);
+    }
+}
+
+function generateCombinations(arr) {
+    let result = arr.reduce((acc, current) => {
+        let combinations = [];
+        acc.forEach(a => {
+            current.forEach(c => {
+                combinations.push(`${a.trim()}-${c}`);
+            });
+        });
+        return combinations;
+    });
+    return result;
+}
+
+$(document).ready(function () {
+    let selectedTags = [];
+
+    $(document).on("keypress", "#inputTag", function (e) {
+        if (e.key === "Enter" && $(this).val().trim() !== "") {
+            e.preventDefault();
+
+            let tag = $(this).val().trim();
+            let $tagContainer = $(this).closest(".col-7").find(".tagContainer");
+            
+            if (!$tagContainer.find(`.tag:contains(${tag})`).length) {
+                $tagContainer.append(`<span class="tag">${tag} <span class="remove" role="button">&times;</span></span>`);
             }
+
+            $(this).val("");
+
+            generateRowCombinations();
         }
     });
 
     $(document).on("click", ".remove", function () {
         $(this).parent().remove();
+        generateRowCombinations();
     });
 
     $(document).on("change", ".islimited", function () {
@@ -209,7 +220,3 @@ $(function () {
         variantIndex++;
     });
 });
-
-$(document).on("click", ".remove-variant-group", function () {
-    $(this).parent().remove();
-})

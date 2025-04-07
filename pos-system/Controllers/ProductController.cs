@@ -25,5 +25,11 @@ namespace pos_system.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Menu()
+        {
+            var products = await _productService.GetAllProductDetails().ConfigureAwait(false);
+            return View(products);
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace pos_system.Services
             _variantGroupRepo = variantGroupRepo;
         }
 
+        public async Task<List<TblProduct>> GetAllProductDetails()
+        {
+            return await _productRepo.GetAllProductDetails().ConfigureAwait(false);
+        }   
+
         public async Task<ProductFormModelView> GetProductFormModelView()
         {
             List<TblProductCategory> productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);

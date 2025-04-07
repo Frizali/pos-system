@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Menu";
+}
+
+@model List<TblProduct>
+
+<div class="container">
+    <div class="row">
+        @foreach(var item in Model)
+        {
+            <div class="col-md-3 col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ProductName</h5>
+                        <p class="card-text">@item.ProductDescription</p>
+                        <p class="card-text">Stock: @item.ProductStock</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

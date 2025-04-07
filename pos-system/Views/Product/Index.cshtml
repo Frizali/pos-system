@@ -1,4 +1,7 @@
 ﻿@model ProductFormModelView
+@{
+    ViewData["Title"] = "Add Product";
+}
 
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
@@ -32,6 +35,24 @@
             </div>
         </div>
 
+        <div class="card" id="product-management">
+            <div class="card-body">
+                <h5 class="card-title">Product Management</h5>
+                <hr />
+                <div class="d-flex flex-column gap-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="isAvailable">
+                        <label class="form-check-label" for="isAvailable">
+                            Status Product
+                        </label>
+                    </div>
+                    <div>
+                        <label for="name" class="form-label">Product Stock</label>
+                        <input type="number" class="form-control" id="stock" name="Product.ProductStock">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-body">
