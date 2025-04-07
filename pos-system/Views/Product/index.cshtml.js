@@ -25,12 +25,12 @@ $(function () {
 $(document).on("click", ".remove-variant-group", function () {
     $(this).parent().remove();
     generateRowCombinations();
-})
+});
 
 $(document).on("click", ".remove-add-on", function () {
     $(this).closest("#data-action").parent().remove();
     resetRowIndexes();
-})
+});
 
 function resetRowIndexes() {
     $("#table-addons-body tr").each(function (index) {
@@ -174,27 +174,27 @@ $(document).ready(function () {
         let rowData = `
                <tr>
                     <td>
-                        <input type="text" class="form-control variant-price">
+                        <input type="text" class="form-control addon-name" name="ProductAddons[${rowCount}].AddonName">
                     </td>
                     <td>
                         <div class="input-group">
                             <div class="input-group-prepend">
                             <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="text" class="form-control variant-price" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control addon-price" name="ProductAddons[${rowCount}].AddonPrice">
                         </div>
                     </td>
                     <td>
-                        <input type="number" class="form-control variant-stock" id="name" name="Product.ProductStock">
+                        <input type="number" class="form-control addon-stock" id="addon-stock" name="ProductAddons[${rowCount}].AddonStock">
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input islimited" type="checkbox" value="" id="isLimited" checked>
+                            <input class="form-check-input islimited" type="checkbox" value="true" id="isLimited" checked name="ProductAddons[${rowCount}].IsLimited">
                         </div>
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input isavailable" type="checkbox" value="" id="isAvailable" checked>
+                            <input class="form-check-input isavailable" type="checkbox" value="true" id="isAvailable" checked name="ProductAddons[${rowCount}].IsAvailable">
                         </div>
                     </td>
                     <td id="data-action">

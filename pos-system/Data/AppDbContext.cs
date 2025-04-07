@@ -24,6 +24,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblVariantOption> TblVariantOption { get; set; }
 
+    public virtual DbSet<TblProductAddon> TblProductAddon { get; set; }
+
     public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
     {
         List<string> skipField = new List<string>() { "createat", "updateat" };
@@ -236,7 +238,28 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK__tblVarian__Group__797309D9");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        modelBuilder.Entity<TblProductAddon>(entity =>
+        {
+            entity.HasKey(e => e.AddonId).HasName("PK__tblProdu__74289513EF806551");
+
+            entity.ToTable("tblProductAddon");
+
+            entity.Property(e => e.AddonId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("AddonID");
+            entity.Property(e => e.AddonName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.ProductId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("ProductID");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+        });
+
+    OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
