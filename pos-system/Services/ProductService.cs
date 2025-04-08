@@ -38,6 +38,7 @@ namespace pos_system.Services
 
             SetVariantGroups(data);
             SetProductVariants(data);
+            SetProductAddons(data);
 
             await _productRepo.GetRepo().Add(data.Product).ConfigureAwait(false);
             await SetVariantOptions(data).ConfigureAwait(false);
@@ -53,6 +54,12 @@ namespace pos_system.Services
         {
             if (data.ProductVariants.Count() > 0)
                 data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.VariantId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
+        }
+
+        private void SetProductAddons(ProductFormModelView data)
+        {
+            if(data.ProductAddons.Count() > 0)
+                data.Product.TblProductAddons = data.ProductAddons.Select(x => { x.AddonId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
         }
 
         private async Task SetVariantOptions(ProductFormModelView data)
@@ -83,6 +90,11 @@ namespace pos_system.Services
 
                 await _variantGroupRepo.GetRepo().AddRange(data.VariantGroups).ConfigureAwait(false);
             }
+        }
+
+        public async Task<TblProduct> GetMenuDetailById(string id)
+        {
+            return await _productRepo.GetMenuDetailById(id).ConfigureAwait(false);
         }
     }
 }

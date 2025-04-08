@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cxs7Qsc3FCDgCogzlsgtHAYaZYD+e8Th2GKcAtPI4ZY=",
+  "Hash": "Qdulzd3LPcbJQECV3KtMx7Y+csyhboKi2uJfAMrMzjE=",
   "Source": "pos-system",
   "BasePath": "_content/pos-system",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "Views\\Product\\index.cshtml.js"
+    },
+    {
+      "Identity": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\Views\\Product\\Menu.cshtml.js",
+      "SourceId": "pos-system",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\",
+      "BasePath": "_content/pos-system",
+      "RelativePath": "Views/Product/Menu.cshtml.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "Views\\Product\\Menu.cshtml.js"
     },
     {
       "Identity": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Product\\index.css",

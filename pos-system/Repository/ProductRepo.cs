@@ -46,6 +46,17 @@ namespace pos_system.Repository
             return finalProducts;
         }
 
+        public async Task<TblProduct> GetMenuDetailById(string id)
+        {
+            return await _context.TblProduct
+                .Where(p => p.ProductId == id)
+                .Include(p => p.Category)
+                .Include(p => p.TblVariantGroups)
+                    .ThenInclude(v => v.TblVariantOptions)
+                .Include(p => p.TblProductVariants)
+                .FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
         public ICrudRepo<TblProduct> GetRepo()
         {
             return _repo;

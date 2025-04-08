@@ -1,0 +1,30 @@
+﻿@model TblProduct
+
+<div class="row">
+    <div class="col-12">
+        <p class="text-muted">@Model.Category.CategoryName</p>
+        <h5>@Model.ProductName</h5>
+        <p class="text-muted">@Model.ProductDescription</p>
+       <div class="d-flex flex-column gap-1">
+            @if (Model.TblVariantGroups.Any())
+            {
+                @foreach(var (group,i) in Model.TblVariantGroups.Select((group, i) => (group,i)))
+                {
+                    <div>
+                        <p class="mb-1">@group.VariantName:</p>
+                        <div class="body-variant-group d-flex gap-1">
+                            @foreach (var (option,index) in group.TblVariantOptions.Select((option,index) => (option,index)))
+                            {
+                                <div class="variant-option-tag" id="variant-option-@index" data-value="@option.Value"
+                                     data-group="@i">
+                                    @option.Value
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>

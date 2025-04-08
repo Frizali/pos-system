@@ -1,1 +1,33 @@
-﻿
+﻿.modal-menu{
+    border-radius: .7rem;
+}
+
+.btn-add-cart{
+    border-bottom-left-radius: .7rem;
+    border-bottom-right-radius: .7rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+        max-width: 450px;
+    }
+}
+
+.variant-option-tag {
+    cursor:pointer;
+    padding: .3rem .7rem;
+    border: 1px solid #6c757d;
+    border-radius: .3rem;
+}
+
+.variant-option-tag:hover {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.option-selected {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}

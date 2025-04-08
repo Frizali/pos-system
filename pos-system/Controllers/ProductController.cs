@@ -31,5 +31,11 @@ namespace pos_system.Controllers
             var products = await _productService.GetAllProductDetails().ConfigureAwait(false);
             return View(products);
         }
+
+        public async Task<IActionResult> GetDetailMenu(string id)
+        {
+            var data = await _productService.GetMenuDetailById(id).ConfigureAwait(false);
+            return PartialView("_ProductDetail", data);
+        }
     }
 }

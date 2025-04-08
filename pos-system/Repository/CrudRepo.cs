@@ -32,7 +32,7 @@ namespace pos_system.Repository
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                await _context.SaveChangesAsync("System");
+                await _context.SaveChangesAsync("System").ConfigureAwait(false);
             }
         }
 
@@ -49,7 +49,7 @@ namespace pos_system.Repository
         public async Task Update(T entity)
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync("System");
+            await _context.SaveChangesAsync("System").ConfigureAwait(false);
         }
     }
 }

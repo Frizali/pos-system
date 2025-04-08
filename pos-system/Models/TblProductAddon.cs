@@ -19,4 +19,5 @@ public partial class TblProductAddon
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+    public virtual TblProduct? Product { get; set; } = null!;
 }

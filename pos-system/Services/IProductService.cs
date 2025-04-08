@@ -7,5 +7,6 @@ namespace pos_system.Services
         Task<ProductFormModelView> GetProductFormModelView();
         Task Save(ProductFormModelView data);
         Task<List<TblProduct>> GetAllProductDetails();
+        Task<TblProduct> GetMenuDetailById(string id);
     }
 }

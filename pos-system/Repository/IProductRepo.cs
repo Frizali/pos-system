@@ -6,5 +6,6 @@ namespace pos_system.Repository
     {
         ICrudRepo<TblProduct> GetRepo();
         Task<List<TblProduct>> GetAllProductDetails();
+        Task<TblProduct> GetMenuDetailById(string id);
     }
 }

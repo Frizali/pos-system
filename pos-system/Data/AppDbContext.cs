@@ -251,12 +251,14 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.AddonName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt)
+            .HasDefaultValueSql("(getdate())").HasColumnType("datetime");
             entity.Property(e => e.ProductId)
                 .HasMaxLength(36)
                 .IsUnicode(false)
                 .HasColumnName("ProductID");
-            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt)
+            .HasDefaultValueSql("(getdate())").HasColumnType("datetime");
         });
 
     OnModelCreatingPartial(modelBuilder);
