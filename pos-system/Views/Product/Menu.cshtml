@@ -6,44 +6,51 @@
 
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
-<div class="container">
-    <div class="row">
-        @foreach(var item in Model)
-        {
-            <div class="col-md-3 col-sm-4">
-                <div class="card clickable-card" data-id="@item.ProductId" style="cursor: pointer;">
-                    <div class="card-body">
-                        <h6 class="card-title">@item.ProductName</h6>
-                        <div class="d-flex justify-content-between">
-                            <p class="card-text m-0">@item.Category.CategoryName</p>
-                            <b>
-                                <p class="card-text">
-                                    @{
-                                        var priceText = String.Empty;
-                                        if (item.TblProductVariants.Count() > 1)
-                                        {
-                                            var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
-                                            var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
-                                            priceText = $"Rp{lowPrice}-{hightPrice}";
-                                        }
-                                        else if (item.TblProductVariants.Count() == 1)
-                                        {
-                                            var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
-                                            priceText = $"Rp{price}";
-                                        }
-                                        else
-                                        {
-                                            priceText = $"Rp{item.Price}";
-                                        }
-                                    }
-                                    @priceText
-                                </p>
-                            </b>
+<div>
+    <div class="row gx-3">
+        <div class="col-8">
+            <div class="row g-3">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 col-sm-12 col-xl-3">
+                        <div class="card clickable-card h-100" data-id="@item.ProductId" style="cursor: pointer;">
+                            <div class="card-body">
+                                <h6 class="card-title">@item.ProductName</h6>
+                                <div class="d-flex flex-md-column flex-xl-row justify-content-between">
+                                    <p class="card-text m-0">@item.Category.CategoryName</p>
+                                    <b>
+                                        <p class="card-text">
+                                            @{
+                                                var priceText = String.Empty;
+                                                if (item.TblProductVariants.Count() > 1)
+                                                {
+                                                    var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
+                                                    var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
+                                                    priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                }
+                                                else if (item.TblProductVariants.Count() == 1)
+                                                {
+                                                    var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                    priceText = $"Rp{price}";
+                                                }
+                                                else
+                                                {
+                                                    priceText = $"Rp{item.Price}";
+                                                }
+                                            }
+                                            @priceText
+                                        </p>
+                                    </b>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
-        }
+        </div>
+        <div class="col-4">
+            @Html.Partial("_Order")
+        </div>
     </div>
 </div>
 
@@ -68,7 +75,7 @@
                                         <i class="bi bi-dash"></i>
                                     </button>
                                 </span>
-                                <input type="text" name="quant[1]" class="form-control input-number text-center border-white" value="1" min="1" max="10">
+                                <input type="text" name="quant[1]" class="form-control input-number text-center border-white" value="1" min="1" max="9999">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
                                         <i class="bi bi-plus"></i>
@@ -90,10 +97,18 @@
             sku = v.Sku,
             price = v.VariantPrice
         })));
+
+    const products = @Html.Raw(Json.Serialize(Model.Select(x => new
+        {
+            id = x.ProductId,
+            stock = x.ProductStock,
+            price = x.Price
+        })));
 </script>
 
 <script>
     let selected = {};
+    let menuPrice = 0;
 
     $(document).on('click', '.variant-option-tag', function () {
         const value = $(this).data('value');
@@ -104,13 +119,15 @@
 
         selected[group] = value;
 
+        var input = parseInt($("input[name='quant[1]']").val());
         const totalGroups = $('.body-variant-group').length;
         if (Object.keys(selected).length === totalGroups) {
             const combined = Array.from({ length: totalGroups }, (_, i) => selected[i]).join('-');
             const match = variants.find(v => v.sku === combined);
 
             if (match) {
-                $('#priceContainer').text(' (Rp' + match.price + ')');
+                menuPrice = match.price;
+                $('#priceContainer').text(' (Rp' + match.price * input + ')');
             } else {
                 $('#priceContainer').text(' (-)');
             }

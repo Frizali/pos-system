@@ -31,3 +31,8 @@
     color: #0d6efd;
     border-color: #0d6efd;
 }
+
+
+.order-container {
+    border-left: 1px solid rgba(0,0,0,.125);
+}
