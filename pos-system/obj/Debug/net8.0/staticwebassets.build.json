@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Qdulzd3LPcbJQECV3KtMx7Y+csyhboKi2uJfAMrMzjE=",
+  "Hash": "a5QFUpoaL42FUTTqQYXW8j8kQrG77Ok0hnlO9qA+URs=",
   "Source": "pos-system",
   "BasePath": "_content/pos-system",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\images\\egg-tart.jpg",
+      "SourceId": "pos-system",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\",
+      "BasePath": "_content/pos-system",
+      "RelativePath": "images/egg-tart.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\egg-tart.jpg"
     },
     {
       "Identity": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\wwwroot\\js\\site.js",

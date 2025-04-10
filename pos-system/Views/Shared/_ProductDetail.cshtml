@@ -1,7 +1,10 @@
 ﻿@model TblProduct
 
-<div class="row" data-id="@Model.ProductId">
-    <div class="col-12">
+<div class="detail-container" data-id="@Model.ProductId">
+    <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center img-detail-container">
+            <img src="~/images/egg-tart.jpg" class="w-75"/>
+        </div>
         <p class="text-muted">@Model.Category.CategoryName</p>
         <h5>@Model.ProductName</h5>
         <p class="text-muted">@Model.ProductDescription</p>
@@ -25,6 +28,5 @@
                 }
             }
         </div>
-
     </div>
 </div>

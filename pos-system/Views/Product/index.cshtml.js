@@ -209,7 +209,6 @@ $(document).ready(function () {
     })
 });
 
-
 $(function () {
     let variantIndex = 0;
 
@@ -220,7 +219,7 @@ $(function () {
                 <label for="variantGroups[${variantIndex}]" class="form-label">Tipe Variant</label>
                 <select class="form-select variantGroup" id="variantGroups[${variantIndex}]" name="VariantGroups[${variantIndex}].VariantName">
                     <option selected>Open this select menu</option>
-                    <option value="Bread">Bread</option>
+                    <option value="Variant">Variant</option>
                     <option value="Color">Color</option>
                     <option value="Size">Size</option>
                 </select>
