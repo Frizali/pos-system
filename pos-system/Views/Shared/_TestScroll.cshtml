@@ -1,0 +1,29 @@
+﻿
+<script>
+    $(document).ready(function () {
+        const $scrollContainer = $('#scrollable');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        $scrollContainer.on('mousedown', function (e) {
+            isDown = true;
+            $scrollContainer.addClass('dragging');
+            startX = e.pageX - $scrollContainer.offset().left;
+            scrollLeft = $scrollContainer.scrollLeft();
+        });
+
+        $(document).on('mouseup', function () {
+            isDown = false;
+            $scrollContainer.removeClass('dragging');
+        });
+
+        $scrollContainer.on('mousemove', function (e) {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - $scrollContainer.offset().left;
+            const walk = (x - startX) * 1; // speed
+            $scrollContainer.scrollLeft(scrollLeft - walk);
+        });
+    });
+</script>

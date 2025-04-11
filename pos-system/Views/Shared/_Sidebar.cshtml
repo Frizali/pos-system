@@ -1,0 +1,35 @@
+﻿<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Fahrizal Ali</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="d-flex flex-column justify-content-between h-100">
+            <div class="sidebar-menu d-flex flex-column gap-3">
+                <a asp-controller="Product" asp-action="Menu" class="text-decoration-none text-black">
+                    <i class="bi bi-bag me-3"></i>
+                    <span>Point of Sales</span>
+                </a>
+                <a asp-controller="Makanan" asp-action="Index" class="text-decoration-none text-black">
+                    <i class="bi bi-activity me-3"></i>
+                    <span>Activity</span>
+                </a>
+                <a asp-controller="Inventory" asp-action="Index" class="text-decoration-none text-black">
+                    <i class="bi bi-box-seam me-3"></i>
+                    <span>Inventory</span>
+                </a>
+                <a asp-controller="User" asp-action="Index" class="text-decoration-none text-black">
+                    <i class="bi bi-people me-3"></i>
+                    <span>Teams</span>
+                </a>
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none text-black">
+                    <i class="bi bi-gear me-3"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div>
+                Logout
+            </div>
+        </div>
+    </div>
+</div>

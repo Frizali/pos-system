@@ -17,7 +17,7 @@ namespace pos_system.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Save(ProductFormModelView data)
+        public async Task<IActionResult> Save(ProductFormModel data)
         {
             if (ModelState.IsValid)
             {
@@ -28,8 +28,8 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Menu()
         {
-            var products = await _productService.GetAllProductDetails().ConfigureAwait(false);
-            return View(products);
+            var viewModel = await _productService.GetMenuViewModel().ConfigureAwait(false);
+            return View(viewModel);
         }
 
         public async Task<IActionResult> GetDetailMenu(string id)

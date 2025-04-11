@@ -5,9 +5,11 @@
         <div class="d-flex justify-content-center img-detail-container">
             <img src="~/images/egg-tart.jpg" class="w-75"/>
         </div>
-        <p class="text-muted">@Model.Category.CategoryName</p>
-        <h5>@Model.ProductName</h5>
-        <p class="text-muted">@Model.ProductDescription</p>
+        <div class="d-flex flex-column gap-1 mb-3">
+            <p class="text-muted m-0">@Model.Category.CategoryName</p>
+            <h5 class="m-0">@Model.ProductName</h5>
+            <p class="text-muted m-0">@Model.ProductDescription</p>
+        </div>
         <div class="d-flex flex-column gap-1">
             @if (Model.TblVariantGroups.Any())
             {

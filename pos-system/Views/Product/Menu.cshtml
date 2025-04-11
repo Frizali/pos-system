@@ -1,16 +1,20 @@
 ﻿@{
+    Layout = "~/Views/Shared/_OrderLayout.cshtml";
     ViewData["Title"] = "Menu";
 }
 
-@model List<TblProduct>
+@model MenuViewModel
 
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
-<div>
-    <div class="row gx-3">
-        <div class="col-8">
+<div class="container">
+    <div id="scrollable" style="overflow-x: auto;cursor: grab;scrollbar-width: none;user-select: none;display: flex;flex-wrap: nowrap;">
+        @Html.Partial("_ProductCategory", Model.productCategories)
+    </div>
+    <div>
+        <div>
             <div class="row g-3">
-                @foreach (var item in Model)
+                @foreach (var item in Model.products)
                 {
                     <div class="col-md-4 col-sm-12 col-xl-3">
                         <div class="card clickable-card h-100" data-id="@item.ProductId" style="cursor: pointer;">
@@ -50,9 +54,6 @@
                     </div>
                 }
             </div>
-        </div>
-        <div class="col-4">
-            @Html.Partial("_Order")
         </div>
     </div>
 </div>
@@ -95,13 +96,13 @@
 </div>
 
 <script>
-    const variants = @Html.Raw(Json.Serialize(Model.SelectMany(x => x.TblProductVariants).Select(v => new
+    const variants = @Html.Raw(Json.Serialize(Model.products.SelectMany(x => x.TblProductVariants).Select(v => new
         {
             sku = v.Sku,
             price = v.VariantPrice
         })));
 
-    const products = @Html.Raw(Json.Serialize(Model.Select(x => new
+    const products = @Html.Raw(Json.Serialize(Model.products.Select(x => new
         {
             id = x.ProductId,
             stock = x.ProductStock,

@@ -1,0 +1,13 @@
+﻿@model List<TblProductCategory>
+
+@foreach(var category in Model)
+{
+    <div class="card me-2" style="width: 400px; flex: 0 0 auto;">
+        <div class="card-body d-flex flex-column">
+            <h6 class="card-title d-inline-block">@category.CategoryName</h6>
+            <p class="m-0 d-inline-block text-muted">@{
+            var total = category.TblProducts.Count();
+            }@total Items</p>
+        </div>
+    </div>
+}

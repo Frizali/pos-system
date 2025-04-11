@@ -1,6 +1,6 @@
 ﻿namespace pos_system.Models
 {
-    public class ProductFormModelView
+    public class ProductFormModel
     {
         public TblProduct Product { get; set; }
         public List<TblVariantGroup>? VariantGroups { get; set; } = new List<TblVariantGroup>();
