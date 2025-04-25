@@ -8,19 +8,19 @@
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
 <div class="container">
-    <div id="scrollable" style="overflow-x: auto;cursor: grab;scrollbar-width: none;user-select: none;display: flex;flex-wrap: nowrap;">
-        @Html.Partial("_ProductCategory", Model.productCategories)
+    <div id="scrollable" style="overflow-x: auto;cursor: grab;scrollbar-width: none;user-select: none;display: flex;flex-wrap: nowrap;" class="mb-3">
+        @Html.Partial("_ProductCategory", Model.ProductCategories)
     </div>
     <div>
         <div>
             <div class="row g-3">
-                @foreach (var item in Model.products)
+                @foreach (var item in Model.Products)
                 {
                     <div class="col-md-4 col-sm-12 col-xl-3">
                         <div class="card clickable-card h-100" data-id="@item.ProductId" style="cursor: pointer;">
                             <div class="card-body">
                                 <div>
-                                    <img src="~/images/egg-tart.jpg" class="w-100"/>
+                                    <img src="~/images/egg-tarts.jpg" class="w-100"/>
                                 </div>
                                 <h6 class="card-title m-0">@item.ProductName</h6>
                                 <div class="d-flex flex-md-column flex-xl-row justify-content-between">
@@ -89,20 +89,22 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal">Add to Cart<span id="priceContainer"></span></button>
+                <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" disabled>Add to Cart<span id="priceContainer"></span></button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const variants = @Html.Raw(Json.Serialize(Model.products.SelectMany(x => x.TblProductVariants).Select(v => new
+    const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.TblProductVariants).Select(v => new
         {
+            id = v.VariantId,
+            productId = v.ProductId,
             sku = v.Sku,
             price = v.VariantPrice
         })));
 
-    const products = @Html.Raw(Json.Serialize(Model.products.Select(x => new
+    const products = @Html.Raw(Json.Serialize(Model.Products.Select(x => new
         {
             id = x.ProductId,
             stock = x.ProductStock,
@@ -131,12 +133,29 @@
 
             if (match) {
                 menuPrice = match.price;
+                const btnAddCart = $('#add-cart');
+                btnAddCart.removeAttr("disabled");
                 $('#priceContainer').text(' (Rp' + match.price * input + ')');
             } else {
                 $('#priceContainer').text(' (-)');
             }
         }
     });
+
+    $(document).on('click', '#add-cart', function(){
+        const totalGroups = $('.body-variant-group').length;
+        const totalSelected = $('.option-selected').length;
+
+        if(totalGroups == totalSelected){
+            var selectedItem = [];
+            $('.option-selected').each(function (index) {
+                selectedItem.push($(this).text().trim());
+            });
+
+            const combined = selectedItem.join('-');
+            const match = variants.find(v => v.sku.trim() === combined);
+        }
+    })
 </script>
 
 

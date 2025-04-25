@@ -10,5 +10,5 @@ public partial class TblVariantGroup
 
     public virtual TblProduct? Product { get; set; } = null!;
 
-    public virtual ICollection<TblVariantOption>? TblVariantOptions { get; set; } = new List<TblVariantOption>();
+    public virtual ICollection<TblVariantOption>? TblVariantOptions { get; set; } = [];
 }

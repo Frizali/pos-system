@@ -2,7 +2,7 @@
 {
     public class MenuViewModel
     {
-        public List<TblProduct> products { get; set; }
-        public List<TblProductCategory> productCategories { get; set; }
+        public List<TblProduct> Products { get; set; }
+        public List<TblProductCategory> ProductCategories { get; set; }
     }
 }

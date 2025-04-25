@@ -29,9 +29,9 @@ public partial class TblProduct
 
     public virtual TblProductCategory? Category { get; set; } = null!;
 
-    public virtual ICollection<TblProductVariant> TblProductVariants { get; set; } = new List<TblProductVariant>();
+    public virtual ICollection<TblProductVariant> TblProductVariants { get; set; } = [];
 
-    public virtual ICollection<TblVariantGroup> TblVariantGroups { get; set; } = new List<TblVariantGroup>();
+    public virtual ICollection<TblVariantGroup> TblVariantGroups { get; set; } = [];
 
-    public virtual ICollection<TblProductAddon> TblProductAddons { get; set; } = new List<TblProductAddon>();
+    public virtual ICollection<TblProductAddon> TblProductAddons { get; set; } = [];
 }

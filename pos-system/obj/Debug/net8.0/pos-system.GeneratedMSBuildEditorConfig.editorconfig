@@ -17,79 +17,75 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = pos_system
 build_property.RootNamespace = pos_system
-build_property.ProjectDir = C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system\
+build_property.ProjectDir = C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\Project Base Learning\pos-system\pos-system\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\[00] Project Base Learning\pos-system\pos-system
+build_property.MSBuildProjectDirectory = C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\Project Base Learning\pos-system\pos-system
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Home/Index.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Home/Privacy.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Product/Index.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Product/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Product/Menu.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Product/Menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Product/ProductDetail.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Product/ProductDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/Error.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_Navbar.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_Navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_Order.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_Order.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9PcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_OrderLayout.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_OrderLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9PcmRlckxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_ProductCategory.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_ProductCategory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9kdWN0Q2F0ZWdvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_ProductDetail.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_ProductDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9kdWN0RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_Sidebar.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_Sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_TestScroll.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UZXN0U2Nyb2xsLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/_ViewImports.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/_ViewStart.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/\[00\] Project Base Learning/pos-system/pos-system/Views/Shared/_Layout.cshtml]
+[C:/Users/Rizal/Documents/\[00\] Fahrizal/\[01\] College/Informatics Engineering/4th Semester/Project Base Learning/pos-system/pos-system/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-gfdtqq0wjx

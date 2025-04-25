@@ -10,5 +10,5 @@ public partial class TblProductCategory
 
     public string? CategoryDescription { get; set; }
 
-    public virtual ICollection<TblProduct> TblProducts { get; set; } = new List<TblProduct>();
+    public virtual ICollection<TblProduct> TblProducts { get; set; } = [];
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj": {}
+    "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj": {
+    "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
+        "projectUniqueName": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
         "projectName": "pos-system",
-        "projectPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
+        "projectPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\Project Base Learning\\pos-system\\pos-system\\pos-system.csproj",
         "packagesPath": "C:\\Users\\Rizal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\[00] Project Base Learning\\pos-system\\pos-system\\obj\\",
+        "outputPath": "C:\\Users\\Rizal\\Documents\\[00] Fahrizal\\[01] College\\Informatics Engineering\\4th Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rizal\\AppData\\Roaming\\NuGet\\NuGet.Config",

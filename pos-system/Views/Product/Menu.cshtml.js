@@ -51,6 +51,9 @@
         input.val(1).trigger('change');
         selected = {};
         menuPrice = 0;
+
+        const btnAddCart = $('#add-cart');
+        btnAddCart.prop('disabled', true);
     })
 });
 

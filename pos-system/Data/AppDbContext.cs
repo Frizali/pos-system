@@ -15,20 +15,18 @@ public partial class AppDbContext : DbContext
     }
 
     public virtual DbSet<TblProduct> TblProduct { get; set; }
-
     public virtual DbSet<TblProductCategory> TblProductCategory { get; set; }
-
     public virtual DbSet<TblProductVariant> TblProductVariant { get; set; }
-
     public virtual DbSet<TblVariantGroup> TblVariantGroup { get; set; }
-
     public virtual DbSet<TblVariantOption> TblVariantOption { get; set; }
-
     public virtual DbSet<TblProductAddon> TblProductAddon { get; set; }
+    public virtual DbSet<TblOrder> TblOrder { get; set; }
+    public virtual DbSet<TblOrderItem> TblOrderItem { get; set; }
+    public virtual DbSet<TblOrderItemAddon> TblOrderItemAddon { get; set; }
 
     public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
     {
-        List<string> skipField = new List<string>() { "createat", "updateat" };
+        List<string> skipField = ["createat", "updateat"];
         var changedEntities = ChangeTracker.Entries()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
             .ToList();
@@ -83,15 +81,15 @@ public partial class AppDbContext : DbContext
 
             if (entity.State == EntityState.Added)
             {
-                var createAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.ToLower() == "createat");
+                var createAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.Equals("createat", StringComparison.OrdinalIgnoreCase));
 
                 if (createAtProp is not null)
                 {
                     createAtProp.CurrentValue = DateTime.Now;
                 }
-            }else if((entity.State == EntityState.Modified && entity.Properties.Where(x => x.IsModified && !skipField.Contains(x.Metadata.Name.ToLower())).Count() > 0))
+            }else if((entity.State == EntityState.Modified && entity.Properties.Where(x => x.IsModified && !skipField.Contains(x.Metadata.Name.ToLower())).Any()))
             {
-                var updateAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.ToLower() == "updateat");
+                var updateAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.Equals("updateat", StringComparison.OrdinalIgnoreCase));
 
                 if (updateAtProp is not null)
                 {
@@ -261,7 +259,82 @@ public partial class AppDbContext : DbContext
             .HasDefaultValueSql("(getdate())").HasColumnType("datetime");
         });
 
-    OnModelCreatingPartial(modelBuilder);
+        modelBuilder.Entity<TblOrder>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PK__tblOrder__C3905BAF81A836DE");
+
+            entity.ToTable("tblOrder");
+
+            entity.Property(e => e.OrderId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("OrderID");
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(24, 6)");
+        });
+
+        modelBuilder.Entity<TblOrderItem>(entity =>
+        {
+            entity.HasKey(e => e.OrderItemId).HasName("PK__tblOrder__57ED06A1BDB0209E");
+
+            entity.ToTable("tblOrderItem");
+
+            entity.Property(e => e.OrderItemId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("OrderItemID");
+            entity.Property(e => e.OrderId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("OrderID");
+            entity.Property(e => e.ProductId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("ProductID");
+            entity.Property(e => e.SubTotal).HasColumnType("decimal(24, 6)");
+            entity.Property(e => e.UnitPrice).HasColumnType("decimal(24, 6)");
+            entity.Property(e => e.VariantId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("VariantID");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.TblOrderItems)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderItem_Order");
+        });
+
+        modelBuilder.Entity<TblOrderItemAddon>(entity =>
+        {
+            entity.HasKey(e => e.ItemAddonId).HasName("PK__tblOrder__41D7485D2833476D");
+
+            entity.ToTable("tblOrderItemAddon");
+
+            entity.Property(e => e.ItemAddonId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("ItemAddonID");
+            entity.Property(e => e.AddonId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("AddonID");
+            entity.Property(e => e.AddonPrice).HasColumnType("decimal(24, 6)");
+            entity.Property(e => e.OrderItemId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("OrderItemID");
+            entity.Property(e => e.SubTotal).HasColumnType("decimal(24, 6)");
+
+            entity.HasOne(d => d.OrderItem).WithMany(p => p.TblOrderItemAddons)
+                .HasForeignKey(d => d.OrderItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemAddon_OrderItem");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

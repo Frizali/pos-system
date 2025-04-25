@@ -1,4 +1,4 @@
 Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=POS;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Data -Context AppDbContext -Force
 
 //Scaffold for only 1 table
-Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=POS;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Tables "tblProductAddon" -OutputDir Models -ContextDir Data -Context "AppDbContext" -Force -NoOnConfiguring
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=POS;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Tables "tblOrder", "tblOrderItem","tblOrderItemAddon" -OutputDir Models -ContextDir Data -Context "AppDbContext" -Force -NoOnConfiguring

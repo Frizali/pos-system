@@ -11,6 +11,7 @@ namespace pos_system.Controllers
         {
             _productService = productServices;
         }
+
         public async Task<IActionResult> Index()
         {
             var viewModel = await _productService.GetProductFormModelView().ConfigureAwait(false);

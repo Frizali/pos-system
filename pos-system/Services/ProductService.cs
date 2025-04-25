@@ -9,12 +9,13 @@ namespace pos_system.Services
         readonly IProductCategoryRepo _categoryRepo;
         readonly IProductRepo _productRepo;
         readonly IVariantGroupRepo _variantGroupRepo;
-        private int codeLength = 4;
+        readonly int codeLength;
         public ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo)
         {
             _categoryRepo = categoryRepo;
             _productRepo = productRepo;
             _variantGroupRepo = variantGroupRepo;
+            codeLength = 4;
         }
 
         public async Task<List<TblProduct>> GetAllProductDetails()
@@ -35,13 +36,12 @@ namespace pos_system.Services
         {
             var products = await _productRepo.GetAllProductDetails().ConfigureAwait(false);
             var productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
-
-            productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).ToList(); return x; });
+            productCategories = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).ToList(); return x; }).ToList();
 
             return new MenuViewModel
             {
-                products = products,
-                productCategories = productCategories
+                Products = products,
+                ProductCategories = productCategories
             };
         }
 
@@ -60,25 +60,25 @@ namespace pos_system.Services
 
         private void SetVariantGroups(ProductFormModel data)
         {
-            if (data.VariantGroups.Count() > 0)
+            if (data.VariantGroups is not null && data.VariantGroups.Count > 0)
                 data.VariantGroups = data.VariantGroups.Select(x => { x.GroupId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
         }
 
         private void SetProductVariants(ProductFormModel data)
         {
-            if (data.ProductVariants.Count() > 0)
-                data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.VariantId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
+            if (data.ProductVariants is not null && data.ProductVariants.Count > 0)
+                data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.VariantId = Unique.ID(); x.ProductId = data.Product.ProductId; x.Sku = x.Sku.Trim(); return x; }).ToList();
         }
 
         private void SetProductAddons(ProductFormModel data)
         {
-            if(data.ProductAddons.Count() > 0)
+            if(data.ProductAddons is not null && data.ProductAddons.Count > 0)
                 data.Product.TblProductAddons = data.ProductAddons.Select(x => { x.AddonId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
         }
 
         private async Task SetVariantOptions(ProductFormModel data)
         {
-            if(data.ProductVariants.Count() > 0)
+            if(data.ProductVariants is not null && data.ProductVariants.Count > 0)
             {
                 var variantOptionSplit = data.ProductVariants.Select(x => x.Sku.Split("-")).ToList();
                 var totalVariant = variantOptionSplit.Select(x => x).FirstOrDefault().Select(x => x).Count();
@@ -91,7 +91,7 @@ namespace pos_system.Services
 
                     foreach (var option in variantOption)
                     {
-                        TblVariantOption tblVariantOption = new TblVariantOption
+                        TblVariantOption tblVariantOption = new()
                         {
                             OptionId = Unique.ID(),
                             GroupId = variantGroupId,
