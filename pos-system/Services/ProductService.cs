@@ -1,6 +1,7 @@
 ﻿using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
+using System.Data.Common;
 
 namespace pos_system.Services
 {
@@ -32,16 +33,32 @@ namespace pos_system.Services
             };
         }
 
-        public async Task<MenuViewModel> GetMenuViewModel()
+        public async Task<MenuViewModel> GetMenuViewModel(string? category, string? product)
         {
             var products = await _productRepo.GetAllProductDetails().ConfigureAwait(false);
             var productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
-            productCategories = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).ToList(); return x; }).ToList();
+            var productCategoriesOrdered = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).ToList(); return x; }).ToList();
+            TblProductCategory allProductCategory = new TblProductCategory()
+            {
+                CategoryId = Unique.ID(),
+                CategoryName = "All",
+                CategoryDescription = "All",
+                TblProducts = products
+            };
+
+            productCategoriesOrdered.Add(allProductCategory);
+
+
+            if (!String.IsNullOrEmpty(category) && category.ToLower() != "all")
+                products = products.Where(p => p.Category.CategoryName.Contains(category)).ToList();
+
+            if (!String.IsNullOrEmpty(product))
+                products = products.Where(p => p.ProductName.Contains(product)).ToList();
 
             return new MenuViewModel
             {
                 Products = products,
-                ProductCategories = productCategories
+                ProductCategories = productCategoriesOrdered
             };
         }
 

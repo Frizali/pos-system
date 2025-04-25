@@ -8,9 +8,15 @@
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
 <div class="container">
-    <div id="scrollable" style="overflow-x: auto;cursor: grab;scrollbar-width: none;user-select: none;display: flex;flex-wrap: nowrap;" class="mb-3">
+    <form asp-action="Menu" asp-controller="Product" method="get">
         @Html.Partial("_ProductCategory", Model.ProductCategories)
-    </div>
+        <div class="mb-3">
+                <div class="input-group flex-nowrap">
+                    <input type="text" class="form-control" placeholder="Search menu" aria-label="Search menu" aria-describedby="addon-wrapping" name="product">
+                    <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
+                </div>
+        </div>
+    </form>
     <div>
         <div>
             <div class="row g-3">

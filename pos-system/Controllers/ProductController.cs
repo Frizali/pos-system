@@ -27,9 +27,9 @@ namespace pos_system.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Menu()
+        public async Task<IActionResult> Menu(string? category, string? product)
         {
-            var viewModel = await _productService.GetMenuViewModel().ConfigureAwait(false);
+            var viewModel = await _productService.GetMenuViewModel(category, product).ConfigureAwait(false);
             return View(viewModel);
         }
 
