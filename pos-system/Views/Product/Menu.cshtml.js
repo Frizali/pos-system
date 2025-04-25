@@ -47,7 +47,7 @@
     $('#product-detail-close').click(function () {
         $('#productDetailModal').modal('hide');
         $('#priceContainer').text('');
-        var input = $("input[name='quant[1]']");
+        var input = $("input[name='Quantity']");
         input.val(1).trigger('change');
         selected = {};
         menuPrice = 0;

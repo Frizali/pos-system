@@ -37,23 +37,22 @@ namespace pos_system.Services
         {
             var products = await _productRepo.GetAllProductDetails().ConfigureAwait(false);
             var productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
-            var productCategoriesOrdered = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).ToList(); return x; }).ToList();
+            var productCategoriesOrdered = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).Select(x => new TblProduct() { ProductId = x.ProductId}).ToList(); return x; }).ToList();
             TblProductCategory allProductCategory = new TblProductCategory()
             {
                 CategoryId = Unique.ID(),
                 CategoryName = "All",
                 CategoryDescription = "All",
-                TblProducts = products
+                TblProducts = products.Select(x => new TblProduct() { ProductId = x.ProductId}).ToList()
             };
 
             productCategoriesOrdered.Add(allProductCategory);
 
-
-            if (!String.IsNullOrEmpty(category) && category.ToLower() != "all")
-                products = products.Where(p => p.Category.CategoryName.Contains(category)).ToList();
+            if (!String.IsNullOrEmpty(category) && category != "All")
+                products = products.Where(p => p.Category.CategoryName.Contains(category, StringComparison.OrdinalIgnoreCase)).ToList();
 
             if (!String.IsNullOrEmpty(product))
-                products = products.Where(p => p.ProductName.Contains(product)).ToList();
+                products = products.Where(p => p.ProductName.Contains(product, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return new MenuViewModel
             {
