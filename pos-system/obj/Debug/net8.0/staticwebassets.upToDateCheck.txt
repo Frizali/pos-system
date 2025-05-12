@@ -1,7 +1,10 @@
-Views\Product\Index.cshtml.js
+Views\Product\index.cshtml.js
+Views\Product\Menu.cshtml.js
+wwwroot\css\Dashboard\Index.css
 wwwroot\css\Product\index.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\egg-tart.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
@@ -48,6 +51,11 @@ wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
 wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\bootstrap-icons\font\bootstrap-icons.css
+wwwroot\lib\bootstrap-icons\font\bootstrap-icons.json
+wwwroot\lib\bootstrap-icons\font\bootstrap-icons.min.css
+wwwroot\lib\bootstrap-icons\font\fonts\bootstrap-icons.woff
+wwwroot\lib\bootstrap-icons\font\fonts\bootstrap-icons.woff2
 wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map

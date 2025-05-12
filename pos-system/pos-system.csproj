@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\Dashboard\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Dashboard\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Helpers\" />
   </ItemGroup>
 

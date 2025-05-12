@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using pos_system.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace pos_system.Models;
 
 public partial class TblProduct
 {
-    public string? ProductId { get; set; } = null!;
+    public string? ProductId { get; set; } = Unique.ID();
 
     public string CategoryId { get; set; } = null!;
 
@@ -15,17 +16,20 @@ public partial class TblProduct
 
     public string? ProductDescription { get; set; }
 
-    public int? ProductStock { get; set; }
+    public int? ProductStock { get; set; } = 0;
 
-    public bool IsLimitedStock { get; set; }
+    public bool IsLimitedStock { get; set; } = false;
+     
+    public bool IsAvailable { get; set; } = true;
 
-    public bool IsAvailable { get; set; }
+    public double? Price { get; set; } = 0;
 
-    public double? Price { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-    public DateTime UpdatedAt { get; set; }
+    public string? ProductImage { get; set; }
+    public string? ImageType { get; set; }
 
     public virtual TblProductCategory? Category { get; set; } = null!;
 

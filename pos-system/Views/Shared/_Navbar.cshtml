@@ -1,8 +1,12 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white mb-3 py-3">
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light py-3">
     <div class="container">
-        <div class="d-flex gap-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <i class="bi bi-grid text-primary"></i>
-            <p class="m-0 text-black">Menu</p>
+        <div class="py-2 ps-2 pe-3 circle-con">
+            <div class="d-flex gap-2 align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <div class="rounded-circle circle-wrapper">
+                    <i class="bi bi-grid text-primary"></i>
+                </div>
+                <p class="m-0 text-black">Menu</p>
+            </div>
         </div>
         <div class="datetime-container d-flex gap-3 align-items-center">
             @{
@@ -10,15 +14,19 @@
                 var formattedDate = currentDate.ToString("ddd, dd MMMM yyyy");
                 var formattedTime = currentDate.ToString("hh:mm tt");
             }
-            <div class="d-flex gap-3 align-items-center">
-                <i class="bi bi-calendar text-primary"></i>
+            <div class="d-flex gap-3 align-items-center py-2 ps-2 pe-3 circle-con">
+                <div class="rounded-circle circle-wrapper">
+                    <i class="bi bi-calendar text-primary"></i>
+                </div>
                 <p class="m-0">@formattedDate</p>
             </div>
             <div>
                 -
             </div>
-            <div class="d-flex gap-3 align-items-center">
-                <i class="bi bi-clock text-primary"></i>
+            <div class="d-flex gap-3 align-items-center py-2 ps-2 pe-3 circle-con">
+                <div class="rounded-circle circle-wrapper">
+                    <i class="bi bi-clock text-primary"></i>
+                </div>
                 <p class="m-0">@formattedTime</p>
             </div>
         </div>

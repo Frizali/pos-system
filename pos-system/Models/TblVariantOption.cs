@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using pos_system.Helpers;
 
 namespace pos_system.Models;
 
 public partial class TblVariantOption
 {
-    public string OptionId { get; set; } = null!;
+    public string OptionId { get; set; } = Unique.ID();
 
     public string GroupId { get; set; } = null!;
 

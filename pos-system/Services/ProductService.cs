@@ -38,9 +38,8 @@ namespace pos_system.Services
             var products = await _productRepo.GetAllProductDetails().ConfigureAwait(false);
             var productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
             var productCategoriesOrdered = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).Select(x => new TblProduct() { ProductId = x.ProductId}).ToList(); return x; }).ToList();
-            TblProductCategory allProductCategory = new TblProductCategory()
+            TblProductCategory allProductCategory = new ()
             {
-                CategoryId = Unique.ID(),
                 CategoryName = "All",
                 CategoryDescription = "All",
                 TblProducts = products.Select(x => new TblProduct() { ProductId = x.ProductId}).ToList()
@@ -63,33 +62,23 @@ namespace pos_system.Services
 
         public async Task Save(ProductFormModel data)
         {
-            data.Product.ProductId = Unique.ID();
             data.Product.ProductCode = Unique.GenerateCode(data.Product.ProductName,codeLength);
-
-            SetVariantGroups(data);
-            SetProductVariants(data);
-            SetProductAddons(data);
+            SetVariant(data);
 
             await _productRepo.GetRepo().Add(data.Product).ConfigureAwait(false);
             await SetVariantOptions(data).ConfigureAwait(false);
         }
 
-        private void SetVariantGroups(ProductFormModel data)
+        private static void SetVariant(ProductFormModel data)
         {
             if (data.VariantGroups is not null && data.VariantGroups.Count > 0)
-                data.VariantGroups = data.VariantGroups.Select(x => { x.GroupId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
-        }
+                data.VariantGroups = data.VariantGroups.Select(x => { x.ProductId = data.Product.ProductId; return x; }).ToList();
 
-        private void SetProductVariants(ProductFormModel data)
-        {
             if (data.ProductVariants is not null && data.ProductVariants.Count > 0)
-                data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.VariantId = Unique.ID(); x.ProductId = data.Product.ProductId; x.Sku = x.Sku.Trim(); return x; }).ToList();
-        }
+                data.Product.TblProductVariants = data.ProductVariants.Select(x => { x.ProductId = data.Product.ProductId; x.Sku = x.Sku.Trim(); return x; }).ToList();
 
-        private void SetProductAddons(ProductFormModel data)
-        {
-            if(data.ProductAddons is not null && data.ProductAddons.Count > 0)
-                data.Product.TblProductAddons = data.ProductAddons.Select(x => { x.AddonId = Unique.ID(); x.ProductId = data.Product.ProductId; return x; }).ToList();
+            if (data.ProductAddons is not null && data.ProductAddons.Count > 0)
+                data.Product.TblProductAddons = data.ProductAddons.Select(x => { x.ProductId = data.Product.ProductId; return x; }).ToList();
         }
 
         private async Task SetVariantOptions(ProductFormModel data)

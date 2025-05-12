@@ -129,6 +129,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ProductName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.ProductImage)
+                .IsUnicode(false);
+            entity.Property(e => e.ImageType)
+                .IsUnicode(false);
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");

@@ -1,8 +1,10 @@
-﻿namespace pos_system.Models;
+﻿using pos_system.Helpers;
+
+namespace pos_system.Models;
 
 public partial class TblVariantGroup
 {
-    public string? GroupId { get; set; } = null!;
+    public string? GroupId { get; set; } = Unique.ID();
 
     public string? ProductId { get; set; } = null!;
 

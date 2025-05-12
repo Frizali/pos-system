@@ -514,3 +514,5 @@ C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th 
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\pos-system.pdb
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\pos-system.genruntimeconfig.cache
 C:\Users\Rizal\Documents\[00] Fahrizal\[01] College\Informatics Engineering\4th Semester\Project Base Learning\pos-system\pos-system\obj\Debug\net8.0\ref\pos-system.dll
+D:\[01] College\Informatics Engineering\4rd Semester\Project Base Learning\pos-system\pos-system\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\[01] College\Informatics Engineering\4rd Semester\Project Base Learning\pos-system\pos-system\bin\Debug\net8.0\libman.json

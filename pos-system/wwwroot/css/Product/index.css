@@ -36,3 +36,48 @@
 .order-container {
     border-left: 1px solid rgba(0,0,0,.125);
 }
+
+.circle-con{
+    border-radius: 50px;
+    background-color:white;
+}
+
+.circle-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fixed-icon {
+    vertical-align: middle;
+}
+
+.custom-icon.bi::before {
+    vertical-align: middle;
+}
+
+.search-input {
+    border: 0;
+    padding: 1rem;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-input-icon {
+    border-radius: 0 50px 50px 0;
+    background-color: white;
+    border: 0;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

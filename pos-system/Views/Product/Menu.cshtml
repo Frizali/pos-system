@@ -11,10 +11,14 @@
     <form asp-action="Menu" asp-controller="Product" method="get">
         @Html.Partial("_ProductCategory", Model.ProductCategories)
         <div class="mb-3">
-                <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control" placeholder="Search menu" aria-label="Search menu" aria-describedby="addon-wrapping" name="product">
-                    <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
-                </div>
+            <div class="input-group flex-nowrap">
+                <input type="text" class="form-control search-input" placeholder="Search menu" aria-label="Search menu" aria-describedby="addon-wrapping" name="product">
+                <span class="input-group-text search-input-icon" id="addon-wrapping">
+                    <div class="search-icon bg-light">
+                        <i class="bi bi-search"></i>
+                    </div>
+                </span>
+            </div>
         </div>
     </form>
     <div>
@@ -23,7 +27,7 @@
                 @foreach (var item in Model.Products)
                 {
                     <div class="col-md-4 col-sm-12 col-xl-3">
-                        <div class="card clickable-card h-100" data-id="@item.ProductId" style="cursor: pointer;">
+                        <div class="card clickable-card h-100 border-0" data-id="@item.ProductId" style="cursor: pointer;">
                             <div class="card-body">
                                 <div>
                                     <img src="~/images/egg-tarts.jpg" class="w-100"/>
