@@ -10,11 +10,15 @@
     },
     {
       "Id": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\pos-system.bundle.scp.css",
-      "PackagePath": "staticwebassets\\pos-system.vyyyxhaoyw.bundle.scp.css"
+      "PackagePath": "staticwebassets\\pos-system.ylkcvedba9.bundle.scp.css"
     },
     {
       "Id": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Dashboard\\Index.css",
       "PackagePath": "staticwebassets\\css\\Dashboard\\Index.css"
+    },
+    {
+      "Id": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Order\\Order.css",
+      "PackagePath": "staticwebassets\\css\\Order\\Order.css"
     },
     {
       "Id": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Product\\index.css",

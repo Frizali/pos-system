@@ -1,6 +1,7 @@
 Views\Product\index.cshtml.js
 Views\Product\Menu.cshtml.js
 wwwroot\css\Dashboard\Index.css
+wwwroot\css\Order\Order.css
 wwwroot\css\Product\index.css
 wwwroot\css\site.css
 wwwroot\favicon.ico

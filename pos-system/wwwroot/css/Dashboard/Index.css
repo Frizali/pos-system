@@ -1,4 +1,45 @@
-﻿
+﻿.date-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.label-text {
+    font-weight: 500;
+    color: #555;
+}
+
+.input-group {
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    max-width: 280px;
+}
+
+.form-control {
+    border: none;
+    border-radius: 0;
+    padding-left: 15px;
+    font-size: 14px;
+}
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    padding-right: 16px;
+    cursor: pointer;
+}
+
+.calendar-icon {
+    width: 20px;
+    opacity: 0.6;
+}
 
 .dashboard-card {
     border: 0;
@@ -99,6 +140,34 @@
     height: 32px;
     border-radius: 50%;
     background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-con {
+    border-radius: 50px;
+    background-color: white;
+}
+
+.search-input {
+    border: 0;
+    padding: 1rem;
+    border-radius: 50px 0 0 50px;
+    background-color: rgb(248,249,250);
+}
+
+.search-input-icon {
+    border-radius: 0 50px 50px 0;
+    background-color: rgb(248,249,250);
+    border: 0;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(248,249,250);
     display: flex;
     align-items: center;
     justify-content: center;

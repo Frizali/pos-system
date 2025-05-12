@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Q2wUWjKgCDnBZTzfKXYNi417C1qSneABc7BgUfKnPvA=",
+  "Hash": "cosYU0FhJr+6vehB3roYfsQtnX9Jx7tp63h0nAHsHjU=",
   "Source": "pos-system",
   "BasePath": "_content/pos-system",
   "Mode": "Default",
@@ -31,8 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "vyyyxhaoyw",
-      "Integrity": "hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=",
+      "Fingerprint": "ylkcvedba9",
+      "Integrity": "qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\Debug\\net8.0\\scopedcss\\bundle\\pos-system.styles.css"
@@ -52,8 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "vyyyxhaoyw",
-      "Integrity": "hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=",
+      "Fingerprint": "ylkcvedba9",
+      "Integrity": "qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\pos-system.bundle.scp.css"
@@ -115,11 +115,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "neqwqamrq3",
-      "Integrity": "ry/+dy4maLNvl5wlUVhWEqxkuUtM3ToMS/jthIMy4VE=",
+      "Fingerprint": "1l9glfbhjf",
+      "Integrity": "e6rjHGc4LzOMJGlXbxAHVVs2hcDFUPBKWpYQXpcDvAY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Dashboard\\Index.css"
+    },
+    {
+      "Identity": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Order\\Order.css",
+      "SourceId": "pos-system",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\",
+      "BasePath": "_content/pos-system",
+      "RelativePath": "css/Order/Order#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yffcoejf10",
+      "Integrity": "Ltm5lALj9wtVOJlZtCPATl9cQMuKQWfDINaeGW8az4M=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Order\\Order.css"
     },
     {
       "Identity": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Product\\index.css",
@@ -1531,6 +1552,51 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/Dashboard/Index.1l9glfbhjf.css",
+      "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Dashboard\\Index.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3169"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e6rjHGc4LzOMJGlXbxAHVVs2hcDFUPBKWpYQXpcDvAY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 12 May 2025 08:16:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1l9glfbhjf"
+        },
+        {
+          "Name": "label",
+          "Value": "css/Dashboard/Index.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-e6rjHGc4LzOMJGlXbxAHVVs2hcDFUPBKWpYQXpcDvAY="
+        }
+      ]
+    },
+    {
       "Route": "css/Dashboard/Index.css",
       "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Dashboard\\Index.css",
       "Selectors": [],
@@ -1541,7 +1607,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1934"
+          "Value": "3169"
         },
         {
           "Name": "Content-Type",
@@ -1549,11 +1615,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ry/+dy4maLNvl5wlUVhWEqxkuUtM3ToMS/jthIMy4VE=\""
+          "Value": "\"e6rjHGc4LzOMJGlXbxAHVVs2hcDFUPBKWpYQXpcDvAY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 05:17:51 GMT"
+          "Value": "Mon, 12 May 2025 08:16:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1563,13 +1629,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ry/+dy4maLNvl5wlUVhWEqxkuUtM3ToMS/jthIMy4VE="
+          "Value": "sha256-e6rjHGc4LzOMJGlXbxAHVVs2hcDFUPBKWpYQXpcDvAY="
         }
       ]
     },
     {
-      "Route": "css/Dashboard/Index.neqwqamrq3.css",
-      "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Dashboard\\Index.css",
+      "Route": "css/Order/Order.css",
+      "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Order\\Order.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1578,7 +1644,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1934"
+          "Value": "75"
         },
         {
           "Name": "Content-Type",
@@ -1586,11 +1652,48 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ry/+dy4maLNvl5wlUVhWEqxkuUtM3ToMS/jthIMy4VE=\""
+          "Value": "\"Ltm5lALj9wtVOJlZtCPATl9cQMuKQWfDINaeGW8az4M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 12 May 2025 05:17:51 GMT"
+          "Value": "Mon, 12 May 2025 06:36:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ltm5lALj9wtVOJlZtCPATl9cQMuKQWfDINaeGW8az4M="
+        }
+      ]
+    },
+    {
+      "Route": "css/Order/Order.yffcoejf10.css",
+      "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\wwwroot\\css\\Order\\Order.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "75"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ltm5lALj9wtVOJlZtCPATl9cQMuKQWfDINaeGW8az4M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 12 May 2025 06:36:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1600,15 +1703,15 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "neqwqamrq3"
+          "Value": "yffcoejf10"
         },
         {
           "Name": "label",
-          "Value": "css/Dashboard/Index.css"
+          "Value": "css/Order/Order.css"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ry/+dy4maLNvl5wlUVhWEqxkuUtM3ToMS/jthIMy4VE="
+          "Value": "sha256-Ltm5lALj9wtVOJlZtCPATl9cQMuKQWfDINaeGW8az4M="
         }
       ]
     },
@@ -7117,7 +7220,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1128"
+          "Value": "1348"
         },
         {
           "Name": "Content-Type",
@@ -7125,11 +7228,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=\""
+          "Value": "\"qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 13:54:32 GMT"
+          "Value": "Mon, 12 May 2025 06:59:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7139,7 +7242,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc="
+          "Value": "sha256-qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ="
         }
       ]
     },
@@ -7154,7 +7257,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1128"
+          "Value": "1348"
         },
         {
           "Name": "Content-Type",
@@ -7162,11 +7265,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=\""
+          "Value": "\"qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 13:54:32 GMT"
+          "Value": "Mon, 12 May 2025 06:59:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7176,12 +7279,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc="
+          "Value": "sha256-qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ="
         }
       ]
     },
     {
-      "Route": "pos-system.vyyyxhaoyw.bundle.scp.css",
+      "Route": "pos-system.ylkcvedba9.bundle.scp.css",
       "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\pos-system.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -7191,7 +7294,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1128"
+          "Value": "1348"
         },
         {
           "Name": "Content-Type",
@@ -7199,11 +7302,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=\""
+          "Value": "\"qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 13:54:32 GMT"
+          "Value": "Mon, 12 May 2025 06:59:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7213,7 +7316,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "vyyyxhaoyw"
+          "Value": "ylkcvedba9"
         },
         {
           "Name": "label",
@@ -7221,12 +7324,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc="
+          "Value": "sha256-qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ="
         }
       ]
     },
     {
-      "Route": "pos-system.vyyyxhaoyw.styles.css",
+      "Route": "pos-system.ylkcvedba9.styles.css",
       "AssetFile": "D:\\[01] College\\Informatics Engineering\\4rd Semester\\Project Base Learning\\pos-system\\pos-system\\obj\\Debug\\net8.0\\scopedcss\\bundle\\pos-system.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -7236,7 +7339,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1128"
+          "Value": "1348"
         },
         {
           "Name": "Content-Type",
@@ -7244,11 +7347,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc=\""
+          "Value": "\"qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 13:54:32 GMT"
+          "Value": "Mon, 12 May 2025 06:59:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7258,7 +7361,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "vyyyxhaoyw"
+          "Value": "ylkcvedba9"
         },
         {
           "Name": "label",
@@ -7266,7 +7369,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-hyo6bDMpq2VQFApNt4qLGOEue7QDK1veH2bZ18AkzVc="
+          "Value": "sha256-qgXpbrtIGP6CXbyA77XUHqs9n/h3aO3jCIlIhMbbPoQ="
         }
       ]
     },

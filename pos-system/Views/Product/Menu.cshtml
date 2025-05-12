@@ -26,39 +26,37 @@
             <div class="row g-3">
                 @foreach (var item in Model.Products)
                 {
-                    <div class="col-md-4 col-sm-12 col-xl-3">
+                    <div class="col-md-4 col-sm-12 col-xl-2">
                         <div class="card clickable-card h-100 border-0" data-id="@item.ProductId" style="cursor: pointer;">
                             <div class="card-body">
-                                <div>
-                                    <img src="~/images/egg-tarts.jpg" class="w-100"/>
+                                <div class="mb-3">
+                                    <img src="~/images/egg-tart.jpg" class="w-100"/>
                                 </div>
                                 <h6 class="card-title m-0">@item.ProductName</h6>
-                                <div class="d-flex flex-md-column flex-xl-row justify-content-between">
-                                    <p class="card-text m-0">@item.Category.CategoryName</p>
-                                    <b>
-                                        <p class="card-text">
-                                            @{
-                                                var priceText = String.Empty;
-                                                if (item.TblProductVariants.Count() > 1)
-                                                {
-                                                    var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
-                                                    var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
-                                                    priceText = $"Rp{lowPrice}-{hightPrice}";
-                                                }
-                                                else if (item.TblProductVariants.Count() == 1)
-                                                {
-                                                    var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
-                                                    priceText = $"Rp{price}";
-                                                }
-                                                else
-                                                {
-                                                    priceText = $"Rp{item.Price}";
-                                                }
+                                <p class="text-muted m-0">@item.Category.CategoryName</p>
+                                <b>
+                                    <p class="card-text">
+                                        @{
+                                            var priceText = String.Empty;
+                                            if (item.TblProductVariants.Count() > 1)
+                                            {
+                                                var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
+                                                var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
+                                                priceText = $"Rp{lowPrice}-{hightPrice}";
                                             }
-                                            @priceText
-                                        </p>
-                                    </b>
-                                </div>
+                                            else if (item.TblProductVariants.Count() == 1)
+                                            {
+                                                var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                priceText = $"Rp{price}";
+                                            }
+                                            else
+                                            {
+                                                priceText = $"Rp{item.Price}";
+                                            }
+                                        }
+                                        @priceText
+                                    </p>
+                                </b>
                             </div>
                         </div>
                     </div>
@@ -119,6 +117,7 @@
     const products = @Html.Raw(Json.Serialize(Model.Products.Select(x => new
         {
             id = x.ProductId,
+            name = x.ProductName,
             stock = x.ProductStock,
             price = x.Price
         })));
@@ -169,12 +168,15 @@
 
             const combined = selectedItem.join('-');
             const match = variants.find(v => v.sku.trim() === combined);
+            const product = products.find(p => p.id == match.productId);
             const quantity = $('#Quantity').val();
             // $.post('/Product/AddOrderItem', { ProductID: match.productId, VariantID: match.id, Quantity: quantity }, function (data) {
             // })
             orderItems.push({
                 ProductID: match.productId,
                 VariantID: match.id,
+                Name: product.name,
+                SKU: match.sku,
                 Quantity: quantity,
                 UnitPrice: match.price,
                 SubTotal: match.price * quantity
@@ -183,28 +185,18 @@
         orderItemsContainer.empty();
         orderItems.forEach(item => {
             const itemElement = document.createElement('div');
-            itemElement.className = 'card mb-3 border-0 bg-light order-item-anim';
+            itemElement.className = 'card border-0 order-item-anim';
             itemElement.innerHTML = `
-                <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-1 fw-bold">${item.ProductID}</h6>
-                            <button class="btn btn-sm btn-outline-danger remove-item" data-id="${item.ProductID}">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                <div class="card-body d-flex gap-3 p-0">
+                    <div style="width:15%">
+                        <img src="/images/egg-tart.jpg" class="w-100"/>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <div class="input-group input-group-sm" style="width: 120px;">
-                            <button class="btn btn-outline-secondary decrease-quantity" data-id="${item.ProductID}">
-                                <i class="bi bi-dash"></i>
-                            </button>
-                                <span class="form-control text-center">${item.Quantity}</span>
-                                <button class="btn btn-outline-secondary increase-quantity" data-id="${item.ProductID}">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                            <div class="text-primary fw-bold">Rp. ${item.SubTotal}</div>
+                    <div>
+                        <h6 class="card-title m-0">${item.Name} (${item.SKU})</h6>
+                        <p class="text-muted m-0">Rp. ${item.SubTotal}</p>
                     </div>
                 </div>
+                <hr />
                 `;
             orderItemsContainer.append(itemElement);
         });

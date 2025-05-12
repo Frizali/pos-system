@@ -16,7 +16,7 @@ public partial class TblProduct
 
     public string? ProductDescription { get; set; }
 
-    public int? ProductStock { get; set; } = 0;
+    public double? ProductStock { get; set; } = 0;
 
     public bool IsLimitedStock { get; set; } = false;
      

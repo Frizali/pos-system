@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\Dashboard\NewFile.txt" />
+    <Content Remove="wwwroot\css\Order\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>

@@ -46,3 +46,13 @@ button.accept-policy[b-gfdtqq0wjx] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.circle-wrapper[b-gfdtqq0wjx] {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
