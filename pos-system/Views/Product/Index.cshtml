@@ -3,9 +3,9 @@
     ViewData["Title"] = "Add Product";
 }
 
-    
 
-@using (Html.BeginForm("Save", "Product", FormMethod.Post))
+
+@using (Html.BeginForm("Save", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container d-flex flex-column gap-2">
         <div class="card">
@@ -30,6 +30,10 @@
                                 <option value="@category.CategoryId">@category.CategoryName</option>
                             }
                         </select>
+                    </div>
+                    <div>
+                        <label for="productImage" class="form-label">Product Image</label>
+                        <input type="file" class="form-control" id="productImage" name="ProductImage" accept="image/*">
                     </div>
                 </div>
             </div>

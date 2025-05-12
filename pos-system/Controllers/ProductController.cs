@@ -18,10 +18,22 @@ namespace pos_system.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Save(ProductFormModel data)
+        public async Task<IActionResult> Save(ProductFormModel data, IFormFile ProductImage)
         {
             if (ModelState.IsValid)
             {
+                if (ProductImage != null && ProductImage.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await ProductImage.CopyToAsync(memoryStream);
+                        byte[] imageData = memoryStream.ToArray();
+
+                        data.Product.ProductImage = Convert.ToBase64String(imageData);
+                        data.Product.ImageType = Path.GetExtension(ProductImage.FileName)?.ToLower();
+                    }
+                }
+
                 await _productService.Save(data);
             }
             return RedirectToAction("Index");
