@@ -22,10 +22,15 @@
                 <div class="col-4">
                     <label for="variantGroups[${variantIndex}]" class="form-label">Tipe Variant</label>
                     <select class="form-select variantGroup" id="variantGroups[${variantIndex}]" name="VariantGroups[${variantIndex}].VariantName">
-                        <option selected>Open this select menu</option>
+                        <option selected>Open this select variant</option>
                         <option value="Variant">Variant</option>
-                        <option value="Color">Color</option>
-                        <option value="Size">Size</option>
+                        <option value="Ukuran">Ukuran</option>
+                        <option value="Rasa">Rasa</option>
+                        <option value="Tingkat Kepedasan">Tingkat Kepedasan</option>
+                        <option value="Saus">Saus</option>
+                        <option value="Topping">Topping</option>
+                        <option value="Level Gula">Level Gula</option>
+                        <option value="Suhu">Suhu</option>
                     </select>
                 </div>
                 <div class="col-7">

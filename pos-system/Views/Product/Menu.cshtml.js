@@ -30,6 +30,9 @@
 
         $.get('/Product/GetDetailMenu', { id: productId }, function (data) {
             $('#productModalBody').html(data);
+
+            console.log(productId)
+            $("#add-cart").attr('data-id', productId); 
         }).fail(function () {
             $('#productModalBody').html('<div class="alert alert-danger">Failed to load product details</div>');
         });
@@ -42,6 +45,13 @@
         }
         else
             menuPrice = 0;
+
+        const totalGroups = $('.body-variant-group').length;
+        if (totalGroups == 0) {
+            $('#add-cart').removeAttr("disabled");
+        } else {
+            $('#add-cart').attr("disabled", true);
+        }
     });
 
     $('#product-detail-close').click(function () {

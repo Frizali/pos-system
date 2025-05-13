@@ -3,7 +3,7 @@
 <div class="detail-container" data-id="@Model.ProductId">
     <div class="d-flex flex-column">
         <div class="d-flex justify-content-center img-detail-container">
-            <img src="~/images/egg-tart.jpg" class="w-75"/>
+             <img src="data:@Model.ImageType;base64,@Model.ProductImage" class="w-100" />
         </div>
         <div class="d-flex flex-column gap-1 mb-3">
             <p class="text-muted m-0">@Model.Category.CategoryName</p>

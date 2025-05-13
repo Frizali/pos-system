@@ -12,7 +12,7 @@
         @Html.Partial("_ProductCategory", Model.ProductCategories)
         <div class="mb-3">
             <div class="input-group flex-nowrap">
-                <input type="text" class="form-control search-input" placeholder="Search menu" aria-label="Search menu" aria-describedby="addon-wrapping" name="product">
+                <input type="text" class="form-control search-input" placeholder="Search something in your mind" aria-label="Search something in your mind" aria-describedby="addon-wrapping" name="product">
                 <span class="input-group-text search-input-icon" id="addon-wrapping">
                     <div class="search-icon bg-light">
                         <i class="bi bi-search"></i>
@@ -28,35 +28,38 @@
                 {
                     <div class="col-md-4 col-sm-12 col-xl-2">
                         <div class="card clickable-card h-100 border-0" data-id="@item.ProductId" style="cursor: pointer;">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <img src="~/images/egg-tart.jpg" class="w-100"/>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100" />
                                 </div>
-                                <h6 class="card-title m-0">@item.ProductName</h6>
-                                <p class="text-muted m-0">@item.Category.CategoryName</p>
-                                <b>
-                                    <p class="card-text">
-                                        @{
-                                            var priceText = String.Empty;
-                                            if (item.TblProductVariants.Count() > 1)
-                                            {
-                                                var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
-                                                var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
-                                                priceText = $"Rp{lowPrice}-{hightPrice}";
+                                <div>
+                                    <h6 class="card-title m-0">@item.ProductName</h6>
+                                    <p class="text-muted m-0">@item.Category.CategoryName</p>
+                                    <b>
+                                        <p class="card-text">
+                                            @{
+                                                var priceText = String.Empty;
+                                                if (item.TblProductVariants.Count() > 1)
+                                                {
+                                                    var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
+                                                    var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
+                                                    priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                }
+                                                else if (item.TblProductVariants.Count() == 1)
+                                                {
+                                                    var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                    priceText = $"Rp{price}";
+                                                }
+                                                else
+                                                {
+                                                    priceText = $"Rp{item.Price}";
+                                                }
                                             }
-                                            else if (item.TblProductVariants.Count() == 1)
-                                            {
-                                                var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
-                                                priceText = $"Rp{price}";
-                                            }
-                                            else
-                                            {
-                                                priceText = $"Rp{item.Price}";
-                                            }
-                                        }
-                                        @priceText
-                                    </p>
-                                </b>
+                                            @priceText
+                                        </p>
+                                    </b>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" disabled>Add to Cart<span id="priceContainer"></span></button>
+                    <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" data-id="" disabled>Add to Cart<span id="priceContainer"></span></button>
                 </div>
             </div>
         </div>
@@ -159,8 +162,22 @@
         const totalGroups = $('.body-variant-group').length;
         const totalSelected = $('.option-selected').length;
         const orderItemsContainer = $('#order-items');
+        const quantity = $('#Quantity').val();
 
-        if(totalGroups == totalSelected){
+        if(totalGroups == 0 && totalSelected == 0){
+            var productId = $(this).data('id');
+            const product = products.find(p => p.id == productId);
+
+            orderItems.push({
+                ProductID: product.productId,
+                VariantID: "",
+                Name: product.name,
+                SKU: "",
+                Quantity: quantity,
+                UnitPrice: product.price,
+                SubTotal: product.price * quantity
+            });
+        }else if(totalGroups == totalSelected){
             var selectedItem = [];
             $('.option-selected').each(function (index) {
                 selectedItem.push($(this).text().trim());
@@ -169,7 +186,6 @@
             const combined = selectedItem.join('-');
             const match = variants.find(v => v.sku.trim() === combined);
             const product = products.find(p => p.id == match.productId);
-            const quantity = $('#Quantity').val();
             // $.post('/Product/AddOrderItem', { ProductID: match.productId, VariantID: match.id, Quantity: quantity }, function (data) {
             // })
             orderItems.push({
@@ -187,19 +203,36 @@
             const itemElement = document.createElement('div');
             itemElement.className = 'card border-0 order-item-anim';
             itemElement.innerHTML = `
-                <div class="card-body d-flex gap-3 p-0">
-                    <div style="width:15%">
-                        <img src="/images/egg-tart.jpg" class="w-100"/>
+                <div class="card-bodyp-0">
+                    <div class="d-flex gap-3 ">
+                        <div style="width:15%">
+                            <img src="/images/egg-tart.jpg" class="w-100"/>
+                        </div>
+                        <div>
+                            <h6 class="card-title m-0">${item.Name} (${item.SKU})</h6>
+                            <p class="text-muted m-0">Rp. ${item.SubTotal}</p>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="card-title m-0">${item.Name} (${item.SKU})</h6>
-                        <p class="text-muted m-0">Rp. ${item.SubTotal}</p>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="Quantity">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                        </span>
+                        <input type="text" id="Quantity" name="Quantity" class="form-control input-number text-center border-white" value="${item.Quantity}" min="1" max="9999">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="Quantity">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </span>
                     </div>
                 </div>
                 <hr />
                 `;
             orderItemsContainer.append(itemElement);
         });
+
+        $('#productDetailModal').modal('hide');
     })
 </script>
 
