@@ -27,12 +27,17 @@
     $('.clickable-card').click(function () {
         var productId = $(this).data('id');
         $('#productDetailModal').modal('show');
+        $('.btn-add-cart').prop("disabled", true);
 
         $.get('/Product/GetDetailMenu', { id: productId }, function (data) {
             $('#productModalBody').html(data);
+            $(".btn-add-cart").attr('data-prodid', productId);
 
-            console.log(productId)
-            $("#add-cart").attr('data-id', productId); 
+            const totalGroups = $('.body-variant-group').length;
+
+            if (totalGroups == 0) {
+                $('.btn-add-cart').removeAttr("disabled");
+            }
         }).fail(function () {
             $('#productModalBody').html('<div class="alert alert-danger">Failed to load product details</div>');
         });
@@ -45,13 +50,6 @@
         }
         else
             menuPrice = 0;
-
-        const totalGroups = $('.body-variant-group').length;
-        if (totalGroups == 0) {
-            $('#add-cart').removeAttr("disabled");
-        } else {
-            $('#add-cart').attr("disabled", true);
-        }
     });
 
     $('#product-detail-close').click(function () {

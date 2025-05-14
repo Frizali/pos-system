@@ -1,4 +1,6 @@
-﻿using pos_system.Helpers;
+﻿using AutoMapper;
+using pos_system.DTOs;
+using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
 using System.Data.Common;
@@ -7,22 +9,19 @@ namespace pos_system.Services
 {
     public class ProductService : IProductService
     {
+        readonly IMapper _mapper;
         readonly IProductCategoryRepo _categoryRepo;
         readonly IProductRepo _productRepo;
         readonly IVariantGroupRepo _variantGroupRepo;
         readonly int codeLength;
-        public ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo)
+        public ProductService(IMapper mapper, IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo)
         {
+            _mapper = mapper;
             _categoryRepo = categoryRepo;
             _productRepo = productRepo;
             _variantGroupRepo = variantGroupRepo;
             codeLength = 4;
-        }
-
-        public async Task<List<TblProduct>> GetAllProductDetails()
-        {
-            return await _productRepo.GetAllProductDetails().ConfigureAwait(false);
-        }   
+        } 
 
         public async Task<ProductFormModel> GetProductFormModelView()
         {
@@ -35,20 +34,20 @@ namespace pos_system.Services
 
         public async Task<MenuViewModel> GetMenuViewModel(string? category, string? product)
         {
-            var products = await _productRepo.GetAllProductDetails().ConfigureAwait(false);
-            var productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
-            var productCategoriesOrdered = productCategories.Select(x => { x.TblProducts = products.Where(p => p.CategoryId == x.CategoryId).Select(x => new TblProduct() { ProductId = x.ProductId}).ToList(); return x; }).ToList();
-            TblProductCategory allProductCategory = new ()
+            var products = await _productRepo.GetAllProductDetailsDTO().ConfigureAwait(false);
+            var productCategoriesDTO = await _categoryRepo.GetProductCategoriesDTO().ConfigureAwait(false);
+            ProductCategoryDTO allProductCategory = new ()
             {
+                CategoryId = "All",
                 CategoryName = "All",
                 CategoryDescription = "All",
-                TblProducts = products.Select(x => new TblProduct() { ProductId = x.ProductId}).ToList()
+                TotalProducts = productCategoriesDTO.Sum(pc => pc.TotalProducts)
             };
 
-            productCategoriesOrdered.Add(allProductCategory);
+            productCategoriesDTO.Add(allProductCategory);
 
             if (!String.IsNullOrEmpty(category) && category != "All")
-                products = products.Where(p => p.Category.CategoryName.Contains(category, StringComparison.OrdinalIgnoreCase)).ToList();
+                products = products.Where(p => p.CategoryId == category).ToList();
 
             if (!String.IsNullOrEmpty(product))
                 products = products.Where(p => p.ProductName.Contains(product, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -56,7 +55,7 @@ namespace pos_system.Services
             return new MenuViewModel
             {
                 Products = products,
-                ProductCategories = productCategoriesOrdered
+                ProductCategories = productCategoriesDTO
             };
         }
 

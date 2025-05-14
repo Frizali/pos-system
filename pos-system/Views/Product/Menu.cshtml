@@ -28,7 +28,7 @@
                 {
                     <div class="col-md-4 col-sm-12 col-xl-2">
                         <div class="card clickable-card h-100 border-0" data-id="@item.ProductId" style="cursor: pointer;">
-                            <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="card-body d-flex flex-column justify-content-between gap-2">
                                 <div>
                                     <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100" />
                                 </div>
@@ -39,15 +39,22 @@
                                         <p class="card-text">
                                             @{
                                                 var priceText = String.Empty;
-                                                if (item.TblProductVariants.Count() > 1)
+                                                if (item.ProductVariants.Count() > 1)
                                                 {
-                                                    var lowPrice = item.TblProductVariants.Min(x => x.VariantPrice);
-                                                    var hightPrice = item.TblProductVariants.Max(x => x.VariantPrice);
-                                                    priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                    var lowPrice = item.ProductVariants.Min(x => x.VariantPrice);
+                                                    var hightPrice = item.ProductVariants.Max(x => x.VariantPrice);
+                                                    if(lowPrice == hightPrice)
+                                                    {
+                                                        priceText = $"Rp{hightPrice}";
+                                                    }
+                                                    else
+                                                    {
+                                                        priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                    }
                                                 }
-                                                else if (item.TblProductVariants.Count() == 1)
+                                                else if (item.ProductVariants.Count() == 1)
                                                 {
-                                                    var price = item.TblProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                    var price = item.ProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
                                                     priceText = $"Rp{price}";
                                                 }
                                                 else
@@ -101,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" data-id="" disabled>Add to Cart<span id="priceContainer"></span></button>
+                    <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" data-prodid="" disabled>Add to Cart<span id="priceContainer"></span></button>
                 </div>
             </div>
         </div>
@@ -109,7 +116,7 @@
 </form>
 
 <script>
-    const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.TblProductVariants).Select(v => new
+    const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.ProductVariants).Select(v => new
         {
             id = v.VariantId,
             productId = v.ProductId,
@@ -122,7 +129,9 @@
             id = x.ProductId,
             name = x.ProductName,
             stock = x.ProductStock,
-            price = x.Price
+            price = x.Price,
+            image = x.ProductImage,
+            type = x.ImageType
         })));
 </script>
 
@@ -133,6 +142,7 @@
     $(document).on('click', '.variant-option-tag', function () {
         const value = $(this).data('value');
         const group = $(this).data('group');
+        const dataProductId = $(this).data('productid');
 
         $(this).closest('.body-variant-group').find('.variant-option-tag').removeClass('option-selected');
         $(this).addClass('option-selected');
@@ -143,11 +153,11 @@
         const totalGroups = $('.body-variant-group').length;
         if (Object.keys(selected).length === totalGroups) {
             const combined = Array.from({ length: totalGroups }, (_, i) => selected[i]).join('-');
-            const match = variants.find(v => v.sku === combined);
+            const match = variants.find(v => v.sku === combined && v.productId == dataProductId)
 
             if (match) {
                 menuPrice = match.price;
-                const btnAddCart = $('#add-cart');
+                const btnAddCart = $('.btn-add-cart');
                 btnAddCart.removeAttr("disabled");
                 $('#priceContainer').text(' (Rp' + match.price * input + ')');
             } else {
@@ -158,14 +168,14 @@
 
     const orderItems = [];
 
-    $(document).on('click', '#add-cart', function(){
+    $(document).on('click', '.btn-add-cart', function(){
         const totalGroups = $('.body-variant-group').length;
         const totalSelected = $('.option-selected').length;
         const orderItemsContainer = $('#order-items');
         const quantity = $('#Quantity').val();
 
         if(totalGroups == 0 && totalSelected == 0){
-            var productId = $(this).data('id');
+            var productId = $(this).attr('data-prodid');
             const product = products.find(p => p.id == productId);
 
             orderItems.push({
@@ -175,19 +185,22 @@
                 SKU: "",
                 Quantity: quantity,
                 UnitPrice: product.price,
-                SubTotal: product.price * quantity
+                SubTotal: product.price * quantity,
+                Image: product.image,
+                Type: product.type
             });
         }else if(totalGroups == totalSelected){
             var selectedItem = [];
+            var dataProductId = $(this).attr('data-prodid');
+            console.log(dataProductId);
             $('.option-selected').each(function (index) {
                 selectedItem.push($(this).text().trim());
             });
 
             const combined = selectedItem.join('-');
-            const match = variants.find(v => v.sku.trim() === combined);
+            const match = variants.find(v => v.sku.trim() === combined && v.productId == dataProductId);
             const product = products.find(p => p.id == match.productId);
-            // $.post('/Product/AddOrderItem', { ProductID: match.productId, VariantID: match.id, Quantity: quantity }, function (data) {
-            // })
+
             orderItems.push({
                 ProductID: match.productId,
                 VariantID: match.id,
@@ -195,7 +208,9 @@
                 SKU: match.sku,
                 Quantity: quantity,
                 UnitPrice: match.price,
-                SubTotal: match.price * quantity
+                SubTotal: match.price * quantity,
+                Image: product.image,
+                Type: product.type
             });
         }
         orderItemsContainer.empty();
@@ -206,10 +221,10 @@
                 <div class="card-bodyp-0">
                     <div class="d-flex gap-3 ">
                         <div style="width:15%">
-                            <img src="/images/egg-tart.jpg" class="w-100"/>
+                        <img src="data:${item.Type};base64,${item.Image}" class="w-100"/>
                         </div>
                         <div>
-                            <h6 class="card-title m-0">${item.Name} (${item.SKU})</h6>
+                            <h6 class="card-title m-0">${item.Name} ${item.SKU ? `(${item.SKU})` : ''}</h6>
                             <p class="text-muted m-0">Rp. ${item.SubTotal}</p>
                         </div>
                     </div>
@@ -219,7 +234,7 @@
                                 <i class="bi bi-dash"></i>
                             </button>
                         </span>
-                        <input type="text" id="Quantity" name="Quantity" class="form-control input-number text-center border-white" value="${item.Quantity}" min="1" max="9999">
+                        <input type="text" id="QuantityOrder" name="QuantityOrder" class="form-control input-number text-center border-white" value="${item.Quantity}" min="1" max="9999">
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="Quantity">
                                 <i class="bi bi-plus"></i>
@@ -232,7 +247,15 @@
             orderItemsContainer.append(itemElement);
         });
 
+        let totalOrder = orderItems.map(item => item.SubTotal).reduce((prev, next) => prev + next);
+        console.log(totalOrder);
+
         $('#productDetailModal').modal('hide');
+        var input = $("input[name='Quantity']");
+        input.val(1).trigger('change');
+
+        $("#order-subtotal").text(`Rp${totalOrder}`);
+        $("#order-total").text(`Rp${totalOrder}`);
     })
 </script>
 

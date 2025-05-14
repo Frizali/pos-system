@@ -1,4 +1,5 @@
-﻿using pos_system.Helpers;
+﻿using Newtonsoft.Json;
+using pos_system.Helpers;
 
 namespace pos_system.Models;
 
@@ -10,5 +11,6 @@ public partial class TblProductCategory
 
     public string? CategoryDescription { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<TblProduct> TblProducts { get; set; } = [];
 }
