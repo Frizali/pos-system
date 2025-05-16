@@ -6,5 +6,6 @@ namespace pos_system.Models
     {
         public List<ProductDTO> Products { get; set; }
         public List<ProductCategoryDTO> ProductCategories { get; set; }
+        public string OrderNumber { get; set; } = String.Empty;
     }
 }

@@ -29,7 +29,6 @@ namespace pos_system.Controllers
                         data.Product.ImageType = Path.GetExtension(ProductImage.FileName)?.ToLower();
                     }
                 }
-
                 await _productService.Save(data);
             }
             return RedirectToAction("Index");

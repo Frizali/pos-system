@@ -16,9 +16,13 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 builder.Services.AddScoped<IProductCategoryRepo, ProductCategoryRepo>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped(typeof(ICrudRepo<>), typeof(CrudRepo<>));
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IVariantGroupRepo, VariantGroupRepo>();
+builder.Services.AddScoped<IOrderNumberTrackerRepo, OrderNumberTrackerRepo>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
@@ -40,6 +44,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Product}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 app.Run();

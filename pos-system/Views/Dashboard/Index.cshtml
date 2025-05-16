@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@model DashboardViewModel
+
 <link rel="stylesheet" href="~/css/Dashboard/index.css" asp-append-version="true" />
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
@@ -25,7 +28,7 @@
                         <span class="card-title mb-0">Total Sales Amount</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">12,650.00</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalSalesAmount</h2>
                         <span class="card-unit">Rupiah</span>
                     </div>
                 </div>
@@ -42,7 +45,7 @@
                         <span class="card-title mb-0">Total Product Sales</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">1,250</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalProductSales</h2>
                         <span class="card-unit">Items</span>
                     </div>
                 </div>
@@ -59,7 +62,7 @@
                         <span class="card-title mb-0">Total Customers</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">400</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers</h2>
                         <span class="card-unit">Persons</span>
                     </div>
                 </div>

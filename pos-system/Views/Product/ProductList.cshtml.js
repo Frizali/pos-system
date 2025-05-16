@@ -131,6 +131,24 @@ $('.input-number').on('change', function () {
 });
 
 
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategoryId = urlParams.get('category');
+
+    console.log(selectedCategoryId);
+    if (selectedCategoryId) {
+        $('.category-btn').each(function () {
+            console.log($(this).val())
+            if ($(this).val() === selectedCategoryId) {
+                $(this).find('.card-wrapper').addClass('border border-primary rounded');
+                $(this).find('.card-title').addClass('text-primary');
+                $(this).find('.circle-wrapper').removeClass('bg-light').addClass('bg-primary');
+                $(this).find('.icon-category').removeClass('text-muted').addClass('text-white');
+            }
+        });
+    }
+});
+
 // Untuk tag yang baru muncul setelah mendapatkan data dari database - Fahrizal
 //$(document).on('click', '.variant-option-tag', function () {
 //    $(this).closest('.body-variant-group').find('.variant-option-tag').removeClass('option-selected');

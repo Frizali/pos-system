@@ -1,14 +1,33 @@
-﻿using pos_system.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using pos_system.Data;
+using pos_system.Models;
 
 namespace pos_system.Repository
 {
-    public class OrderRepo(ICrudRepo<TblOrder> repo) : IOrderRepo
+    public class OrderRepo(AppDbContext context, ICrudRepo<TblOrder> repo) : IOrderRepo
     {
         readonly ICrudRepo<TblOrder> _repo = repo;
+        readonly AppDbContext _context = context;
 
         public ICrudRepo<TblOrder> GetRepo()
         {
             return _repo;
+        }
+
+        public async Task<int> GetTotalCustomers(string fromDate, string toDate)
+        {
+            return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).CountAsync();
+        }
+
+        public async Task<int> GetTotalProductSales(string fromDate, string toDate)
+        {
+            List<string> orderIDs = await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).Select(o => o.OrderId).ToListAsync();
+            return await _context.TblOrderItem.Where(oi => orderIDs.Contains(oi.OrderId)).SumAsync(oi => oi.Quantity);
+        }
+
+        public async Task<decimal> GetTotalSalesAmount(string fromDate, string toDate)
+        {
+            return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).SumAsync(o => o.TotalPrice);
         }
     }
 }

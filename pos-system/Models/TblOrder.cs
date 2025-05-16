@@ -7,6 +7,7 @@ public partial class TblOrder
     public string OrderId { get; set; } = Unique.ID();
 
     public DateTime OrderDate { get; set; } = new DateTime();
+    public string OrderNumber { get; set; } = String.Empty;
 
     public string Status { get; set; } = String.Empty;
 

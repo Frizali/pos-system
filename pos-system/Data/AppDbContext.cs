@@ -23,6 +23,7 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<TblOrder> TblOrder { get; set; }
     public virtual DbSet<TblOrderItem> TblOrderItem { get; set; }
     public virtual DbSet<TblOrderItemAddon> TblOrderItemAddon { get; set; }
+    public virtual DbSet<TblOrderNumberTracker> TblOrderNumberTracker { get; set; }
 
     public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
     {
@@ -87,7 +88,8 @@ public partial class AppDbContext : DbContext
                 {
                     createAtProp.CurrentValue = DateTime.Now;
                 }
-            }else if((entity.State == EntityState.Modified && entity.Properties.Where(x => x.IsModified && !skipField.Contains(x.Metadata.Name.ToLower())).Any()))
+            }
+            else if ((entity.State == EntityState.Modified && entity.Properties.Where(x => x.IsModified && !skipField.Contains(x.Metadata.Name.ToLower())).Any()))
             {
                 var updateAtProp = entity.Properties.FirstOrDefault(p => p.Metadata.Name.Equals("updateat", StringComparison.OrdinalIgnoreCase));
 
@@ -336,6 +338,15 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.OrderItemId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ItemAddon_OrderItem");
+        });
+
+        modelBuilder.Entity<TblOrderNumberTracker>(entity =>
+        {
+            entity.HasKey(e => e.DateID);
+
+            entity.ToTable("tblOrderNumberTracker");
+
+            entity.Property(e => e.DateID).HasColumnName("DateID");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,43 +1,47 @@
-﻿
-<div class="order-container d-flex flex-column vh-100">
+﻿@{
+    var orderNumber = ViewBag.OrderNumber as string;
+}
+@using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post))
+{
+    <div class="order-container d-flex flex-column vh-100">
 
-    <div class="px-3 pt-3">
-        <div class="order-header card text-center rounded-4 border-0">
-            <h4 class="fw-bold mb-1">Angkringan Omahmu</h4>
-            <small class="text-muted">Order Number: #005</small>
+        <div class="px-3 pt-3">
+            <div class="order-header card text-center rounded-4 border-0">
+                <h4 class="fw-bold mb-1">Angkringan OmahMU</h4>
+                <small class="text-muted">Order Number #@orderNumber</small>
+            </div>
+            <hr />
         </div>
 
-        <hr />
+        <div id="order-items" class="flex-grow-1 overflow-auto p-3"></div>
+
+        <div class="p-3">
+           <div class="d-flex justify-content-between mb-2">
+                <span>Subtotal</span>
+                <span id="order-subtotal">Rp0</span>
+            </div>
+    @*         <div class="d-flex justify-content-between mb-2">
+                <span>Tax (11%)</span>
+                <span>Rp 2.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2 text-success">
+                <span>Discount</span>
+                <span>-Rp 1.00</span>
+            </div>
+            <hr /> *@
+            <div class="d-flex justify-content-between fw-bold fs-5">
+                <span>TOTAL</span>
+                <span id="order-total">Rp0</span>
+            </div>
+
+    @*         <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-outline-success rounded-pill flex-grow-1 ms-2">CASH</button>
+                <button class="btn btn-outline-primary rounded-pill flex-grow-1 ms-2">QRIS</button>
+            </div> *@
+        </div>
+
+        <button class="btn btn-primary w-100 p-3" style="border-radius:0" type="submit">
+            Place Order
+        </button>
     </div>
-
-    <div id="order-items" class="flex-grow-1 overflow-auto p-3"></div>
-
-    <div class="p-3">
-       <div class="d-flex justify-content-between mb-2">
-            <span>Subtotal</span>
-            <span id="order-subtotal">Rp0</span>
-        </div>
-@*         <div class="d-flex justify-content-between mb-2">
-            <span>Tax (11%)</span>
-            <span>Rp 2.00</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2 text-success">
-            <span>Discount</span>
-            <span>-Rp 1.00</span>
-        </div>
-        <hr /> *@
-        <div class="d-flex justify-content-between fw-bold fs-5">
-            <span>TOTAL</span>
-            <span id="order-total">Rp0</span>
-        </div>
-
-@*         <div class="d-flex justify-content-between mt-3">
-            <button class="btn btn-outline-success rounded-pill flex-grow-1 ms-2">CASH</button>
-            <button class="btn btn-outline-primary rounded-pill flex-grow-1 ms-2">QRIS</button>
-        </div> *@
-    </div>
-
-    <button class="btn btn-primary w-100 p-3" style="border-radius:0">
-        Place Order
-    </button>
-</div>
+}

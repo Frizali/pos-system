@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using pos_system.DTOs;
+﻿using pos_system.DTOs;
 using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
-using System.Data.Common;
 
 namespace pos_system.Services
 {
-    public class ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo) : IProductService
+    public class ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo, IOrderNumberTrackerRepo orderNumberTrackerRepo) : IProductService
     {
         readonly IProductCategoryRepo _categoryRepo = categoryRepo;
         readonly IProductRepo _productRepo = productRepo;
         readonly IVariantGroupRepo _variantGroupRepo = variantGroupRepo;
+        readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly int codeLength = 4;
 
         public async Task<ProductFormModel> ProductFormModel()
@@ -27,6 +26,7 @@ namespace pos_system.Services
         {
             var products = await _productRepo.ProductDetailsDTO().ConfigureAwait(false);
             var productCategoriesDTO = await _categoryRepo.ProductCategoriesDTO().ConfigureAwait(false);
+            var orderNumber = await _orderNumberTrackerRepo.GetOrderNumber().ConfigureAwait(false);
             ProductCategoryDTO allProductCategory = new ()
             {
                 CategoryId = "All",
@@ -46,7 +46,8 @@ namespace pos_system.Services
             return new ProductListViewModel
             {
                 Products = products,
-                ProductCategories = productCategoriesDTO
+                ProductCategories = productCategoriesDTO,
+                OrderNumber = orderNumber
             };
         }
 
