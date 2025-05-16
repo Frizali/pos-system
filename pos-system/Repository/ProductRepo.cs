@@ -7,29 +7,23 @@ using pos_system.Models;
 
 namespace pos_system.Repository
 {
-    public class ProductRepo : IProductRepo
+    public class ProductRepo(AppDbContext context, IMapper mapper, ICrudRepo<TblProduct> repo) : IProductRepo
     {
-        readonly AppDbContext _context;
-        readonly IMapper _mapper;
-        readonly ICrudRepo<TblProduct> _repo;
-        public ProductRepo(AppDbContext context, IMapper mapper, ICrudRepo<TblProduct> repo)
-        {
-            _context = context;
-            _mapper = mapper;
-            _repo = repo;
-        }
+        readonly AppDbContext _context = context;
+        readonly IMapper _mapper = mapper;
+        readonly ICrudRepo<TblProduct> _repo = repo;
 
-        public async Task<List<ProductDTO>> GetAllProductDetailsDTO()
+        public async Task<List<ProductDTO>> ProductDetailsDTO()
         {
             var products = await _context.TblProduct.Where(p => p.IsAvailable).ProjectTo<ProductDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);    
             var productCategories = await _context.TblProductCategory.ProjectTo<ProductCategoryDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);
             var productVariants = await _context.TblProductVariant.ProjectTo<ProductVariantDTO>(_mapper.ConfigurationProvider).GroupBy(pv => pv.ProductId).ToListAsync().ConfigureAwait(false);
             var result = products.Join(productCategories, p => p.CategoryId, pc => pc.CategoryId, (p,pc) => { p.Category = pc; return p; }).ToList();
-            result = result.Join(productVariants, p => p.ProductId, pv => pv.Key, (p, pv) => { p.ProductVariants = pv.ToList(); return p; }).ToList();
+            result = result.Join(productVariants, p => p.ProductId, pv => pv.Key, (p, pv) => { p.ProductVariants = [.. pv]; return p; }).ToList();
             return products;
         }
 
-        public async Task<TblProduct> GetMenuDetailById(string id)
+        public async Task<TblProduct> ProductDetailByID(string id)
         {
             return await _context.TblProduct
                 .Where(p => p.ProductId == id)

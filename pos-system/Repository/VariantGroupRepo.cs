@@ -3,15 +3,9 @@ using pos_system.Models;
 
 namespace pos_system.Repository
 {
-    public class VariantGroupRepo : IVariantGroupRepo
+    public class VariantGroupRepo(ICrudRepo<TblVariantGroup> repo) : IVariantGroupRepo
     {
-        readonly AppDbContext _context;
-        readonly ICrudRepo<TblVariantGroup> _repo;
-        public VariantGroupRepo(AppDbContext context, ICrudRepo<TblVariantGroup> repo)
-        {
-            _context = context;
-            _repo = repo;
-        }
+        readonly ICrudRepo<TblVariantGroup> _repo = repo;
 
         public ICrudRepo<TblVariantGroup> GetRepo()
         {

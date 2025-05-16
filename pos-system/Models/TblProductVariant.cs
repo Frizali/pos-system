@@ -8,7 +8,7 @@ public partial class TblProductVariant
 
     public string? ProductId { get; set; } = null!;
 
-    public string? Sku { get; set; } = null!;
+    public string Sku { get; set; } = "N/A";
 
     public double? VariantPrice { get; set; } = 0;
 

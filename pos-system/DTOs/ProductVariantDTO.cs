@@ -6,7 +6,7 @@ namespace pos_system.DTOs
     {
         public string? VariantId { get; set; } = Unique.ID();
 
-        public string? ProductId { get; set; } = null!;
+        public string? ProductId { get; set; } = Unique.ID();
 
         public string? Sku { get; set; } = null!;
 

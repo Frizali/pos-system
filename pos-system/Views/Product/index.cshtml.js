@@ -114,15 +114,15 @@
         });
     }
 
-        function generateCombinations(arrays) {
-            return arrays.reduce((acc, curr) => {
-                const result = [];
-                acc.forEach(a => {
-                    curr.forEach(c => result.push(`${a.trim()}-${c}`));
-                });
-                return result;
+    function generateCombinations(arrays) {
+        return arrays.reduce((acc, curr) => {
+            const result = [];
+            acc.forEach(a => {
+                curr.forEach(c => result.push(`${a.trim()}-${c}`));
             });
-        }
+            return result;
+        });
+    }
 
     function generateRowCombinations() {
         const tagLists = [];

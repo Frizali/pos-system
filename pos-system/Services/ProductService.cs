@@ -7,23 +7,14 @@ using System.Data.Common;
 
 namespace pos_system.Services
 {
-    public class ProductService : IProductService
+    public class ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo) : IProductService
     {
-        readonly IMapper _mapper;
-        readonly IProductCategoryRepo _categoryRepo;
-        readonly IProductRepo _productRepo;
-        readonly IVariantGroupRepo _variantGroupRepo;
-        readonly int codeLength;
-        public ProductService(IMapper mapper, IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo)
-        {
-            _mapper = mapper;
-            _categoryRepo = categoryRepo;
-            _productRepo = productRepo;
-            _variantGroupRepo = variantGroupRepo;
-            codeLength = 4;
-        } 
+        readonly IProductCategoryRepo _categoryRepo = categoryRepo;
+        readonly IProductRepo _productRepo = productRepo;
+        readonly IVariantGroupRepo _variantGroupRepo = variantGroupRepo;
+        readonly int codeLength = 4;
 
-        public async Task<ProductFormModel> GetProductFormModelView()
+        public async Task<ProductFormModel> ProductFormModel()
         {
             List<TblProductCategory> productCategories = await _categoryRepo.GetRepo().GetAll().ConfigureAwait(false);
             return new ProductFormModel
@@ -32,10 +23,10 @@ namespace pos_system.Services
             };
         }
 
-        public async Task<MenuViewModel> GetMenuViewModel(string? category, string? product)
+        public async Task<ProductListViewModel> ProductListViewModel(string? category, string? product)
         {
-            var products = await _productRepo.GetAllProductDetailsDTO().ConfigureAwait(false);
-            var productCategoriesDTO = await _categoryRepo.GetProductCategoriesDTO().ConfigureAwait(false);
+            var products = await _productRepo.ProductDetailsDTO().ConfigureAwait(false);
+            var productCategoriesDTO = await _categoryRepo.ProductCategoriesDTO().ConfigureAwait(false);
             ProductCategoryDTO allProductCategory = new ()
             {
                 CategoryId = "All",
@@ -52,7 +43,7 @@ namespace pos_system.Services
             if (!String.IsNullOrEmpty(product))
                 products = products.Where(p => p.ProductName.Contains(product, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            return new MenuViewModel
+            return new ProductListViewModel
             {
                 Products = products,
                 ProductCategories = productCategoriesDTO
@@ -82,10 +73,10 @@ namespace pos_system.Services
 
         private async Task SetVariantOptions(ProductFormModel data)
         {
-            if(data.ProductVariants is not null && data.ProductVariants.Count > 0)
+            if(data.ProductVariants is not null && data.ProductVariants.Count > 0 && data.VariantGroups is not null && data.VariantGroups.Count > 0)
             {
                 var variantOptionSplit = data.ProductVariants.Select(x => x.Sku.Split("-")).ToList();
-                var totalVariant = variantOptionSplit.Select(x => x).FirstOrDefault().Select(x => x).Count();
+                var totalVariant = variantOptionSplit.Select(x => x).Count();
 
                 for (var i = 0; i < totalVariant; i++)
                 {
@@ -110,9 +101,9 @@ namespace pos_system.Services
             }
         }
 
-        public async Task<TblProduct> GetMenuDetailById(string id)
+        public async Task<TblProduct> ProductDetailByID(string id)
         {
-            return await _productRepo.GetMenuDetailById(id).ConfigureAwait(false);
+            return await _productRepo.ProductDetailByID(id).ConfigureAwait(false);
         }
     }
 }

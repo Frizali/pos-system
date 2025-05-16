@@ -20,7 +20,7 @@
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - $scrollContainer.offset().left;
-        const walk = (x - startX) * 1; // speed
+        const walk = (x - startX) * 1;
         $scrollContainer.scrollLeft(scrollLeft - walk);
     });
 
@@ -29,7 +29,7 @@
         $('#productDetailModal').modal('show');
         $('.btn-add-cart').prop("disabled", true);
 
-        $.get('/Product/GetDetailMenu', { id: productId }, function (data) {
+        $.get('/Product/ProductDetailByID', { id: productId }, function (data) {
             $('#productModalBody').html(data);
             $(".btn-add-cart").attr('data-prodid', productId);
 

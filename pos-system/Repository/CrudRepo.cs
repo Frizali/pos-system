@@ -3,16 +3,10 @@ using pos_system.Data;
 
 namespace pos_system.Repository
 {
-    public class CrudRepo<T> : ICrudRepo<T> where T : class
+    public class CrudRepo<T>(AppDbContext context) : ICrudRepo<T> where T : class
     {
-        private readonly AppDbContext _context;
-        private readonly DbSet<T> _dbSet;
-
-        public CrudRepo(AppDbContext context)
-        {
-            _context = context;
-            _dbSet = context.Set<T>();
-        }
+        private readonly AppDbContext _context = context;
+        private readonly DbSet<T> _dbSet = context.Set<T>();
 
         public async Task Add(T entity)
         {

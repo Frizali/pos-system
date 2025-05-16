@@ -6,7 +6,7 @@ namespace pos_system.DTOs
     {
         public string CategoryId { get; set; } = Unique.ID();
 
-        public string CategoryName { get; set; } = null!;
+        public string CategoryName { get; set; } = String.Empty;
 
         public string? CategoryDescription { get; set; }
 

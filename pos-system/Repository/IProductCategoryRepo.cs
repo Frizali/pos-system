@@ -6,6 +6,6 @@ namespace pos_system.Repository
     public interface IProductCategoryRepo
     {
         ICrudRepo<TblProductCategory> GetRepo();
-        Task<List<ProductCategoryDTO>> GetProductCategoriesDTO();
+        Task<List<ProductCategoryDTO>> ProductCategoriesDTO();
     }
 }

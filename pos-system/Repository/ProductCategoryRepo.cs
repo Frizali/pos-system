@@ -7,24 +7,18 @@ using pos_system.Models;
 
 namespace pos_system.Repository
 {
-    public class ProductCategoryRepo : IProductCategoryRepo
+    public class ProductCategoryRepo(AppDbContext context, IMapper mapper, ICrudRepo<TblProductCategory> repo) : IProductCategoryRepo
     {
-        readonly AppDbContext _context;
-        readonly ICrudRepo<TblProductCategory> _repo;
-        readonly IMapper _mapper;
-        public ProductCategoryRepo(AppDbContext context, IMapper mapper, ICrudRepo<TblProductCategory> repo)
-        {
-            _context = context;
-            _mapper = mapper;
-            _repo = repo;
-        }
+        readonly AppDbContext _context = context;
+        readonly ICrudRepo<TblProductCategory> _repo = repo;
+        readonly IMapper _mapper = mapper;
 
         public ICrudRepo<TblProductCategory> GetRepo()
         {
             return _repo;
         }
 
-        public async Task<List<ProductCategoryDTO>> GetProductCategoriesDTO()
+        public async Task<List<ProductCategoryDTO>> ProductCategoriesDTO()
         {
             return await _context.TblProductCategory.ProjectTo<ProductCategoryDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }

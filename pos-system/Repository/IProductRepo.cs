@@ -6,7 +6,7 @@ namespace pos_system.Repository
     public interface IProductRepo
     {
         ICrudRepo<TblProduct> GetRepo();
-        Task<List<ProductDTO>> GetAllProductDetailsDTO();
-        Task<TblProduct> GetMenuDetailById(string id);
+        Task<List<ProductDTO>> ProductDetailsDTO();
+        Task<TblProduct> ProductDetailByID(string id);
     }
 }

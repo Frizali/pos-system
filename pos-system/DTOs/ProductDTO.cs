@@ -31,6 +31,6 @@ namespace pos_system.DTOs
         public string? ProductImage { get; set; }
         public string? ImageType { get; set; }
         public ProductCategoryDTO Category { get; set; } = new ProductCategoryDTO();
-        public List<ProductVariantDTO> ProductVariants { get; set; } = new List<ProductVariantDTO>();
+        public List<ProductVariantDTO> ProductVariants { get; set; } = [];
     }
 }

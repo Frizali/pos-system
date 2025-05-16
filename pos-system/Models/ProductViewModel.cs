@@ -2,7 +2,7 @@
 
 namespace pos_system.Models
 {
-    public class MenuViewModel
+    public class ProductListViewModel
     {
         public List<ProductDTO> Products { get; set; }
         public List<ProductCategoryDTO> ProductCategories { get; set; }

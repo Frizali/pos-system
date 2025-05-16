@@ -4,17 +4,13 @@ using pos_system.Services;
 
 namespace pos_system.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController(IProductService productService) : Controller
     {
-        readonly IProductService _productService;
-        public ProductController(IProductService productServices)
-        {
-            _productService = productServices;
-        }
+        readonly IProductService _productService = productService;
 
         public async Task<IActionResult> Index()
         {
-            var viewModel = await _productService.GetProductFormModelView().ConfigureAwait(false);
+            var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
             return View(viewModel);
         }
 
@@ -39,15 +35,15 @@ namespace pos_system.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Menu(string? category, string? product)
+        public async Task<IActionResult> ProductList(string? category, string? product)
         {
-            var viewModel = await _productService.GetMenuViewModel(category, product).ConfigureAwait(false);
+            var viewModel = await _productService.ProductListViewModel(category, product).ConfigureAwait(false);
             return View(viewModel);
         }
 
-        public async Task<IActionResult> GetDetailMenu(string id)
+        public async Task<IActionResult> ProductDetailByID(string id)
         {
-            var data = await _productService.GetMenuDetailById(id).ConfigureAwait(false);
+            var data = await _productService.ProductDetailByID(id).ConfigureAwait(false);
             return PartialView("_ProductDetail", data);
         }
     }
