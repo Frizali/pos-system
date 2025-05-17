@@ -1,4 +1,5 @@
-﻿using pos_system.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using pos_system.DTOs;
 using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
@@ -53,6 +54,7 @@ namespace pos_system.Services
 
         public async Task Save(ProductFormModel data)
         {
+            data.Product.ProductId = Guid.NewGuid().ToString();
             data.Product.ProductCode = Unique.GenerateCode(data.Product.ProductName,codeLength);
             SetVariant(data);
 
@@ -105,6 +107,16 @@ namespace pos_system.Services
         public async Task<TblProduct> ProductDetailByID(string id)
         {
             return await _productRepo.ProductDetailByID(id).ConfigureAwait(false);
+        }
+
+        public async Task EditProduct(ProductFormModel data)
+        {
+            await _productRepo.EditProduct(data).ConfigureAwait(false);
+        }
+
+        public async Task<ProductFormModel> EditProductModal(string id)
+        {
+            return await _productRepo.EditProductModal(id).ConfigureAwait(false);
         }
     }
 }

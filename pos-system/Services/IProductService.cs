@@ -8,5 +8,7 @@ namespace pos_system.Services
         Task<ProductListViewModel> ProductListViewModel(string? category, string? product);
         Task Save(ProductFormModel data);
         Task<TblProduct> ProductDetailByID(string id);
+        Task EditProduct(ProductFormModel data);
+        Task<ProductFormModel> EditProductModal(string id); 
     }
 }

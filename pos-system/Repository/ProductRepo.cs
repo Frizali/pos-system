@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using pos_system.Data;
 using pos_system.DTOs;
@@ -37,6 +38,40 @@ namespace pos_system.Repository
         public ICrudRepo<TblProduct> GetRepo()
         {
             return _repo;
+        }
+
+        public async Task EditProduct(ProductFormModel data)
+        {
+            var existing = await _context.TblProduct.FirstOrDefaultAsync(p => p.ProductId == data.Product.ProductId);
+            if (existing != null)
+            {
+                existing.ProductName = data.Product.ProductName;
+                existing.Price = data.Product.Price;
+                existing.CategoryId = data.Product.CategoryId;
+                existing.ProductDescription = data.Product.ProductDescription;
+                existing.ProductStock = data.Product.ProductStock;
+                existing.ProductImage = data.Product.ProductImage;
+                existing.ImageType = data.Product.ImageType;
+                existing.IsAvailable = data.Product.IsAvailable;
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<ProductFormModel> EditProductModal(string id)
+        {
+            var product = await _context.TblProduct
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.ProductId == id).ConfigureAwait(false);
+
+            var productCategories = await _context.TblProductCategory
+                .ToListAsync().ConfigureAwait(false);
+
+            return new ProductFormModel
+            {
+                Product = product,
+                ProductCategories = productCategories
+            };
         }
     }
 }
