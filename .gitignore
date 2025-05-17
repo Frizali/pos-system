@@ -3,3 +3,5 @@
 [Oo]bj/
 [Ll]og/
 *.log
+**/bin/
+**/obj/
