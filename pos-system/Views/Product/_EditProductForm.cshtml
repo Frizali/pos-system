@@ -1,0 +1,65 @@
+﻿@model ProductFormModel
+
+<form asp-action="EditProduct" asp-controller="Product" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Product.ProductId" value="@Model.Product.ProductId" />
+
+    <input type="hidden" name="Product.ProductImage" value="@Model.Product.ProductImage" />
+    <input type="hidden" name="Product.ImageType" value="@Model.Product.ImageType" />
+
+    <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input type="text" class="form-control" name="Product.ProductName" value="@Model.Product.ProductName" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-select" name="Product.CategoryId" required>
+            @foreach (var cat in Model.ProductCategories)
+            {
+                <option value="@cat.CategoryId" selected="@(cat.CategoryId == Model.Product.CategoryId)">
+                    @cat.CategoryName
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="Product.ProductDescription" rows="3">@Model.Product.ProductDescription</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Current Image</label><br />
+        @if (!string.IsNullOrEmpty(Model.Product.ProductImage))
+        {
+            <img src="data:image/@Model.Product.ImageType;base64,@Model.Product.ProductImage" alt="Product Image" width="200" />
+        }
+        else
+        {
+            <p><em>No image uploaded</em></p>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label for="productImage" class="form-label">Upload New Image</label>
+        <input type="file" class="form-control" id="productImage" name="ProductImage" accept="image/*" />
+    </div>
+
+    <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" id="isAvailable" name="Product.IsAvailable" value="@Model.Product.IsAvailable" @(Model.Product.IsAvailable == true ? "checked" : "") />
+        <label class="form-check-label" for="isAvailable">Status Product</label>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" class="form-control" name="Product.ProductStock" value="@Model.Product.ProductStock" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input type="number" class="form-control" name="Product.Price" value="@Model.Product.Price" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
