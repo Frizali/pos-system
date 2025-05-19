@@ -215,8 +215,11 @@
             var productId = $(this).attr('data-prodid');
             const product = products.find(p => p.id == productId);
 
+            console.log(product)
+
+
             orderItems.push({
-                ProductID: product.productId,
+                ProductID: product.id,
                 VariantID: "",
                 Name: product.name,
                 SKU: "",
@@ -278,8 +281,8 @@
                             </button>
                         </span>
                     </div>
-                    <input type="hidden" name="TblOrderItems[${index}].ProductID" value="${item.ProductID}" />
-                    <input type="hidden" name="TblOrderItems[${index}].VariantID" value="${item.VariantID}" />
+                    <input type="hidden" name="TblOrderItems[${index}].ProductId" value="${item.ProductID}" />
+                    <input type="hidden" name="TblOrderItems[${index}].VariantId" value="${item.VariantID}" />
                     <input type="hidden" name="TblOrderItems[${index}].Quantity" value="${item.Quantity}" />
                     <input type="hidden" name="TblOrderItems[${index}].UnitPrice" value="${item.UnitPrice}" />
                     <input type="hidden" name="TblOrderItems[${index}].SubTotal" value="${item.SubTotal}" />

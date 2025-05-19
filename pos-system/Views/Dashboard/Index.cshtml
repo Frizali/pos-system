@@ -88,8 +88,61 @@
     </div>
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-md-8">
-            <div class="card dashboard-card h-100 border-0">
+            <div class="bg-white d-flex gap-2 align-items-center p-3">
+                <div class="dot-middle bg-primary"></div>
+                <h5 class="m-0">Report Graph</h5>
+            </div>
+            <div class="card dashboard-card h-100 border-0" style="max-height: 400px;">
                 <canvas class="card-body" id="styledChart"></canvas>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="bg-white d-flex gap-2 align-items-center p-3">
+                <div class="dot-middle bg-primary"></div>
+                <h5 class="m-0">Favorite Product</h5>
+            </div>
+            <div class="card dashboard-card border-0">
+                <div class="card-body" style="max-height:400px;overflow:scroll">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="p-0">
+                                    <div class="table-header-cus text-muted">
+                                        ProductName
+                                    </div>
+                                </th>
+                                <th scope="col" class="p-0">
+                                    <div class="table-header-cus text-muted">
+                                        TotalOrders
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.FavoriteProducts.Any())
+                            {
+                                var indexedItems = Model.FavoriteProducts.Select((item, index) => new { item, index });
+
+                                foreach (var pair in indexedItems)
+                                {
+                                    <tr class="border-bottom">
+                                        <td class="text-center p-3">
+                                            <h6 class="m-0">@pair.item.ProductName</h6>
+                                            <p class="text-muted m-0">@pair.item.CategoryName</p>
+                                        </td>
+                                        <td class="text-center p-3">
+                                            <div class="d-flex gap-1 justify-content-center">
+                                                <p>@pair.item.TotalOrder</p>
+                                                <p class="text-muted">Times</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
@@ -157,9 +210,17 @@
                 }
             },
             scales: {
-                y: {
-                    beginAtZero: true
+              x: {
+                grid: {
+                  display: false
                 }
+              },
+              y: {
+                beginAtZero: true,
+                grid: {
+                  display: false
+                }
+              }
             }
         }
     });

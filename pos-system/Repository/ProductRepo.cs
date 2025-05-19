@@ -26,8 +26,12 @@ namespace pos_system.Repository
         public async Task<TblProduct> ProductDetailByID(string id)
         {
             return await _context.TblProduct
+                .Where(p => p.ProductId == id)
                 .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.ProductId == id).ConfigureAwait(false);
+                .Include(p => p.TblVariantGroups)
+                    .ThenInclude(v => v.TblVariantOptions)
+                .Include(p => p.TblProductVariants)
+                .FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
         public ICrudRepo<TblProduct> GetRepo()
