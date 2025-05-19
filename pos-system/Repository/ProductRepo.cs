@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using pos_system.Data;
 using pos_system.DTOs;
@@ -27,12 +26,8 @@ namespace pos_system.Repository
         public async Task<TblProduct> ProductDetailByID(string id)
         {
             return await _context.TblProduct
-                .Where(p => p.ProductId == id)
                 .Include(p => p.Category)
-                .Include(p => p.TblVariantGroups)
-                    .ThenInclude(v => v.TblVariantOptions)
-                .Include(p => p.TblProductVariants)
-                .FirstOrDefaultAsync().ConfigureAwait(false);
+                .FirstOrDefaultAsync(p => p.ProductId == id).ConfigureAwait(false);
         }
 
         public ICrudRepo<TblProduct> GetRepo()

@@ -14,6 +14,11 @@ namespace pos_system.Repository
             return _repo;
         }
 
+        public async Task<List<TblOrder>> GetOrdersByDate(string fromDate, string toDate)
+        {
+            return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).Include(o => o.TblOrderItems).ToListAsync();
+        }
+
         public async Task<int> GetTotalCustomers(string fromDate, string toDate)
         {
             return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).CountAsync();

@@ -10,7 +10,7 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Index(string? fromDate, string? toDate)
         {
-            DashboardViewModel dashboardViewModel = await _dashboardService.DashboardViewModel(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+            DashboardViewModel dashboardViewModel = await _dashboardService.DashboardViewModel(fromDate, toDate);
             return View(dashboardViewModel);
         }
     }

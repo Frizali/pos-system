@@ -27,7 +27,7 @@
             <div class="row g-3">
                 @foreach (var item in Model.Products)
                 {
-                    <div class="col-md-4 col-lg-4 col-sm-12 col-xl-2">
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xl-3">
                         <div class="card h-100 border-0">
                             <div class="card-body clickable-card d-flex flex-column justify-content-between gap-2 p-2 pb-0" data-id="@item.ProductId" style="cursor: pointer;">
                                 <div>
@@ -36,7 +36,7 @@
                                 <div>
                                     <h6 class="card-title m-0">@item.ProductName</h6>
                                     <p class="text-muted m-0">@item.Category.CategoryName</p>
-                                    <b>
+@*                                     <b>
                                         <p class="card-text">
                                             @{
                                                 var priceText = String.Empty;
@@ -65,7 +65,7 @@
                                             }
                                             @priceText
                                         </p>
-                                    </b>
+                                    </b> *@
                                 </div>
                             </div>
                             <div class="text-end pe-2 pb-2">

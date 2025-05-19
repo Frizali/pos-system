@@ -4,6 +4,6 @@ namespace pos_system.Services
 {
     public interface IDashboardService
     {
-        Task<DashboardViewModel> DashboardViewModel(string fromDate, string toDate);
+        Task<DashboardViewModel> DashboardViewModel(string? fromDate, string? toDate);
     }
 }
