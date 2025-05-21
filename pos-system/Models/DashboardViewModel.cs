@@ -23,8 +23,8 @@
 
     public class FavoriteProduct
     {
-        public string ProductName { get; set; }
-        public string CategoryName { get; set; }
-        public int TotalOrder { get; set; }
+        public string ProductName { get; set; } = String.Empty;
+        public string CategoryName { get; set; } = String.Empty;
+        public int TotalOrder { get; set; } = 0;
     }
 }

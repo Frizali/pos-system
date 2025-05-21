@@ -1,4 +1,6 @@
-﻿namespace pos_system.Helpers
+﻿using System.Text;
+
+namespace pos_system.Helpers
 {
     public static class Unique
     {
@@ -32,6 +34,16 @@
             {
                 return "N/A";
             }
+        }
+
+        public static IFormFile CreateFakeFormFile(string fileName, string contentType, string content)
+        {
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+            return new FormFile(stream, 0, stream.Length, "file", fileName)
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = contentType
+            };
         }
     }
 }

@@ -15,22 +15,11 @@ namespace pos_system.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Save(ProductFormModel data, IFormFile ProductImage)
+        public async Task<IActionResult> Save(ProductFormModel data, IFormFile productImage)
         {
             if (ModelState.IsValid)
             {
-                if (ProductImage != null && ProductImage.Length > 0)
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await ProductImage.CopyToAsync(memoryStream);
-                        byte[] imageData = memoryStream.ToArray();
-
-                        data.Product.ProductImage = Convert.ToBase64String(imageData);
-                        data.Product.ImageType = Path.GetExtension(ProductImage.FileName)?.ToLower();
-                    }
-                }
-                await _productService.Save(data);
+                await _productService.Save(data, productImage);
             }
             return RedirectToAction("Index");
         }
@@ -47,22 +36,12 @@ namespace pos_system.Controllers
             return PartialView("_ProductDetail", data);
         }
 
-        public async Task<IActionResult> EditProduct(ProductFormModel data, IFormFile? ProductImage)
+        public async Task<IActionResult> EditProduct(ProductFormModel data, IFormFile? productImage)
         {
-            if (ProductImage != null && ProductImage.Length > 0)
+            if (ModelState.IsValid)
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await ProductImage.CopyToAsync(memoryStream);
-                    byte[] imageData = memoryStream.ToArray();
-
-                    data.Product.ProductImage = Convert.ToBase64String(imageData);
-                    data.Product.ImageType = Path.GetExtension(ProductImage.FileName)?.TrimStart('.').ToLower();
-                }
+                await _productService.EditProduct(data, productImage);
             }
-
-            await _productService.EditProduct(data);
-
             return RedirectToAction("ProductList");
         }
 
