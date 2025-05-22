@@ -38,13 +38,7 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> EditProduct(ProductFormModel data, IFormFile? productImage)
         {
-            if (ModelState.IsValid)
-            {
-                await _productService.EditProduct(data, productImage);
-            }
-
-            await _productService.EditProduct(data);
-
+            await _productService.EditProduct(data, productImage);
             return RedirectToAction("EditData", new { id = data.Product.ProductId });
         }
 

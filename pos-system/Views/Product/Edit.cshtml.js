@@ -3,7 +3,8 @@ function renderVariantRow(variant, index) {
     return `
     <tr>
         <input type="hidden" name="ProductVariants[${index}].VariantId" value="${variant.VariantId}" />
-        <td><input type="text" class="form-control" name="ProductVariants[${index}].Sku" value="${variant.Sku ?? ''}" /></td>
+        <input type="hidden" class="form-control" name="ProductVariants[${index}].Sku" value="${variant.Sku ?? ''}" />
+        <td><input type="text" disabled class="form-control" name="ProductVariants[${index}].Sku" value="${variant.Sku ?? ''}" /></td>
         <td><input type="number" class="form-control" name="ProductVariants[${index}].VariantPrice" value="${variant.VariantPrice ?? 0}" /></td>
         <td><input type="number" class="form-control" name="ProductVariants[${index}].VariantStock" value="${variant.VariantStock ?? 0}" /></td>
         <td class="text-center">
