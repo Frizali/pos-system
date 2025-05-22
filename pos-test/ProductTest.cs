@@ -35,8 +35,6 @@ namespace pos_test
         {
             var crudCategoryRepo = new CrudRepo<TblProductCategory>(_context);
             var crudProductRepo = new CrudRepo<TblProduct>(_context);
-            var crudVariantGroupRepo = new CrudRepo<TblVariantGroup>(_context);
-            var crudOrderNumberRepo = new CrudRepo<TblOrderNumberTracker>(_context);
             var categoryRepo = new ProductCategoryRepo(_context, null, crudCategoryRepo);
             var productRepo = new ProductRepo(_context, null, crudProductRepo);
             var variantGroupRepo = new VariantGroupRepo(null);
@@ -55,7 +53,7 @@ namespace pos_test
         [Test]
         public async Task Add_ProductWithoutVariant_ShouldBeAdded()
         {
-            ProductFormModel data = new ProductFormModel
+            ProductFormModel data = new()
             {
                 Product = new TblProduct
                 {

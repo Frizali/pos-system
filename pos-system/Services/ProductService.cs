@@ -66,14 +66,17 @@ namespace pos_system.Services
         {
             if (productImage != null && productImage.Length > 0)
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await productImage.CopyToAsync(memoryStream);
-                    byte[] imageData = memoryStream.ToArray();
+                int maxSize = 400 * 1024;
 
-                    data.Product.ProductImage = Convert.ToBase64String(imageData);
-                    data.Product.ImageType = Path.GetExtension(productImage.FileName)?.ToLower();
-                }
+                if (productImage.Length > maxSize)
+                    throw new Exception("Image size exceeds the maximum limit of 400KB.");
+
+                using var memoryStream = new MemoryStream();
+                await productImage.CopyToAsync(memoryStream);
+                byte[] imageData = memoryStream.ToArray();
+
+                data.Product.ProductImage = Convert.ToBase64String(imageData);
+                data.Product.ImageType = Path.GetExtension(productImage.FileName)?.ToLower();
             }
         }
 
@@ -94,11 +97,11 @@ namespace pos_system.Services
             if(data.ProductVariants is not null && data.ProductVariants.Count > 0 && data.VariantGroups is not null && data.VariantGroups.Count > 0)
             {
                 var variantOptionSplit = data.ProductVariants.Select(x => x.Sku.Split("-")).ToList();
-                var totalVariant = variantOptionSplit.Select(x => x).Count();
+                var totalVariant = variantOptionSplit.First().Count();
 
                 for (var i = 0; i < totalVariant; i++)
                 {
-                    var variantOption = variantOptionSplit.Select(x => x[i]).Distinct().ToList();
+                    var variantOption = variantOptionSplit.Select(x => x[i].Trim()).Distinct().ToList();
                     var variantGroup = data.VariantGroups[i];
                     var variantGroupId = variantGroup.GroupId;
 
