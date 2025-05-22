@@ -63,13 +63,13 @@ namespace pos_system.Controllers
 
             await _productService.EditProduct(data);
 
-            return RedirectToAction("ProductList");
+            return RedirectToAction("EditData", new { id = data.Product.ProductId });
         }
 
-        public async Task<IActionResult> EditProductModal(string id)
+        public async Task<IActionResult> EditData(string id)
         {
-            var product = await _productService.EditProductModal(id).ConfigureAwait(false);
-            return PartialView("_EditProductForm", product);
+            var product = await _productService.EditData(id).ConfigureAwait(false);
+            return PartialView("Edit", product);
         }
     }
 }

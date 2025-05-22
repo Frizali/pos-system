@@ -36,7 +36,7 @@
                                 <div>
                                     <h6 class="card-title m-0">@item.ProductName</h6>
                                     <p class="text-muted m-0">@item.Category.CategoryName</p>
-@*                                     <b>
+                                    <b>
                                         <p class="card-text">
                                             @{
                                                 var priceText = String.Empty;
@@ -65,13 +65,13 @@
                                             }
                                             @priceText
                                         </p>
-                                    </b> *@
+                                    </b>
                                 </div>
                             </div>
                             <div class="text-end pe-2 pb-2">
-                                <button type="button" class="btn btn-sm btn-primary btn-edit-product" data-product-id="@item.ProductId">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
+                                <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="btn btn-sm btn-warning mt-2">
+                                    Edit
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -119,38 +119,6 @@
         </div>
     </div>
 </form>
-
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content modal-menu border-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="editProductModalBody">
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).on('click', '.btn-edit-product', function () {
-        var productId = $(this).data('product-id');
-
-        $.ajax({
-            url: '/Product/EditProductModal',
-            type: 'GET',
-            data: { id: productId },
-            success: function (result) {
-                $('#editProductModalBody').html(result);
-                $('#editProductModal').modal('show');
-            },
-            error: function () {
-                alert('Gagal memuat data produk.');
-            }
-        });
-    });
-</script>
 
 <script>
     const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.ProductVariants).Select(v => new

@@ -79,7 +79,7 @@ namespace pos_system.Services
             if(data.ProductVariants is not null && data.ProductVariants.Count > 0 && data.VariantGroups is not null && data.VariantGroups.Count > 0)
             {
                 var variantOptionSplit = data.ProductVariants.Select(x => x.Sku.Split("-")).ToList();
-                var totalVariant = variantOptionSplit.Select(x => x).Count();
+                var totalVariant = variantOptionSplit.First().Count();
 
                 for (var i = 0; i < totalVariant; i++)
                 {
@@ -114,9 +114,9 @@ namespace pos_system.Services
             await _productRepo.EditProduct(data).ConfigureAwait(false);
         }
 
-        public async Task<ProductFormModel> EditProductModal(string id)
+        public async Task<ProductFormModel> EditData(string id)
         {
-            return await _productRepo.EditProductModal(id).ConfigureAwait(false);
+            return await _productRepo.EditData(id).ConfigureAwait(false);
         }
     }
 }
