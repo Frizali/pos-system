@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pos-system", "pos-system\pos-system.csproj", "{0359986E-C0E7-41C7-997B-BB33DBC1D652}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pos-test", "pos-test\pos-test.csproj", "{C75C9359-2AB2-452C-ACE7-73C0A74E3301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0359986E-C0E7-41C7-997B-BB33DBC1D652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0359986E-C0E7-41C7-997B-BB33DBC1D652}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0359986E-C0E7-41C7-997B-BB33DBC1D652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

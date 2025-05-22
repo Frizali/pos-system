@@ -52,14 +52,32 @@ namespace pos_system.Services
             };
         }
 
-        public async Task Save(ProductFormModel data)
+        public async Task Save(ProductFormModel data, IFormFile? productImage)
         {
-            data.Product.ProductId = Guid.NewGuid().ToString();
             data.Product.ProductCode = Unique.GenerateCode(data.Product.ProductName,codeLength);
             SetVariant(data);
 
+            await SetImage(data, productImage).ConfigureAwait(false);
             await _productRepo.GetRepo().Add(data.Product).ConfigureAwait(false);
             await SetVariantOptions(data).ConfigureAwait(false);
+        }
+
+        private static async Task SetImage(ProductFormModel data, IFormFile? productImage)
+        {
+            if (productImage != null && productImage.Length > 0)
+            {
+                int maxSize = 400 * 1024;
+
+                if (productImage.Length > maxSize)
+                    throw new Exception("Image size exceeds the maximum limit of 400KB.");
+
+                using var memoryStream = new MemoryStream();
+                await productImage.CopyToAsync(memoryStream);
+                byte[] imageData = memoryStream.ToArray();
+
+                data.Product.ProductImage = Convert.ToBase64String(imageData);
+                data.Product.ImageType = Path.GetExtension(productImage.FileName)?.ToLower();
+            }
         }
 
         private static void SetVariant(ProductFormModel data)
@@ -83,7 +101,7 @@ namespace pos_system.Services
 
                 for (var i = 0; i < totalVariant; i++)
                 {
-                    var variantOption = variantOptionSplit.Select(x => x[i]).Distinct().ToList();
+                    var variantOption = variantOptionSplit.Select(x => x[i].Trim()).Distinct().ToList();
                     var variantGroup = data.VariantGroups[i];
                     var variantGroupId = variantGroup.GroupId;
 
@@ -109,8 +127,9 @@ namespace pos_system.Services
             return await _productRepo.ProductDetailByID(id).ConfigureAwait(false);
         }
 
-        public async Task EditProduct(ProductFormModel data)
+        public async Task EditProduct(ProductFormModel data, IFormFile? productImage)
         {
+            await SetImage(data, productImage).ConfigureAwait(false);
             await _productRepo.EditProduct(data).ConfigureAwait(false);
         }
 
