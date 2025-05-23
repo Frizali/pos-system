@@ -5,7 +5,7 @@
 @using Newtonsoft.Json
 
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
 @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.Product.ProductId)

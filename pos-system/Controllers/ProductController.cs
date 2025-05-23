@@ -45,7 +45,7 @@ namespace pos_system.Controllers
         public async Task<IActionResult> EditData(string id)
         {
             var product = await _productService.EditData(id).ConfigureAwait(false);
-            return PartialView("Edit", product);
+            return View("Edit", product);
         }
     }
 }
