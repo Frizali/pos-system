@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pos-system", "pos-system\po
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pos-test", "pos-test\pos-test.csproj", "{C75C9359-2AB2-452C-ACE7-73C0A74E3301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pos-report", "pos-report\pos-report.csproj", "{8E49FB77-0364-45E7-ABF6-5B908031610E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C75C9359-2AB2-452C-ACE7-73C0A74E3301}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E49FB77-0364-45E7-ABF6-5B908031610E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E49FB77-0364-45E7-ABF6-5B908031610E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E49FB77-0364-45E7-ABF6-5B908031610E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E49FB77-0364-45E7-ABF6-5B908031610E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
