@@ -28,6 +28,8 @@ namespace pos_system.Services
 
             return new DashboardViewModel()
             {
+                FromDate = fromDate,
+                ToDate = toDate,
                 SalesAnalytics = new SalesAnalytics()
                 {
                     TotalSalesAmount = decimal.Round(totalSalesAmount, 0),

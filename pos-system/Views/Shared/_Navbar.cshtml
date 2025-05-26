@@ -14,11 +14,19 @@
                 var formattedDate = currentDate.ToString("ddd, dd MMMM yyyy");
                 var formattedTime = currentDate.ToString("hh:mm tt");
             }
-            <div class="d-flex gap-3 align-items-center py-2 ps-2 pe-3 circle-con">
-                <div class="rounded-circle circle-wrapper">
-                    <i class="bi bi-calendar text-primary"></i>
+            <div class="d-flex gap-3">
+                <div class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con" role="button" id="download-report">
+                    <p class="m-0">Download</p>
+                    <div class="rounded-circle circle-wrapper bg-primary">
+                        <i class="bi bi-download text-white"></i>
+                    </div>
                 </div>
-                <p class="m-0">@formattedDate</p>
+                <div class="d-flex gap-3 align-items-center py-2 ps-2 pe-3 circle-con">
+                    <div class="rounded-circle circle-wrapper">
+                        <i class="bi bi-calendar text-primary"></i>
+                    </div>
+                    <p class="m-0">@formattedDate</p>
+                </div>
             </div>
             <div>
                 -

@@ -2,6 +2,8 @@
 {
     public class DashboardViewModel
     {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
         public SalesAnalytics SalesAnalytics { get; set; } = new();
         public ChartViewModel Chart { get; set; } = new();
         public List<FavoriteProduct> FavoriteProducts { get; set; } = new();
