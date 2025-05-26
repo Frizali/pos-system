@@ -1,0 +1,174 @@
+﻿@model ProductFormModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+@using Newtonsoft.Json
+
+<link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
+
+@using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.Product.ProductId)
+
+    <div class="container d-flex flex-column gap-2">
+        <div class="card border-0">
+            <div class="card-body">
+                <h5 class="card-title">Product Information</h5>
+                <hr />
+                <div class="d-flex flex-column gap-2">
+                    <input type="hidden" name="Product.ProductImage" value="@Model.Product.ProductImage" />
+                    <input type="hidden" name="Product.ImageType" value="@Model.Product.ImageType" />
+                    <div>
+                        <label for="name" class="form-label">Product Name*</label>
+                        <input class="form-control" id="name" name="Product.ProductName" value="@Model.Product.ProductName" />
+                    </div>
+                    <div>
+                        <label for="description" class="form-label">Product Description</label>
+                        <textarea class="form-control" id="description" name="Product.ProductDescription">@Model.Product.ProductDescription</textarea>
+                    </div>
+                    <div>
+                        <label for="category" class="form-label">Product Category*</label>
+                        <select class="form-select" aria-label="Product Category" id="category" name="Product.CategoryID">
+                            <option selected>Open this select menu</option>
+                            @foreach (var cat in Model.ProductCategories)
+                            {
+                                <option value="@cat.CategoryId" selected="@(cat.CategoryId == Model.Product.CategoryId)">
+                                    @cat.CategoryName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Current Image</label><br />
+                        @if (!string.IsNullOrEmpty(Model.Product.ProductImage))
+                        {
+                            <img src="data:image/@Model.Product.ImageType;base64,@Model.Product.ProductImage" alt="Product Image" width="200" />
+                        }
+                        else
+                        {
+                            <p><em>No image uploaded</em></p>
+                        }
+                    </div>
+                    <div>
+                        <label for="productImage" class="form-label">Upload New Image</label>
+                        <input type="file" class="form-control" id="productImage" name="ProductImage" accept="image/*" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0" id="product-management" @(Model.ProductVariants?.Any() == true ? "style=\"display:none\"" : "")>
+            <div class="card-body">
+                <h5 class="card-title">Product Management</h5>
+                <hr />
+                <div class="d-flex flex-column gap-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="isAvailable" name="Product.IsAvailable" @(Model.Product.IsAvailable ? "checked" : "") />
+                        <label class="form-check-label" for="isAvailable">Status Product</label>
+                    </div>
+                    <div>
+                        <label for="stock" class="form-label">Product Stock</label>
+                        <input type="number" class="form-control" id="stock" name="Product.ProductStock" value="@Model.Product.ProductStock">
+                    </div>
+                    <div>
+                        <label for="product-price" class="form-label">Product Price</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">Rp</span></div>
+                            <input type="text" class="form-control product-price" id="product-price" name="Product.Price" value="@Model.Product.Price">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title m-0">Variant Product</h5>
+                        <p class="card-text">Add a selection of product variants here.</p>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="hasVariant" @(Model.ProductVariants?.Any() == true ? "checked" : "") />
+                        <label class="form-check-label" for="hasVariant">Has Variant</label>
+                    </div>
+                </div>
+                <hr />
+                <div id="variant">
+                    <a class="btn btn-outline-primary" id="newVariant">Add Variant</a>
+                    <div id="variant-container" class="d-flex flex-column gap-2">
+                        <!-- JavaScript will populate this -->
+                    </div>
+                    <table class="table table-variant">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Variant Price</th>
+                                <th>Variant Stock</th>
+                                <th>Limited Stock</th>
+                                <th>Available</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-variant-body">
+                            <!-- JavaScript will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title m-0">Add-On Product</h5>
+                        <p class="card-text">Add complementary product options.</p>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="hasAddons" @(Model.ProductAddons?.Any() == true ? "checked" : "") />
+                        <label class="form-check-label" for="hasAddons">Has Addons</label>
+                    </div>
+                </div>
+                <hr />
+                <div id="addons">
+                    <a class="btn btn-outline-primary" id="newAddon">Addons</a>
+                    <table class="table table-addons">
+                        <thead>
+                            <tr>
+                                <th>Addon Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Limited</th>
+                                <th>Available</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-addons-body">
+                            <!-- JavaScript will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100">
+            <button class="btn btn-primary w-100" type="submit">Update Product</button>
+        </div>
+    </div>
+}
+
+<script>
+    const productVariants = @Html.Raw(JsonConvert.SerializeObject(Model.ProductVariants, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        }));
+
+    const productAddons = @Html.Raw(JsonConvert.SerializeObject(Model.ProductAddons, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        }));
+</script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script asp-append-version="true" src="~/Views/Product/Edit.cshtml.js"></script>

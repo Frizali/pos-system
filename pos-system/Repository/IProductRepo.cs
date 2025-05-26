@@ -9,6 +9,6 @@ namespace pos_system.Repository
         Task<List<ProductDTO>> ProductDetailsDTO();
         Task<TblProduct> ProductDetailByID(string id);
         Task EditProduct(ProductFormModel data);
-        Task<ProductFormModel> EditProductModal(string id);
+        Task<ProductFormModel> EditData(string id);
     }
 }

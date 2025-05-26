@@ -2,7 +2,7 @@
 {
     public class ProductFormModel
     {
-        public TblProduct Product { get; set; }
+        public TblProduct Product { get; set; } = new();
         public List<TblVariantGroup>? VariantGroups { get; set; } = [];
         public List<TblVariantOption>? VariantOptions { get; set; } = [];
         public List<TblProductCategory> ProductCategories { get; set; } = [];

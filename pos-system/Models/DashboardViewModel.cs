@@ -2,6 +2,8 @@
 {
     public class DashboardViewModel
     {
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
         public SalesAnalytics SalesAnalytics { get; set; } = new();
         public ChartViewModel Chart { get; set; } = new();
         public List<FavoriteProduct> FavoriteProducts { get; set; } = new();
@@ -23,8 +25,8 @@
 
     public class FavoriteProduct
     {
-        public string ProductName { get; set; }
-        public string CategoryName { get; set; }
-        public int TotalOrder { get; set; }
+        public string ProductName { get; set; } = String.Empty;
+        public string CategoryName { get; set; } = String.Empty;
+        public int TotalOrder { get; set; } = 0;
     }
 }

@@ -8,13 +8,23 @@
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
 <div class="container">
-    <div class="d-flex align-items-center bg-white rounded gap-3 p-2 mb-3">
-        <label class="label-text">Date Periode:</label>
-        <div class="input-group bg-white" style="width:20%">
-            <input id="dateRange" type="text" class="form-control search-input bg-light" placeholder="Monthly" style="border-radius: 50px 0 0 50px;" readonly>
-            <span class="input-group-text search-input-icon">
-                <i class="bi bi-calendar4-range search-icon"></i>
-            </span>
+    <div class="d-flex align-items-center justify-content-between bg-white rounded gap-3 p-2 mb-3">
+        <div class="d-flex align-items-center gap-3">
+            <label class="label-text">Date Periode:</label>
+            <div class="input-group bg-white" style="width:50%">
+                <input id="dateRange" type="text" class="form-control search-input bg-light" placeholder="Monthly" style="border-radius: 50px 0 0 50px;" readonly>
+                <span class="input-group-text search-input-icon">
+                    <i class="bi bi-calendar4-range search-icon"></i>
+                </span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <label class="label-text">Report:</label>
+            <select class="form-select" aria-label="Default select example" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);" id="report-name" name="ReportName">
+                <option value="Sales Analytics">Sales Analytics</option>
+                <option value="Order Detail">Order Detail</option>
+                <option value="Favorite Product">Favorite Product</option>
+            </select>
         </div>
     </div>
     <div class="row g-3 mb-3">
@@ -152,6 +162,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+    var fromDateA = @Html.Raw(Json.Serialize(Model.FromDate));
+    var toDateA = @Html.Raw(Json.Serialize(Model.ToDate));
+
     const pad = (num) => num.toString().padStart(2, '0');
 
     const formatDate = (date) => {
@@ -160,6 +174,27 @@
         const day = pad(date.getDate());
         return `${year}-${month}-${day}`;
     };
+
+    $("#download-report").on("click", function () {
+        const reportName = $("#report-name").val();
+        const fromDate = fromDateA || formatDate(new Date());
+        const toDate = toDateA || formatDate(new Date());
+
+        console.log({ FromDate: fromDate, ToDate: toDate, ReportName: reportName })
+
+        fetch('/Dashboard/DownloadReport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ FromDate: fromDate, ToDate: toDate, ReportName: reportName })
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        });
+    });
 
     $(document).ready(function () {
         flatpickr("#dateRange", {
@@ -170,10 +205,10 @@
             allowInput: false,
             onChange: function (selectedDates) {
                 if (selectedDates.length === 2) {
-                    const fromDate = formatDate(selectedDates[0]);
-                    const toDate = formatDate(selectedDates[1]);
+                    const currFromDate = formatDate(selectedDates[0]);
+                    const currToDate = formatDate(selectedDates[1]);
 
-                    window.location.href = `/Dashboard/Index?fromDate=${fromDate}&toDate=${toDate}`;
+                    window.location.href = `/Dashboard/Index?fromDate=${currFromDate}&toDate=${currToDate}`;
                 }
             }
         });
