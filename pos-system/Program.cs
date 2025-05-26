@@ -24,6 +24,7 @@ builder.Services.AddScoped<IOrderNumberTrackerRepo, OrderNumberTrackerRepo>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IProductVariantRepo, ProductVariantRepo>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
