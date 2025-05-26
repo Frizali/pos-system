@@ -20,9 +20,25 @@ namespace pos_system.Services
                 toDate = new DateTime(year, month, DateTime.Now.Day).ToString("yyyy-MM-dd");
             }
 
+            var fromDateDt = DateTime.Parse(fromDate);
+            var toDateDt = DateTime.Parse(toDate);
+
+            var duration = (toDateDt - fromDateDt).Days + 1;
+
+            var previousFromDate = fromDateDt.AddDays(-duration).ToString("yyyy-MM-dd");
+            var previousToDate = toDateDt.AddDays(-duration).ToString("yyyy-MM-dd");
+
+            //Current period analytics
             var totalSalesAmount = await _orderRepo.GetTotalSalesAmount(fromDate, toDate);
             var totalProductSales = await _orderRepo.GetTotalProductSales(fromDate, toDate);
             var totalCustomers = await _orderRepo.GetTotalCustomers(fromDate, toDate);
+
+            //Previous period analytics 
+            var prevTotalSalesAmount = await _orderRepo.GetTotalSalesAmount(previousFromDate, previousToDate);
+            var prevTotalProductSales = await _orderRepo.GetTotalProductSales(previousFromDate, previousToDate);
+            var prevTotalCustomers = await _orderRepo.GetTotalCustomers(previousFromDate, previousToDate);
+
+
             var orders = await _orderRepo.GetOrdersByDate(fromDate, toDate);
             var productDTOs = await _productRepo.ProductDetailsDTO();
 
@@ -32,9 +48,28 @@ namespace pos_system.Services
                 ToDate = toDate,
                 SalesAnalytics = new SalesAnalytics()
                 {
-                    TotalSalesAmount = decimal.Round(totalSalesAmount, 0),
-                    TotalProductSales = totalProductSales,
-                    TotalCustomers = totalCustomers
+                    TotalSalesAmount = new TotalSalesAmount()
+                    {
+                        Amount = decimal.Round(totalSalesAmount, 0),
+                        IsGrowth = totalSalesAmount > prevTotalSalesAmount,
+                        GrowthAmount = Math.Abs(decimal.Round(totalSalesAmount - prevTotalSalesAmount, 0)),
+                        GrowthPercentage = Math.Abs(prevTotalSalesAmount == 0 ? 0 : decimal.Round((totalSalesAmount - prevTotalSalesAmount) / prevTotalSalesAmount * 100, 2))
+                    },
+                    TotalProductSales = new TotalProductSales()
+                    {
+                        Amount = totalProductSales,
+                        IsGrowth = totalProductSales > prevTotalProductSales,
+                        GrowthAmount = Math.Abs(totalProductSales - prevTotalProductSales),
+                        GrowthPercentage = Math.Abs(prevTotalProductSales == 0 ? 0 : decimal.Round((totalProductSales - prevTotalProductSales) / prevTotalProductSales * 100, 2))
+                    },
+                    TotalCustomers = new TotalCustomers()
+                    {
+                        Amount = totalCustomers,
+                        IsGrowth = totalCustomers > prevTotalCustomers,
+                        GrowthAmount = Math.Abs(totalCustomers - prevTotalCustomers),
+                        GrowthPercentage = Math.Abs(prevTotalCustomers == 0 ? 0 : decimal.Round((totalCustomers - prevTotalCustomers) / prevTotalCustomers * 100, 2))
+                    }
+
                 },
                 Chart = GetChartViewModel(fromDate, toDate, orders),
                 FavoriteProducts = GetFavoriteProduct(orders, productDTOs)

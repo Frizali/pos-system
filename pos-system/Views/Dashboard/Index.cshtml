@@ -38,8 +38,32 @@
                         <span class="card-title mb-0">Total Sales Amount</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">@Model.SalesAnalytics.TotalSalesAmount</h2>
-                        <span class="card-unit">Rupiah</span>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalSalesAmount.Amount</h2>
+                        <span class="card-unit">IDR</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="@(Model.SalesAnalytics.TotalSalesAmount.IsGrowth? "pill-wrapper-success-left" : "pill-wrapper-danger-left")">
+                            @if (Model.SalesAnalytics.TotalSalesAmount.IsGrowth)
+                            {
+                                <i class="bi bi-plus" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-dash" style="font-size:.8rem"></i>
+                            }
+                            Rp @Model.SalesAnalytics.TotalSalesAmount.GrowthAmount
+                        </div>
+                        <div class="@(Model.SalesAnalytics.TotalSalesAmount.IsGrowth? "pill-wrapper-success-right" : "pill-wrapper-danger-right")">
+                            @Model.SalesAnalytics.TotalSalesAmount.GrowthPercentage%
+                            @if (Model.SalesAnalytics.TotalSalesAmount.IsGrowth)
+                            {
+                                <i class="bi bi-arrow-up" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-down" style="font-size:.8rem"></i>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,9 +79,33 @@
                         <span class="card-title mb-0">Total Product Sales</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">@Model.SalesAnalytics.TotalProductSales</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalProductSales.Amount</h2>
                         <span class="card-unit">Items</span>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="@(Model.SalesAnalytics.TotalProductSales.IsGrowth? "pill-wrapper-success-left" : "pill-wrapper-danger-left")">
+                            @if (Model.SalesAnalytics.TotalProductSales.IsGrowth)
+                            {
+                                <i class="bi bi-plus" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-dash" style="font-size:.8rem"></i>
+                            }
+                            @Model.SalesAnalytics.TotalProductSales.GrowthAmount Items
+                        </div>
+                        <div class="@(Model.SalesAnalytics.TotalProductSales.IsGrowth? "pill-wrapper-success-right" : "pill-wrapper-danger-right")">
+                            @Model.SalesAnalytics.TotalProductSales.GrowthPercentage%
+                            @if (Model.SalesAnalytics.TotalProductSales.IsGrowth)
+                            {
+                                <i class="bi bi-arrow-up" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-down" style="font-size:.8rem"></i>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,9 +120,33 @@
                         <span class="card-title mb-0">Total Customers</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers.Amount</h2>
                         <span class="card-unit">Persons</span>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-left" : "pill-wrapper-danger-left")">
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-plus" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-dash" style="font-size:.8rem"></i>
+                            }
+                            @Model.SalesAnalytics.TotalCustomers.GrowthAmount Persons
+                        </div>
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-right" : "pill-wrapper-danger-right")">
+                            @Model.SalesAnalytics.TotalCustomers.GrowthPercentage%
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-arrow-up" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-down" style="font-size:.8rem"></i>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +161,7 @@
                         <span class="card-title mb-0">Total Customers</span>
                     </div>
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
-                        <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers</h2>
+                        <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers.Amount</h2>
                         <span class="card-unit">Persons</span>
                     </div>
                 </div>

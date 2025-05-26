@@ -13,6 +13,64 @@
     background-color: white;
 }
 
+
+.pill-wrapper-success-left {
+    column-gap:.1rem;
+    font-size: .8rem;
+    color: #328572;
+    width: max-content;
+    height: 28px;
+    padding: 0 .7rem 0 .5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(28, 135, 48, .05);
+}
+
+
+.pill-wrapper-success-right {
+    column-gap: .1rem;
+    font-size: .8rem;
+    color: #328572;
+    width: max-content;
+    height: 28px;
+    padding: 0 .5rem 0 .7rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(28, 135, 48, .05);
+}
+
+.pill-wrapper-danger-left {
+    column-gap: .1rem;
+    font-size: .8rem;
+    color: #FC4A4A;
+    width: max-content;
+    height: 28px;
+    padding: 0 .7rem 0 .5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(252, 74, 74, .1);
+}
+
+.pill-wrapper-danger-right {
+    column-gap: .1rem;
+    font-size: .8rem;
+    color: #FC4A4A;
+    width: max-content;
+    height: 28px;
+    padding: 0 .5rem 0 .7rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(252, 74, 74, .1);
+}
+
 .search-input {
     border: 0;
     padding: 1rem;

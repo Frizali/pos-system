@@ -11,9 +11,33 @@
 
     public class SalesAnalytics
     {
-        public decimal TotalSalesAmount { get; set; } = 0;  
-        public int TotalProductSales { get; set; } = 0;
-        public int TotalCustomers { get; set; } = 0;
+        public TotalSalesAmount TotalSalesAmount { get; set; } = new();
+        public TotalProductSales TotalProductSales { get; set; } = new();
+        public TotalCustomers TotalCustomers { get; set; } = new();
+    }
+
+    public class TotalSalesAmount
+    {
+        public decimal Amount { get; set; } = 0;
+        public bool IsGrowth { get; set; } = false;
+        public decimal GrowthAmount { get; set; } = 0;
+        public decimal GrowthPercentage { get; set; } = 0;
+    }
+
+    public class TotalProductSales
+    {
+        public decimal Amount { get; set; } = 0;
+        public bool IsGrowth { get; set; } = false;
+        public decimal GrowthAmount { get; set; } = 0;
+        public decimal GrowthPercentage { get; set; } = 0;
+    }
+
+    public class TotalCustomers
+    {
+        public decimal Amount { get; set; } = 0;
+        public bool IsGrowth { get; set; } = false;
+        public decimal GrowthAmount { get; set; } = 0;
+        public decimal GrowthPercentage { get; set; } = 0;
     }
 
     public class ChartViewModel
