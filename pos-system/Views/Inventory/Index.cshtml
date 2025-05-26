@@ -1,0 +1,207 @@
+﻿@using System.Globalization
+@model List<pos_system.Models.InventoryViewModel>
+
+@{
+    ViewData["Title"] = "Inventory Barang";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+<style>
+     .custom-card {
+         background-color: #ffffff;
+         border-radius: 10px;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+         padding: 20px;
+         border: 1px solid #f0f0f0;
+     }
+
+     .table thead th {
+         background-color: #f9fafc;
+         color: #4a4a4a;
+         font-weight: 600;
+     }
+
+     .table td, .table th {
+         vertical-align: middle;
+     }
+
+     .btn-custom {
+         border-radius: 8px;
+         padding: 4px 12px;
+         font-size: 0.875rem;
+     }
+
+     .btn-add {
+         background-color: #d3f0ff;
+         color: #000;
+         border: 1px solid #c2e4f3;
+     }
+
+     .btn-inout {
+         background-color: #e0fce0;
+         color: #14532d;
+         border: 1px solid #b2f2bb;
+     }
+
+     .btn-pdf {
+         background-color: #ffe7cc;
+         color: #8a4f00;
+         border: 1px solid #ffc080;
+     }
+
+     .btn-excel {
+         background-color: #e6f4ea;
+         color: #196f3d;
+         border: 1px solid #b7dfc6;
+     }
+
+     .btn-edit {
+         background-color: #fff5cc;
+         color: #856404;
+         border: 1px solid #ffeeba;
+     }
+
+     .btn-delete {
+         background-color: #ffe5e5;
+         color: #a10000;
+         border: 1px solid #ffcccc;
+     }
+</style>
+
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #333;">Inventory Barang</h2>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-add btn-custom" asp-action="AddInventory">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Barang
+            </a>
+            <button type="button" class="btn btn-inout btn-custom" data-bs-toggle="modal" data-bs-target="#inOutModal">
+                <i class="bi bi-arrow-left-right me-1"></i> IN / OUT
+            </button>
+
+            <a class="btn btn-pdf btn-custom" asp-action="ExportPdf">
+                <i class="bi bi-file-earmark-pdf me-1"></i> Export to PDF
+            </a>
+            <a class="btn btn-excel btn-custom" asp-action="ExportExcel">
+                <i class="bi bi-file-earmark-excel me-1"></i> Export to Excel
+            </a>
+        </div>
+    </div>
+
+    <form asp-action="Index" method="get" class="row mb-4">
+        <div class="col-md-6 mb-2">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Cari nama barang..."
+                   value="" />
+        </div>
+        <div class="col-md-4 mb-2">
+            <select name="category" class="form-select">
+                <option value="">Semua Kategori</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-2">
+            <button type="submit" class="btn btn-secondary w-100"><i class="bi bi-search"></i> Filter</button>
+        </div>
+    </form>
+
+    <div class="custom-card">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-center">
+                        <th>Nama Barang</th>
+                        <th>Kategori</th>
+                        <th>Unit</th>
+                        <th>Harga</th>
+                        <th>Note</th>
+                        <th style="width: 180px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.NamaBarang</td>
+                                <td>@item.Kategori</td>
+                                <td class="text-center">@item.Unit</td>
+                                <td>@item.Harga.ToString("C0", new CultureInfo("id-ID"))</td>
+                                <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
+                                <td class="text-center">
+                                    <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@item.Id">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Yakin ingin menghapus barang ini?');">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-info-circle"></i> Tidak ada barang di inventory.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="inOutModal" tabindex="-1" aria-labelledby="inOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inOutModalLabel">Update Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @* Form Update Stock *@
+                <form asp-action="UpdateStock" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input class="form-control" name="ProductName" value="Ayam" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product Category</label>
+                        <input class="form-control" name="ProductCategory" value="Mentah" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Unit</label>
+                        <input class="form-control" name="Unit" value="kg" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input class="form-control" name="Price" value="35000" disabled />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Update Stock</label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(-1)">-</button>
+                            <input type="number" class="form-control text-center" name="Stock" id="stockInput" value="0" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(1)">+</button>
+                        </div>
+                        <small class="form-text text-muted">Gunakan angka positif untuk menambah dan negatif untuk mengurangi stok.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Remark / Note</label>
+                        <textarea class="form-control" name="Note" rows="2"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
