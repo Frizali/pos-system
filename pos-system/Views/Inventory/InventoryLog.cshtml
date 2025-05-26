@@ -1,0 +1,177 @@
+﻿@model List<pos_system.Models.InventoryLogViewModel>
+@{
+    ViewData["Title"] = "Riwayat Stock Barang";
+    var products = ViewBag.Products as List<string>;
+    var categories = ViewBag.Categories as List<string>;
+    int no = 1;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+<style>
+    .custom-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        padding: 20px;
+        border: 1px solid #f0f0f0;
+    }
+
+    .table thead th {
+        background-color: #f9fafc;
+        color: #4a4a4a;
+        font-weight: 600;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .btn-custom {
+        border-radius: 8px;
+        padding: 4px 12px;
+        font-size: 0.875rem;
+    }
+
+    .btn-add {
+        background-color: #d3f0ff;
+        color: #000;
+        border: 1px solid #c2e4f3;
+    }
+
+    .btn-inout {
+        background-color: #e0fce0;
+        color: #14532d;
+        border: 1px solid #b2f2bb;
+    }
+
+    .btn-pdf {
+        background-color: #ffe7cc;
+        color: #8a4f00;
+        border: 1px solid #ffc080;
+    }
+
+    .btn-excel {
+        background-color: #e6f4ea;
+        color: #196f3d;
+        border: 1px solid #b7dfc6;
+    }
+
+    .btn-edit {
+        background-color: #fff5cc;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    .btn-delete {
+        background-color: #ffe5e5;
+        color: #a10000;
+        border: 1px solid #ffcccc;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="fw-bold" style="color: #333;">Riwayat Stock Barang</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <div class="d-flex gap-2">
+            <a class="btn btn-pdf btn-custom" asp-action="ExportPdf">
+                <i class="bi bi-file-earmark-pdf me-1"></i> Export to PDF
+            </a>
+            <a class="btn btn-excel btn-custom" asp-action="ExportExcel">
+                <i class="bi bi-file-earmark-excel me-1"></i> Export to Excel
+            </a>
+        </div>
+    </div>
+
+    <form method="get" asp-action="InventoryLog" class="row g-2 mb-4">
+        <div class="col-md-3">
+            <select name="productName" class="form-select">
+                <option value="">Semua Produk</option>
+                @foreach (var p in products)
+                {
+                    <option value="@p">@p</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="category" class="form-select">
+                <option value="">Semua Kategori</option>
+                @foreach (var c in categories)
+                {
+                    <option value="@c">@c</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="date" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select">
+                <option>Bulan</option>
+                @for (int m = 1; m <= 12; m++)
+                {
+                    <option value="@m">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-1">
+            <select name="year" class="form-select">
+                <option value="">Tahun</option>
+                @for (int y = DateTime.Now.Year; y >= 2020; y--)
+                {
+                    <option value="@y">@y</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2 mb-2">
+            <button type="submit" class="btn btn-secondary w-100"><i class="bi bi-search"></i> Filter</button>
+        </div>
+    </form>
+
+  <div class="custom-card"> 
+    <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-0">
+            <thead class="table-light text-center">
+                <tr>
+                    <th style="width:50px;">No</th>
+                    <th>Nama Barang</th>
+                    <th>Kategori</th>
+                    <th>Stock In</th>
+                    <th>Stock Out</th>
+                    <th>Remark / Note</th>
+                    <th>Inputed By</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@no</td>
+                            <td>@item.NamaBarang</td>
+                            <td>@item.Kategori</td>
+                            <td class="text-success text-center">@item.StockIn</td>
+                            <td class="text-danger text-center">@item.StockOut</td>
+                            <td>@item.Note</td>
+                            <td>@item.InputedBy</td>
+                            <td>@item.CreatedAt.ToString("dd MMM yyyy HH:mm")</td>
+                        </tr>
+                        no++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">
+                            <i class="bi bi-info-circle"></i> Tidak ada data.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>

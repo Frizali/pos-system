@@ -1,0 +1,65 @@
+﻿@model ProductFormModel
+@{
+    ViewData["Title"] = "Add Inventory Item";
+}
+
+<link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
+    <div class="container d-flex flex-column gap-3">
+        <div class="card border-0">
+            <div class="card-body">
+                <h5 class="card-title">Inventory Form</h5>
+                <hr />
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nama Barang *</label>
+                    <input class="form-control" id="name" name="Product.ProductName" placeholder="Contoh: Tepung Terigu" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Kategori Barang *</label>
+                    <select class="form-select" id="category" name="Product.CategoryName" required>
+                        <option selected disabled>Pilih kategori</option>
+                        <option value="Barang Mentah">Barang Mentah</option>
+                        <option value="Barang Jadi">Barang Jadi</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Jumlah Barang *</label>
+                    <input type="number" class="form-control" id="stock" name="Product.ProductStock" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="unit" class="form-label">Unit *</label>
+                    <select class="form-select" id="unit" name="Product.Unit" required>
+                        <option selected disabled>Pilih unit</option>
+                        <option value="Kg">Kg</option>
+                        <option value="Pcs">Pcs</option>
+                        <option value="Gram">Gram</option>
+                        <option value="Liter">Liter</option>
+                        <option value="Kotak">Kotak</option>
+                        <option value="Galon">Galon</option>
+                        <option value="Botol">Botol</option>
+                        <option value="Sacshet">Sacshet</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Harga (Rp) *</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+                        <input type="number" class="form-control" id="price" name="Product.Price" placeholder="Contoh: 5000" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="note" class="form-label">Catatan</label>
+                    <textarea class="form-control" id="note" name="Product.Note" rows="3" placeholder="Contoh: Barang harus disimpan di tempat kering."></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary w-100">Simpan Barang</button>
+                </div>
+            </div>
+        </div>
+    </div>
