@@ -21,3 +21,18 @@ body {
     margin-bottom: 60px;
     font-family: "Urbanist", sans-serif;
 }
+
+.circle-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-con {
+    border-radius: 50px;
+    background-color: white;
+}

@@ -30,13 +30,13 @@ namespace pos_system.Services
 
             //Current period analytics
             var totalSalesAmount = await _orderRepo.GetTotalSalesAmount(fromDate, toDate);
-            var totalProductSales = await _orderRepo.GetTotalProductSales(fromDate, toDate);
-            var totalCustomers = await _orderRepo.GetTotalCustomers(fromDate, toDate);
+            var totalProductSales = (decimal)await _orderRepo.GetTotalProductSales(fromDate, toDate);
+            var totalCustomers = (decimal)await _orderRepo.GetTotalCustomers(fromDate, toDate);
 
             //Previous period analytics 
             var prevTotalSalesAmount = await _orderRepo.GetTotalSalesAmount(previousFromDate, previousToDate);
-            var prevTotalProductSales = await _orderRepo.GetTotalProductSales(previousFromDate, previousToDate);
-            var prevTotalCustomers = await _orderRepo.GetTotalCustomers(previousFromDate, previousToDate);
+            var prevTotalProductSales = (decimal)await _orderRepo.GetTotalProductSales(previousFromDate, previousToDate);
+            var prevTotalCustomers = (decimal)await _orderRepo.GetTotalCustomers(previousFromDate, previousToDate);
 
 
             var orders = await _orderRepo.GetOrdersByDate(fromDate, toDate);
