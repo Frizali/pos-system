@@ -20,8 +20,14 @@ namespace pos_system.Controllers
             if (ModelState.IsValid)
             {
                 await _productService.Save(data, productImage);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
+                data.ProductCategories = viewModel.ProductCategories;
+                return View("Index", data);
+            }
         }
 
         public async Task<IActionResult> ProductList(string? category, string? product)

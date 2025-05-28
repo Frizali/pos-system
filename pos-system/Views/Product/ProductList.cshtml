@@ -27,7 +27,7 @@
             <div class="row g-3">
                 @foreach (var item in Model.Products)
                 {
-                    <div class="col-md-4 col-lg-4 col-sm-12 col-xl-3">
+                    <div class="col-md-4 col-lg-3 col-sm-12 col-xl-2">
                         <div class="card h-100 border-0">
                             <div class="card-body clickable-card d-flex flex-column justify-content-between gap-2 p-2 pb-0" data-id="@item.ProductId" style="cursor: pointer;">
                                 <div>
@@ -178,6 +178,7 @@
         const totalSelected = $('.option-selected').length;
         const orderItemsContainer = $('#order-items');
         const quantity = $('#Quantity').val();
+        const notes = $('#order-notes').val();
 
         if(totalGroups == 0 && totalSelected == 0){
             var productId = $(this).attr('data-prodid');
@@ -195,7 +196,8 @@
                 UnitPrice: product.price,
                 SubTotal: product.price * quantity,
                 Image: product.image,
-                Type: product.type
+                Type: product.type,
+                Notes: notes
             });
         }else if(totalGroups == totalSelected){
             var selectedItem = [];
@@ -218,7 +220,8 @@
                 UnitPrice: match.price,
                 SubTotal: match.price * quantity,
                 Image: product.image,
-                Type: product.type
+                Type: product.type,
+                Notes: notes
             });
         }
         orderItemsContainer.empty();
@@ -254,6 +257,7 @@
                     <input type="hidden" name="TblOrderItems[${index}].Quantity" value="${item.Quantity}" />
                     <input type="hidden" name="TblOrderItems[${index}].UnitPrice" value="${item.UnitPrice}" />
                     <input type="hidden" name="TblOrderItems[${index}].SubTotal" value="${item.SubTotal}" />
+                    <input type="hidden" name="TblOrderItems[${index}].Notes" value="${item.Notes}" />
                 </div>
                 <hr />
                 `;

@@ -17,6 +17,7 @@ public partial class TblOrderItem
     public decimal UnitPrice { get; set; } = 0;
 
     public decimal SubTotal { get; set; } = 0;
+    public string Notes { get; set; }
 
     public virtual TblOrder Order { get; set; } = null!;
 

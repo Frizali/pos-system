@@ -1,11 +1,11 @@
 ﻿@model TblProduct
 
 <div class="detail-container" data-id="@Model.ProductId">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column gap-3">
         <div class="d-flex justify-content-center img-detail-container">
-             <img src="data:@Model.ImageType;base64,@Model.ProductImage" class="w-100" />
+             <img src="data:@Model.ImageType;base64,@Model.ProductImage" style="width:60%;" />
         </div>
-        <div class="d-flex flex-column gap-1 my-3">
+        <div class="d-flex flex-column gap-1">
             <p class="text-muted m-0">@Model.Category.CategoryName</p>
             <h5 class="m-0">@Model.ProductName</h5>
             <p class="text-muted m-0">@Model.ProductDescription</p>
@@ -16,7 +16,7 @@
                 @foreach(var (group,i) in Model.TblVariantGroups.Select((group, i) => (group,i)))
                 {
                     <div>
-                        <p class="mb-1">@group.VariantName:</p>
+                        <p class="mb-1">@group.VariantName</p>
                         <div class="body-variant-group d-flex gap-1">
                             @foreach (var (option,index) in group.TblVariantOptions.Select((option,index) => (option,index)))
                             {
@@ -29,6 +29,10 @@
                     </div>
                 }
             }
+        </div>
+        <div class="d-flex flex-column">
+            <p class="mb-1">Notes</p>
+            <textarea placeholder="Add notes to your order" class="border-0 bg-light" style="padding: .3rem .7rem;border-radius: .3rem;" id="order-notes"></textarea>
         </div>
     </div>
 </div>

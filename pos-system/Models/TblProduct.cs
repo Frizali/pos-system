@@ -7,6 +7,7 @@ public partial class TblProduct
 {
     public string? ProductId { get; set; } = Unique.ID();
 
+    [Required(ErrorMessage = "Category is required")]
     public string CategoryId { get; set; } = null!;
 
     public string? ProductCode { get; set; } = null!;
@@ -14,6 +15,7 @@ public partial class TblProduct
     [Required(ErrorMessage = "Product name is required")]
     public string ProductName { get; set; } = null!;
 
+    [Required(ErrorMessage = "Product description is required")]
     public string? ProductDescription { get; set; }
 
     public double? ProductStock { get; set; } = 0;
@@ -28,7 +30,7 @@ public partial class TblProduct
 
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-    public string? ProductImage { get; set; }
+    public string? ProductImage { get; set; } = String.Empty;
     public string? ImageType { get; set; }
 
     public virtual TblProductCategory? Category { get; set; } = null!;

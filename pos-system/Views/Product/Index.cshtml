@@ -16,10 +16,12 @@
                     <div>
                         <label for="name" class="form-label">Product Name*</label>
                         <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
+                        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
                     </div>
                     <div>
                         <label for="description" class="form-label">Product Description</label>
                         <textarea class="form-control" id="description" rows="2" name="Product.ProductDescription"></textarea>
+                        <span asp-validation-for="Product.ProductDescription" class="text-danger"></span>
                     </div>
                     <div>
                         <label for="category" class="form-label">Product Category*</label>
@@ -30,10 +32,12 @@
                                 <option value="@category.CategoryId">@category.CategoryName</option>
                             }
                         </select>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
                     <div>
                         <label for="productImage" class="form-label">Product Image</label>
                         <input type="file" class="form-control" id="productImage" name="ProductImage" accept="image/*">
+                        <span asp-validation-for="Product.ProductImage" class="text-danger"></span>
                     </div>
                 </div>
             </div>

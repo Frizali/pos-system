@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using pos_system.Models;
 
 namespace pos_system.Data;
 
-public partial class AppDbContext : DbContext
+public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     public AppDbContext()
     {
@@ -104,6 +106,7 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<TblProduct>(entity =>
         {
             entity.HasKey(e => e.ProductId).HasName("PK__tblProdu__B40CC6EDB8236FAB");
