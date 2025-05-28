@@ -15,17 +15,17 @@
                 <div class="d-flex flex-column gap-2">
                     <div>
                         <label for="name" class="form-label">Product Name*</label>
-                        <input class="form-control" id="name" placeholder="Roti Kacang" name="Product.ProductName">
+                        <input class="form-control" id="name" placeholder="Roti Kacang" asp-for="Product.ProductName">
                         <span asp-validation-for="Product.ProductName" class="text-danger"></span>
                     </div>
                     <div>
                         <label for="description" class="form-label">Product Description</label>
-                        <textarea class="form-control" id="description" rows="2" name="Product.ProductDescription"></textarea>
+                        <textarea class="form-control" id="description" rows="2" asp-for="Product.ProductDescription"></textarea>
                         <span asp-validation-for="Product.ProductDescription" class="text-danger"></span>
                     </div>
                     <div>
                         <label for="category" class="form-label">Product Category*</label>
-                        <select class="form-select" aria-label="Product Category" id="category" name="Product.CategoryID">
+                        <select class="form-select" aria-label="Product Category" id="category" asp-for="Product.CategoryId">
                             <option selected>Open this select menu</option>
                             @foreach (var category in Model.ProductCategories)
                             {
@@ -49,14 +49,14 @@
                 <hr />
                 <div class="d-flex flex-column gap-2">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="true" id="isAvailable" name="Product.IsAvailable">
+                        <input class="form-check-input" type="checkbox" id="isAvailable" asp-for="Product.IsAvailable">
                         <label class="form-check-label" for="isAvailable">
                             Status Product
                         </label>
                     </div>
                     <div>
                         <label for="name" class="form-label">Product Stock</label>
-                        <input type="number" class="form-control" id="stock" name="Product.ProductStock">
+                        <input type="number" class="form-control" id="stock" asp-for="Product.ProductStock">
                     </div>
                     <div>
                         <label for="product-price" class="form-label">Product Price</label>
@@ -64,7 +64,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="text" class="form-control product-price" id="product-price" name="Product.Price">
+                            <input type="text" class="form-control product-price" id="product-price" asp-for="Product.Price">
                         </div>
                     </div>
                 </div>

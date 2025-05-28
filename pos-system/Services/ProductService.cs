@@ -69,7 +69,7 @@ namespace pos_system.Services
                 int maxSize = 400 * 1024;
 
                 if (productImage.Length > maxSize)
-                    throw new Exception("Image size exceeds the maximum limit of 400KB.");
+                    throw new Exception("ProductImage, Image size exceeds the maximum limit of 400KB.");
 
                 using var memoryStream = new MemoryStream();
                 await productImage.CopyToAsync(memoryStream);

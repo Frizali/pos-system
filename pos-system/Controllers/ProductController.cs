@@ -17,14 +17,24 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Save(ProductFormModel data, IFormFile productImage)
         {
+            var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
             if (ModelState.IsValid)
             {
-                await _productService.Save(data, productImage);
-                return RedirectToAction("Index");
+                try
+                {
+                    await _productService.Save(data, productImage);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    var modelError = ex.Message.Split(",");
+                    ModelState.AddModelError("Product." + modelError[0], modelError[1]);
+                    data.ProductCategories = viewModel.ProductCategories;
+                    return View("Index", data);
+                }
             }
             else
             {
-                var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
                 data.ProductCategories = viewModel.ProductCategories;
                 return View("Index", data);
             }
