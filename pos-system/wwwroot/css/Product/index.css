@@ -81,3 +81,14 @@
     align-items: center;
     justify-content: center;
 }
+
+
+.btn-plus-minus {
+    font-size:.86rem;
+    padding: 0;
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    border:none;
+}

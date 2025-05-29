@@ -29,13 +29,18 @@
                 {
                     <div class="col-md-4 col-lg-3 col-sm-12 col-xl-2">
                         <div class="card h-100 border-0">
-                            <div class="card-body clickable-card d-flex flex-column justify-content-between gap-2 p-2 pb-0" data-id="@item.ProductId" style="cursor: pointer;">
+                            <div class="card-body clickable-card d-flex flex-column justify-content-between gap-2 p-3" data-id="@item.ProductId" style="cursor: pointer;">
                                 <div>
                                     <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100" />
                                 </div>
-                                <div>
-                                    <h6 class="card-title m-0">@item.ProductName</h6>
-                                    <p class="text-muted m-0">@item.Category.CategoryName</p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-column">
+                                        <h6 class="card-title m-0">@item.ProductName</h6>
+                                        <p class="text-muted m-0">@item.Category.CategoryName</p>
+                                    </div>
+                                    <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary">
+                                        <i class="bi bi-pencil text-white"></i>
+                                    </a>
 @*                                     <b>
                                         <p class="card-text">
                                             @{
@@ -68,11 +73,11 @@
                                     </b> *@
                                 </div>
                             </div>
-                            <div class="text-end pe-2 pb-2">
+@*                             <div class="text-end pe-2 pb-2">
                                 <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="btn btn-sm btn-warning mt-2">
                                     Edit
                                 </a>
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 }
@@ -232,26 +237,32 @@
                 <div class="card-bodyp-0">
                     <div class="d-flex gap-3 ">
                         <div style="width:15%">
-                        <img src="data:${item.Type};base64,${item.Image}" class="w-100"/>
+                            <img src="data:${item.Type};base64,${item.Image}" class="w-100"/>
                         </div>
-                        <div>
+                        <div class="d-flex flex-column">
                             <h6 class="card-title m-0">${item.Name} ${item.SKU ? `(${item.SKU})` : ''}</h6>
-                            <p class="text-muted m-0">Rp. ${item.SubTotal}</p>
+                            <p class="text-muted mb-2">Rp. ${item.SubTotal}</p>
+                            <div class="d-flex justify-content-between">
+                                 <a href="/" class="rounded-circle circle-wrapper bg-primary">
+                                    <i class="bi bi-pencil text-white"></i>
+                                </a>
+                                <div class="input-group bg-light p-1" style="border-radius:50px;">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="minus" data-field="Quantity">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" id="QuantityOrder" name="QuantityOrder" class="form-control input-number text-center border-white bg-light" value="${item.Quantity}" min="1" max="9999" style="padding:0;border:0;height:28px;">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="plus" data-field="Quantity">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="Quantity">
-                                <i class="bi bi-dash"></i>
-                            </button>
-                        </span>
-                        <input type="text" id="QuantityOrder" name="QuantityOrder" class="form-control input-number text-center border-white" value="${item.Quantity}" min="1" max="9999">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="Quantity">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </span>
-                    </div>
+
                     <input type="hidden" name="TblOrderItems[${index}].ProductId" value="${item.ProductID}" />
                     <input type="hidden" name="TblOrderItems[${index}].VariantId" value="${item.VariantID}" />
                     <input type="hidden" name="TblOrderItems[${index}].Quantity" value="${item.Quantity}" />
