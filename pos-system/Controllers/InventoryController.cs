@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
 
 namespace pos_system.Controllers
 {
+    //[Authorize(Roles ="Admin")]
+    [Authorize]
+
     public class InventoryController : Controller
     {
         public IActionResult Index()

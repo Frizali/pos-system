@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pos_system.Models;
 using pos_system.Services;
 
 namespace pos_system.Controllers
 {
+    [Authorize]
     public class ProductController(IProductService productService) : Controller
     {
         readonly IProductService _productService = productService;

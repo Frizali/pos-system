@@ -5,40 +5,54 @@
 
 <link rel="stylesheet" href="~/css/Product/index.css" asp-append-version="true" />
 
-@* <div class="container d-flex justify-content-center align-items-center">
+<div class="container d-flex justify-content-center align-items-center">
     <div class="card border-0 w-100">
         <div class="card-body">
-            <h5 class="card-title">Register</h5>
+            <h5 class="card-title">register</h5>
             <hr />
-            <form method="post" asp-action="Register" asp-controller="Auth">
+            <form asp-action="Register" method="post">
                 <div class="mb-2">
-                    <label for="username" class="form-label">Username / Email</label>
-                    <input type="email" class="form-control" id="username" name="Email" placeholder="example@mail.com" required />
+                    <label asp-for="Email">Email</label>
+                    <input type="email" asp-for="Email" class="form-control" id="username" placeholder="example@mail.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="mb-2">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="Password" required />
+                    <label asp-for="Name">Name</label>
+                    <input type="text" asp-for="Name" class="form-control" id="name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="mb-2">
-                    <label for="role" class="form-label">Select Role</label>
-                    <select class="form-select" id="role" name="Role" required>
-                        <option value="" disabled selected>Choose role</option>
-                        <option value="Kasir">Kasir</option>
+                    <label asp-for="Password">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" id="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirm-password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="Role" class="form-label">Select Role</label>
+                    <select asp-for="Role" class="form-select" id="role">
+                        <option value="" disabled selected>Choose Role</option>
+                        <option value="Cashier">Cashier</option>
                         <option value="Manager">Manager</option>
                     </select>
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">register</button>
                 </div>
             </form>
         </div>
     </div>
-</div> *@
+</div>
 
-<form asp-action="Register" method="post">
+@* <form asp-action="Register" method="post">
     <div class="form-group">
         <label asp-for="Email">Email</label>
         <input asp-for="Email" class="form-control" />
@@ -58,7 +72,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Register</button>
-</form>
+</form> *@
 
 
 <script src="~/Views/Product/Index.cshtml.js"></script>

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
 using pos_system.Services;
 
 namespace pos_system.Controllers
 {
+    [Authorize]
     public class OrderController(IOrderService orderService, IReportService reportService) : Controller
     {
         readonly IOrderService _orderService = orderService;

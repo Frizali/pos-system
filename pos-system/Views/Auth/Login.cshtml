@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LoginFormModel
+@{
     ViewData["Title"] = "Login";
     Layout = null;
 
@@ -12,24 +13,23 @@
     }
 </style>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg border-0 rounded-4" style="max-width: 900px; width: 100%;">
-        <div class="row g-0">
-            <!-- Kiri: Form Login -->
-            <div class="col-md-7 p-5">
-                <div class="text-center mb-4">
-                    <h3 class="fw-bold">Login</h3>
-                    <p class="text-muted fs-5">Angkringan Omahmu</p>
-                </div>
-
-                <form method="post">
+<form asp-action="Login" method="post">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg border-0 rounded-4" style="max-width: 900px; width: 100%;">
+            <div class="row g-0">
+                <!-- Kiri: Form Login -->
+                <div class="col-md-7 p-5">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold">Login</h3>
+                        <p class="text-muted fs-5">Angkringan Omahmu</p>
+                    </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="email" class="form-control" id="username" name="username" placeholder="your-email@gmail.com">
+                        <label for="username" class="form-label">Name</label>
+                        <input asp-for="Name" type="text" class="form-control" id="username" name="name" placeholder="Name">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password">
+                        <input asp-for="Password" type="password" class="form-control" id="password" name="password" placeholder="Your Password">
                     </div>
                     <div class="mb-3 d-flex justify-content-between align-items-center">
                         <a href="#" class="text-decoration-none">Forgot Password?</a>
@@ -37,13 +37,13 @@
                     <div class="d-grid">
                         <button type="submit" class="btn btn-warning text-white fw-semibold">Log In</button>
                     </div>
-                </form>
-            </div>
+                </div>
 
-            <!-- Kanan: Gambar -->
-            <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center bg-light rounded-end-4">
-                <img src="~/images/Logo omahmu HD.png" alt="Login Image" class="img-fluid p-4" style="max-height: 300px;">
+                <!-- Kanan: Gambar -->
+                <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center bg-light rounded-end-4">
+                    <img src="~/images/Logo omahmu HD.png" alt="Login Image" class="img-fluid p-4" style="max-height: 300px;">
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

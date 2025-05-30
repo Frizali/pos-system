@@ -24,6 +24,10 @@ namespace pos_system.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 
@@ -32,10 +36,14 @@ namespace pos_system.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var user = await _userManager.FindByNameAsync(model.Name);
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
-            if (result.Succeeded)
-                return RedirectToAction("Index", "Dashboard");
+                if (result.Succeeded)
+                    return RedirectToAction("Index", "Dashboard");
+            }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
@@ -52,13 +60,14 @@ namespace pos_system.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Auth");
                 }
 
                 foreach (var error in result.Errors)
@@ -69,6 +78,9 @@ namespace pos_system.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult NotFoundPage() => View();
 
         public async Task<IActionResult> Logout()
         {

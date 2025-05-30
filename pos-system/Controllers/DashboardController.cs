@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
 using pos_system.Services;
 
 namespace pos_system.Controllers
 {
+    [Authorize]
     public class DashboardController(IDashboardService dashboardService, IReportService reportService) : Controller
     {
         readonly IDashboardService _dashboardService = dashboardService;

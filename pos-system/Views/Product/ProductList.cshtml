@@ -38,10 +38,14 @@
                                         <h6 class="card-title m-0">@item.ProductName</h6>
                                         <p class="text-muted m-0">@item.Category.CategoryName</p>
                                     </div>
-                                    <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary">
-                                        <i class="bi bi-pencil text-white"></i>
-                                    </a>
-@*                                     <b>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                    {
+                                        <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary">
+                                            <i class="bi bi-pencil text-white"></i>
+                                        </a>
+                                    }
+
+@*                                  <b>
                                         <p class="card-text">
                                             @{
                                                 var priceText = String.Empty;
@@ -73,11 +77,6 @@
                                     </b> *@
                                 </div>
                             </div>
-@*                             <div class="text-end pe-2 pb-2">
-                                <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="btn btn-sm btn-warning mt-2">
-                                    Edit
-                                </a>
-                            </div> *@
                         </div>
                     </div>
                 }
@@ -243,10 +242,10 @@
                             <h6 class="card-title m-0">${item.Name} ${item.SKU ? `(${item.SKU})` : ''}</h6>
                             <p class="text-muted mb-2">Rp. ${item.SubTotal}</p>
                             <div class="d-flex justify-content-between">
-                                 <a href="/" class="rounded-circle circle-wrapper bg-primary">
+                                <a href="/" class="rounded-circle circle-wrapper btn-plus-minus bg-primary">
                                     <i class="bi bi-pencil text-white"></i>
                                 </a>
-                                <div class="input-group bg-light p-1" style="border-radius:50px;">
+                                <div class="input-group bg-light p-1" style="border-radius:50px;width:40%;">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="minus" data-field="Quantity">
                                             <i class="bi bi-dash"></i>
