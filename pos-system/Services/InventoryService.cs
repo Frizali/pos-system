@@ -8,7 +8,7 @@ namespace pos_system.Services
     public class InventoryService(IInventoryRepo inventoryRepo) : IInventoryService
     {
         IInventoryRepo _inventoryRepo = inventoryRepo;
-        readonly int codeLength = 6;
+        readonly int codeLength = 4;
 
         public async Task<InventoryViewModel> GetListPart(string search, string searchPartType)
         {
