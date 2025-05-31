@@ -46,6 +46,8 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IProductVariantRepo, ProductVariantRepo>();
+builder.Services.AddScoped<IInventoryRepo, InventoryRepo>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {

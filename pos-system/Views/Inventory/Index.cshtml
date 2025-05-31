@@ -1,5 +1,5 @@
 ﻿@using System.Globalization
-@model List<pos_system.Models.InventoryViewModel>
+@model pos_system.Models.InventoryViewModel
 
 @{
     ViewData["Title"] = "Inventory Barang";
@@ -92,12 +92,16 @@
 
     <form asp-action="Index" method="get" class="row mb-4">
         <div class="col-md-6 mb-2">
-            <input type="text" name="searchTerm" class="form-control" placeholder="Cari nama barang..."
+            <input type="text" name="search" class="form-control" placeholder="Cari nama barang..."
                    value="" />
         </div>
         <div class="col-md-4 mb-2">
-            <select name="category" class="form-select">
-                <option value="">Semua Kategori</option>
+            <select name="searchPartType" class="form-select">
+                <option value="">All</option>
+                @foreach(var kat in Model.PartType)
+                {
+                    <option value="@kat.PartTypeName">@kat.PartTypeName</option>
+                }
             </select>
         </div>
         <div class="col-md-2 mb-2">
@@ -119,21 +123,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Count > 0)
+                    @if (Model.PartList != null && Model.PartList.Count > 0)
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.PartList)
                         {
                             <tr>
-                                <td>@item.NamaBarang</td>
-                                <td>@item.Kategori</td>
-                                <td class="text-center">@item.Unit</td>
-                                <td>@item.Harga.ToString("C0", new CultureInfo("id-ID"))</td>
+                                <td>@item.PartName</td>
+                                <td>@item.PartTypeName</td>
+                                <td class="text-center">@item.UnitName</td>
+                                <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
                                 <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
                                 <td class="text-center">
-                                    <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@item.Id">
+                                    <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@item.PartId">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
-                                    <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Yakin ingin menghapus barang ini?');">
+                                    <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@item.PartId" onclick="return confirm('Yakin ingin menghapus barang ini?');">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </td>

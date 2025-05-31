@@ -1,13 +1,12 @@
-﻿namespace pos_system.Models
+﻿using pos_system.DTOs;
+using pos_system.Helpers;
+
+namespace pos_system.Models
 {
     public class InventoryViewModel
     {
-        public int Id { get; set; }
-        public string NamaBarang { get; set; }
-        public string Kategori { get; set; }
-        public string Unit { get; set; }
-        public decimal Harga { get; set; }
-        public string Note { get; set; }
+        public List<PartListDTO> PartList { get; set; }
+        public List<TblPartType?> PartType { get; set; }
     }
 
     public class InventoryLogViewModel
