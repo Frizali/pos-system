@@ -9,16 +9,26 @@ namespace pos_system.Controllers
 
         private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
         private readonly UserManager<ApplicationUser> _userManager = userManager;
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-            var users = new List<UserViewModel>
-            {
-                new UserViewModel { Id = 1, Email = "admin@example.com", Role = "Manager" },
-                new UserViewModel { Id = 2, Email = "kasir1@example.com", Role = "Kasir" }
-            };
 
-            return View(users);
+            var userList = _userManager.Users.ToList();
+            var Users = new List<UserModel>();
+
+            foreach (var user in userList)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                Users.Add(new UserModel
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Role = roles.FirstOrDefault() ?? "-",
+                    IsActive = true
+                });
+            }
+
+            return View(Users);
         }
 
         [HttpGet]

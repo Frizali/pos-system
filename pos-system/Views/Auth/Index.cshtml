@@ -1,4 +1,4 @@
-﻿@model List<pos_system.Models.UserViewModel>
+﻿@model List<UserModel>
 
 <style>
     .table thead th {
@@ -34,25 +34,59 @@
         color: #a10000;
         border: 1px solid #ffcccc;
     }
+
+    .dot-middle {
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+    }
+
+    .borderless td, .borderless th {
+        border: none;
+    }
+
+    .pill-wrapper-success {
+        column-gap: .1rem;
+        font-size: .8rem;
+        color: #328572;
+        width: max-content;
+        height: 28px;
+        padding: 0 .7rem 0 .7rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(28, 135, 48, .05);
+    }
 </style>
 
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold" style="color: #333;">User Management</h2>
-        <a class="btn btn-add btn-custom" asp-action="Register">
-            <i class="bi bi-person-plus me-1"></i> Add User
+    <div class="d-flex align-items-center justify-content-between bg-white rounded gap-3 p-2 mb-3">
+        <div class="bg-white d-flex gap-2 align-items-center p-3">
+            <div class="dot-middle bg-primary"></div>
+            <h5 class="m-0">User Management</h5>
+        </div>
+        <a class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="add-user" asp-action="Register">
+            <p class="m-0 text-black">
+                Add User
+            </p>
+            <div class="rounded-circle circle-wrapper bg-primary">
+                <i class="bi bi-plus-lg text-white"></i>
+            </div>
         </a>
     </div>
 
     <div class="card border-0">
         <div class="card-body border-0">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover mb-0">
-                    <thead>
-                        <tr class="text-center">
-                            <th>Username / Email</th>
-                            <th>Role</th>
-                            <th style="width: 180px;">Action</th>
+                <table class="table borderless table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-muted p-3">Name</th>
+                            <th class="text-muted p-3">Email</th>
+                            <th class="text-muted p-3">Role</th>
+                            <th class="text-muted p-3">Status</th>
+                            <th class="text-muted p-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,9 +95,15 @@
                             foreach (var user in Model)
                             {
                                 <tr>
+                                    <td>@user.UserName</td>
                                     <td>@user.Email</td>
-                                    <td class="text-center">@user.Role</td>
-                                    <td class="text-center">
+                                    <td>@user.Role</td>
+                                    <td>
+                                        @if(user.IsActive){
+                                            <div class="pill-wrapper-success">Active</div>
+                                        }   
+                                    </td>
+                                    <td>
                                         <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@user.Id">
                                             <i class="bi bi-pencil-square"></i> Edit
                                         </a>
@@ -77,7 +117,7 @@
                         else
                         {
                             <tr>
-                                <td colspan="3" class="text-center text-muted py-4">
+                                <td colspan="3" class="text-muted py-4">
                                     <i class="bi bi-info-circle"></i> No users found.
                                 </td>
                             </tr>

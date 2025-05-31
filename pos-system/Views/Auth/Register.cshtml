@@ -8,7 +8,7 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="card border-0 w-100">
         <div class="card-body">
-            <h5 class="card-title">register</h5>
+            <h5 class="card-title">Register</h5>
             <hr />
             <form asp-action="Register" method="post">
                 <div class="mb-2">
@@ -35,7 +35,7 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
-                <div class="mb-2">
+                <div class="mb-3">
                     <label asp-for="Role" class="form-label">Select Role</label>
                     <select asp-for="Role" class="form-select" id="role">
                         <option value="" disabled selected>Choose Role</option>
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">register</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
         </div>

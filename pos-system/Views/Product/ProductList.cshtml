@@ -1,7 +1,10 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
     Layout = "~/Views/Shared/_OrderLayout.cshtml";
     ViewData["Title"] = "Menu";
     ViewBag.OrderNumber = Model.OrderNumber;
+    var session = HttpContextAccessor.HttpContext.Session;
+    bool modifyMode = session.GetString("ModifyMode") == "true";
 }
 
 @model ProductListViewModel
@@ -29,7 +32,7 @@
                 {
                     <div class="col-md-4 col-lg-3 col-sm-12 col-xl-2">
                         <div class="card h-100 border-0">
-                            <div class="card-body clickable-card d-flex flex-column justify-content-between gap-2 p-3" data-id="@item.ProductId" style="cursor: pointer;">
+                            <div class="card-body  d-flex flex-column justify-content-between gap-2 p-3 @(modifyMode ? "unclick-card" : "clickable-card")" data-id="@item.ProductId" style="cursor: pointer;">
                                 <div>
                                     <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100" />
                                 </div>
@@ -38,7 +41,7 @@
                                         <h6 class="card-title m-0">@item.ProductName</h6>
                                         <p class="text-muted m-0">@item.Category.CategoryName</p>
                                     </div>
-                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                    @if ((User.IsInRole("Admin") || User.IsInRole("Manager")) && modifyMode)
                                     {
                                         <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary">
                                             <i class="bi bi-pencil text-white"></i>
@@ -238,14 +241,14 @@
                         <div style="width:15%">
                             <img src="data:${item.Type};base64,${item.Image}" class="w-100"/>
                         </div>
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column w-100">
                             <h6 class="card-title m-0">${item.Name} ${item.SKU ? `(${item.SKU})` : ''}</h6>
                             <p class="text-muted mb-2">Rp. ${item.SubTotal}</p>
                             <div class="d-flex justify-content-between">
                                 <a href="/" class="rounded-circle circle-wrapper btn-plus-minus bg-primary">
                                     <i class="bi bi-pencil text-white"></i>
                                 </a>
-                                <div class="input-group bg-light p-1" style="border-radius:50px;width:40%;">
+                                <div class="input-group bg-light p-1" style="border-radius:50px;width:25%;">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="minus" data-field="Quantity">
                                             <i class="bi bi-dash"></i>

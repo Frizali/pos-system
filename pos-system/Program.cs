@@ -51,6 +51,10 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 
@@ -71,9 +75,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=Login}/{id?}");
+    pattern: "{controller=User}/{action=Index}/{id?}");
 
 app.Run();

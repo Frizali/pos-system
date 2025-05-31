@@ -1,4 +1,14 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light py-3">
+﻿@using Microsoft.AspNetCore.Mvc.Routing
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var session = HttpContextAccessor.HttpContext.Session;
+    bool modifyMode = session.GetString("ModifyMode") == "true";
+}
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light py-3">
     <div class="container">
         <div class="py-2 ps-2 pe-3 circle-con">
             <div class="d-flex gap-2 align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -15,12 +25,46 @@
                 var formattedTime = currentDate.ToString("hh:mm tt");
             }
             <div class="d-flex gap-3">
-                <div class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con" role="button" id="download-report">
-                    <p class="m-0">Download</p>
-                    <div class="rounded-circle circle-wrapper bg-primary">
-                        <i class="bi bi-download text-white"></i>
+                @if(currentController == "Dashboard")
+                {
+                    <div class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con" role="button" id="download-report">
+                        <p class="m-0">
+                            Download
+                        </p>
+                        <div class="rounded-circle circle-wrapper bg-primary">
+                            <i class="bi bi-download text-white"></i>
+                        </div>
                     </div>
-                </div>
+
+                }
+                else
+                {
+                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                    {
+                        @if (modifyMode)
+                        {
+                            <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
+                                <p class="m-0">
+                                    View Mode
+                                </p>
+                                <div class="rounded-circle circle-wrapper bg-primary">
+                                    <i class="bi bi-eye text-white"></i>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
+                                <p class="m-0">
+                                    Modify Mode
+                                </p>
+                                <div class="rounded-circle circle-wrapper bg-primary">
+                                    <i class="bi bi-gear text-white"></i>
+                                </div>
+                            </a>                            
+                        }
+                    }
+                }
                 <div class="d-flex gap-3 align-items-center py-2 ps-2 pe-3 circle-con">
                     <div class="rounded-circle circle-wrapper">
                         <i class="bi bi-calendar text-primary"></i>

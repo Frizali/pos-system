@@ -11,6 +11,8 @@ namespace pos_system.Controllers
     {
         readonly IProductService _productService = productService;
 
+
+
         public async Task<IActionResult> Index()
         {
             var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
@@ -40,6 +42,24 @@ namespace pos_system.Controllers
                 data.ProductCategories = viewModel.ProductCategories;
                 return View("Index", data);
             }
+        }
+
+        public ActionResult ToggleModifyMode()
+        {
+            if(HttpContext.Session.GetString("ModifyMode") is null)
+            {
+                HttpContext.Session.SetString("ModifyMode", "false");
+            }
+            var mode = HttpContext.Session.GetString("ModifyMode");
+            if (mode == "true")
+            {
+                HttpContext.Session.SetString("ModifyMode", "false");
+            }
+            else
+            {
+                HttpContext.Session.SetString("ModifyMode", "true");
+            }
+            return RedirectToAction("ProductList");
         }
 
         public async Task<IActionResult> ProductList(string? category, string? product)
