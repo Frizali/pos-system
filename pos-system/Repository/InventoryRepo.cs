@@ -56,6 +56,13 @@ namespace pos_system.Repository
             };
         }
 
+        public async Task DeletePart(string id)
+        {
+            var data = await _context.TblParts.FirstOrDefaultAsync(x => x.PartId == id).ConfigureAwait(false);
+            _context.TblParts.Remove(data);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
         public ICrudRepo<TblPart> GetRepo()
         {
             return _repo;

@@ -137,9 +137,9 @@
                                     <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@item.PartId">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
-                                    <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@item.PartId" onclick="return confirm('Yakin ingin menghapus barang ini?');">
+                                    <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
                                         <i class="bi bi-trash"></i> Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         }
@@ -208,4 +208,58 @@
     </div>
 </div>
 
+<!-- Modal Konfirmasi Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus data ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<script>
+    let partIdToDelete = "";
+
+    // Ambil ID saat tombol delete ditekan
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        partIdToDelete = button.getAttribute('data-part-id');
+    });
+
+    // Tombol konfirmasi hapus
+    document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+        const formData = new URLSearchParams();
+        formData.append("id", partIdToDelete);
+
+        fetch('/Inventory/DeletePartConfirmed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Refresh atau hapus elemen dari DOM
+                    location.reload(); // atau update list via JS
+                } else {
+                    alert("Gagal menghapus data: " + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>

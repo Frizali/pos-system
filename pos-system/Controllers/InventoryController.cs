@@ -51,6 +51,19 @@ namespace pos_system.Controllers
             }
         }
 
+        public async Task<IActionResult> DeletePartConfirmed(string id)
+        {
+            try
+            {
+                await _inventoryService.DeletePart(id).ConfigureAwait(false);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
         public IActionResult InventoryLog()
         {
             // data dummy

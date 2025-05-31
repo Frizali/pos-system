@@ -28,5 +28,10 @@ namespace pos_system.Services
             var result = await _inventoryRepo.GetPartTypeAndUnit().ConfigureAwait(false);
             return result;
         }
+
+        public async Task DeletePart(string id)
+        {
+            await _inventoryRepo.DeletePart(id).ConfigureAwait(false);
+        }
     }
 }

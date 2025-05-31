@@ -8,5 +8,6 @@ namespace pos_system.Services
         Task<InventoryViewModel> GetListPart(string search, string searchPartType);
         Task Save(InventoryFormModel data);
         Task<InventoryFormModel> GetPartTypeAndUnit();
+        Task DeletePart(string id);
     }
 }
