@@ -1,28 +1,54 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
+using pos_system.Repository;
+using pos_system.Services;
 
 namespace pos_system.Controllers
 {
     //[Authorize(Roles ="Admin")]
     [Authorize]
 
-    public class InventoryController : Controller
+    public class InventoryController(IInventoryService inventoryService) : Controller
     {
-        public IActionResult Index()
-        {
-            var inventoryList = new List<InventoryViewModel>
-            {
-                new InventoryViewModel { Id = 1, NamaBarang = "Teh Botol", Kategori = "jadi", Unit = "10 pcs", Harga = 40000, Note = "taruh di suhu ruangan di bawah 30 derajat'C " },
-                new InventoryViewModel { Id = 2, NamaBarang = "Indomie Goreng", Kategori = "jadi", Unit = "45 pcs", Harga = 135000 },
-                new InventoryViewModel { Id = 3, NamaBarang = "Ayam", Kategori = "Mentah", Unit = "5 kg", Harga = 175000 }
-            };
+        readonly IInventoryService _inventoryService = inventoryService;
 
-            return View(inventoryList);
-        }
-        public IActionResult AddInventory()
+        public async Task<IActionResult> Index(string search, string searchPartType)
         {
-            return View();
+            var result = await _inventoryService.GetListPart(search,searchPartType).ConfigureAwait(false);
+
+            return View("Index", result);
+        }
+
+        public async Task<IActionResult> AddInventory(InventoryFormModel data)
+        {
+            if (data.Part != null)
+            {
+                try
+                {
+                    await _inventoryService.Save(data).ConfigureAwait(false);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    var modelError = ex.Message.Split(",");
+                    ModelState.AddModelError("Inventory." + modelError[0], modelError[1]);
+
+                    var listData = await _inventoryService.GetPartTypeAndUnit();
+                    data.PartTypes = listData.PartTypes;
+                    data.Units = listData.Units;
+
+                    return View("AddInventory", data);
+                }
+            }
+            else
+            {
+                var listData = await _inventoryService.GetPartTypeAndUnit();
+                data.PartTypes = listData.PartTypes;
+                data.Units = listData.Units;
+
+                return View("AddInventory", data);
+            }
         }
 
         public IActionResult InventoryLog()

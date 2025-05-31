@@ -16,6 +16,9 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
     {
     }
 
+    public virtual DbSet<TblPart> TblParts { get; set; }
+    public virtual DbSet<TblPartType> TblPartTypes { get; set; }
+    public virtual DbSet<TblUnit> TblUnits { get; set; }
     public virtual DbSet<TblProduct> TblProduct { get; set; }
     public virtual DbSet<TblProductCategory> TblProductCategory { get; set; }
     public virtual DbSet<TblProductVariant> TblProductVariant { get; set; }
@@ -106,6 +109,81 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblPart>(entity =>
+        {
+            entity.HasKey(e => e.PartId);
+
+            entity.ToTable("tblPart");
+
+            entity.Property(e => e.PartId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("PartID");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Note)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PartCd)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("PartCD");
+            entity.Property(e => e.PartName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.PartTypeId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("PartTypeID");
+            entity.Property(e => e.UnitId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("UnitID");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.TblParts)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_tblPart_tblUnit");
+        });
+
+        modelBuilder.Entity<TblPartType>(entity =>
+        {
+            entity.HasKey(e => e.PartTypeId).HasName("PK_TblPartType");
+
+            entity.ToTable("tblPartType");
+
+            entity.Property(e => e.PartTypeId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("PartTypeID");
+            entity.Property(e => e.PartTypeName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TblUnit>(entity =>
+        {
+            entity.HasKey(e => e.UnitId);
+
+            entity.ToTable("tblUnit");
+
+            entity.Property(e => e.UnitId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("UnitID");
+            entity.Property(e => e.UnitCd)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("UnitCD");
+            entity.Property(e => e.UnitName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+        });
+
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<TblProduct>(entity =>
         {
