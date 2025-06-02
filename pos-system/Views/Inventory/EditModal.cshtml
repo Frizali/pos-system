@@ -5,19 +5,19 @@
         <div class="modal-content">
             <form method="post" asp-action="Update">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Produk</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Itemk</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="Part.PartId" value="@Model.Part.PartId" />
 
                     <div class="mb-3">
-                        <label class="form-label">Nama Barang</label>
+                        <label class="form-label">Item Name</label>
                         <input type="text" name="Part.PartName" class="form-control" value="@Model.Part.PartName" />
                     </div>
 
                     <div class="mb-3">
-                        <label for="category" class="form-label">Kategori Barang *</label>
+                        <label for="category" class="form-label">Item Category *</label>
                         <select class="form-select" id="category" name="Part.PartTypeId" required>
                             @foreach (var type in Model.PartTypes)
                             {
@@ -29,7 +29,7 @@
                     <div class="mb-3">
                         <label for="unit" class="form-label">Unit *</label>
                         <select class="form-select" id="unit" name="Part.UnitId" required>
-                            <option selected disabled>Pilih unit</option>
+                            <option selected disabled>Choose unit</option>
                             @foreach (var unit in Model.Units)
                             {
                                 <option selected="@(unit.UnitId == Model.Part.UnitId)" value="@unit.UnitId">@unit.UnitName</option>
@@ -43,18 +43,18 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Harga</label>
+                        <label class="form-label">Price</label>
                         <input type="number" name="Part.Price" class="form-control" value="@Model.Part.Price" />
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Catatan</label>
+                        <label class="form-label">Note</label>
                         <textarea name="Part.Note" class="form-control">@Model.Part.Note</textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Save Change</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard Change</button>
                 </div>
             </form>
         </div>

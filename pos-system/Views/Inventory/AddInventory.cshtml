@@ -13,14 +13,14 @@
                 <hr />
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama Barang *</label>
-                    <input class="form-control" id="name" name="Part.PartName" placeholder="Contoh: Tepung Terigu" required>
+                    <label for="name" class="form-label">Item Name *</label>
+                    <input class="form-control" id="name" name="Part.PartName" placeholder="Example: Tepung Terigu" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="category" class="form-label">Kategori Barang *</label>
+                    <label for="category" class="form-label">Category Item *</label>
                     <select class="form-select" id="category" name="Part.PartTypeId" required>
-                        <option selected disabled>Pilih kategori</option>
+                        <option selected disabled>Choose Category</option>
                         @foreach(var type in Model.PartTypes)
                         {
                             <option value="@type.PartTypeId">@type.PartTypeName</option>                            
@@ -29,14 +29,14 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="stock" class="form-label">Jumlah Barang *</label>
+                    <label for="stock" class="form-label">Total Item *</label>
                     <input type="number" class="form-control" id="stock" name="Part.PartQty" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="unit" class="form-label">Unit *</label>
                     <select class="form-select" id="unit" name="Part.UnitId" required>
-                        <option selected disabled>Pilih unit</option>
+                        <option selected disabled>Choose unit</option>
                         @foreach(var unit in Model.Units)
                         {
                             <option value="@unit.UnitId">@unit.UnitName</option>
@@ -45,20 +45,20 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="price" class="form-label">Harga (Rp) *</label>
+                    <label for="price" class="form-label">Price (Rp) *</label>
                     <div class="input-group">
                         <span class="input-group-text">Rp</span>
-                        <input type="number" class="form-control" id="price" name="Part.Price" placeholder="Contoh: 5000" required>
+                        <input type="number" class="form-control" id="price" name="Part.Price" placeholder="Example: 5000" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="note" class="form-label">Catatan</label>
-                    <textarea class="form-control" id="note" name="Part.Note" rows="3" placeholder="Contoh: Barang harus disimpan di tempat kering."></textarea>
+                    <label for="note" class="form-label">Note</label>
+                    <textarea class="form-control" id="note" name="Part.Note" rows="3" placeholder="Example: Items should be stored in a dry place."></textarea>
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary w-100">Simpan Barang</button>
+                    <button type="submit" class="btn btn-primary w-100">Add Item</button>
                 </div>
             </div>
         </div>
