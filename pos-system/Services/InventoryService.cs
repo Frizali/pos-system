@@ -33,5 +33,16 @@ namespace pos_system.Services
         {
             await _inventoryRepo.DeletePart(id).ConfigureAwait(false);
         }
+
+        public async Task<InventoryFormModel> LoadEditModal(string id)
+        {
+            var result = await _inventoryRepo.LoadEditModal(id).ConfigureAwait(false);
+            return result;
+        }
+
+        public async Task Update(InventoryFormModel data)
+        {
+            await _inventoryRepo.Update(data).ConfigureAwait(false);
+        }
     }
 }

@@ -130,11 +130,11 @@
                             <tr>
                                 <td>@item.PartName</td>
                                 <td>@item.PartTypeName</td>
-                                <td class="text-center">@item.UnitName</td>
+                                <td class="text-center">@(item.PartQty + " " + item.UnitCd)</td>
                                 <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
                                 <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
                                 <td class="text-center">
-                                    <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@item.PartId">
+                                    <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
                                     <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
@@ -227,18 +227,41 @@
     </div>
 </div>
 
+<div id="editModalContainer"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.btn-edit').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const partId = this.getAttribute('data-part-id');
+                LoadEditModal(partId);
+            });
+        });
+    });
+
+    function LoadEditModal(partId) {
+        fetch(`/Inventory/LoadEditModal?id=${partId}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('editModalContainer').innerHTML = html;
+                const modalElement = document.getElementById('editModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            })
+            .catch(error => console.error('Gagal load modal:', error));
+    }
+</script>
 
 <script>
     let partIdToDelete = "";
 
-    // Ambil ID saat tombol delete ditekan
     const deleteModal = document.getElementById('deleteModal');
     deleteModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         partIdToDelete = button.getAttribute('data-part-id');
     });
 
-    // Tombol konfirmasi hapus
     document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
         const formData = new URLSearchParams();
         formData.append("id", partIdToDelete);
@@ -254,8 +277,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Refresh atau hapus elemen dari DOM
-                    location.reload(); // atau update list via JS
+                    location.reload();
                 } else {
                     alert("Gagal menghapus data: " + data.message);
                 }

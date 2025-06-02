@@ -19,6 +19,4 @@ namespace pos_system.Models
         public string InputedBy { get; set; }
         public DateTime CreatedAt { get; set; }
     }
-
-
 }
