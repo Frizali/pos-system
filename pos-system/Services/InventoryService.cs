@@ -8,7 +8,7 @@ namespace pos_system.Services
     public class InventoryService(IInventoryRepo inventoryRepo) : IInventoryService
     {
         IInventoryRepo _inventoryRepo = inventoryRepo;
-        readonly int codeLength = 6;
+        readonly int codeLength = 4;
 
         public async Task<InventoryViewModel> GetListPart(string search, string searchPartType)
         {
@@ -27,6 +27,22 @@ namespace pos_system.Services
         {
             var result = await _inventoryRepo.GetPartTypeAndUnit().ConfigureAwait(false);
             return result;
+        }
+
+        public async Task DeletePart(string id)
+        {
+            await _inventoryRepo.DeletePart(id).ConfigureAwait(false);
+        }
+
+        public async Task<InventoryFormModel> LoadEditModal(string id)
+        {
+            var result = await _inventoryRepo.LoadEditModal(id).ConfigureAwait(false);
+            return result;
+        }
+
+        public async Task Update(InventoryFormModel data)
+        {
+            await _inventoryRepo.Update(data).ConfigureAwait(false);
         }
     }
 }

@@ -8,5 +8,8 @@ namespace pos_system.Repository
         ICrudRepo<TblPart> GetRepo();
         Task<InventoryViewModel> GetListPart(string search, string searchPartType);
         Task<InventoryFormModel> GetPartTypeAndUnit();
+        Task DeletePart(string id);
+        Task<InventoryFormModel> LoadEditModal(string id);
+        Task Update(InventoryFormModel data);
     }
 }

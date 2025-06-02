@@ -51,6 +51,31 @@ namespace pos_system.Controllers
             }
         }
 
+        public async Task<IActionResult> DeletePartConfirmed(string id)
+        {
+            try
+            {
+                await _inventoryService.DeletePart(id).ConfigureAwait(false);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        public async Task<IActionResult> LoadEditModal(string id)
+        {
+            var result = await _inventoryService.LoadEditModal(id).ConfigureAwait(false);
+            return PartialView("EditModal", result);
+        }
+
+        public async Task<IActionResult> Update(InventoryFormModel data)
+        {
+            await _inventoryService.Update(data).ConfigureAwait(false);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult InventoryLog()
         {
             // data dummy

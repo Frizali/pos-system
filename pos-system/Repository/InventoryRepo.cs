@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pos_system.Data;
 using pos_system.DTOs;
@@ -28,6 +29,7 @@ namespace pos_system.Repository
                             PartTypeName = partType.PartTypeName,
                             UnitId = part.UnitId,
                             UnitName = unit.UnitName,
+                            UnitCd = unit.UnitCd,
                             PartCd = part.PartCd,
                             PartName = part.PartName,
                             PartQty = part.PartQty,
@@ -51,6 +53,42 @@ namespace pos_system.Repository
 
             return new InventoryFormModel
             {
+                PartTypes = partType,
+                Units = unit
+            };
+        }
+
+        public async Task Update(InventoryFormModel data)
+        {
+            var partData = await _context.TblParts.Where(x => x.PartId == data.Part.PartId).FirstOrDefaultAsync().ConfigureAwait(false);
+
+            partData.PartName = data.Part.PartName;
+            partData.PartTypeId = data.Part.PartTypeId;
+            partData.UnitId = data.Part.UnitId;
+            partData.PartQty = data.Part.PartQty;
+            partData.Price = data.Part.Price;
+            partData.Note = data.Part.Note;
+
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task DeletePart(string id)
+        {
+            var data = await _context.TblParts.FirstOrDefaultAsync(x => x.PartId == id).ConfigureAwait(false);
+            _context.TblParts.Remove(data);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<InventoryFormModel> LoadEditModal(string id)
+        {
+            var part = await _context.TblParts.FirstOrDefaultAsync(p => p.PartId == id);
+
+            var partType = await _context.TblPartTypes.ToListAsync().ConfigureAwait(false);
+            var unit = await _context.TblUnits.ToListAsync().ConfigureAwait(false);
+
+            return new InventoryFormModel
+            {
+                Part = part,
                 PartTypes = partType,
                 Units = unit
             };
