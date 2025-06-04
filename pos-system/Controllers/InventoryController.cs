@@ -64,6 +64,18 @@ namespace pos_system.Controllers
             }
         }
 
+        public async Task<IActionResult> LoadEditModal(string id)
+        {
+            var result = await _inventoryService.LoadEditModal(id).ConfigureAwait(false);
+            return PartialView("EditModal", result);
+        }
+
+        public async Task<IActionResult> Update(InventoryFormModel data)
+        {
+            await _inventoryService.Update(data).ConfigureAwait(false);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult InventoryLog()
         {
             // data dummy
