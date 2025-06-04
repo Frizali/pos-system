@@ -4,25 +4,19 @@
 }
 @model List<TblOrder>
 
-<div class="bg-white mb-2 p-2">
+<div class="bg-white p-2">
     <div class="datetime-container d-flex gap-3 align-items-center">
         <div>
             Date:
         </div>
         <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
             <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-@*             <div class="rounded-circle circle-wrapper-lite">
-                <i class="bi bi-calendar text-primary"></i>
-            </div> *@
         </div>
         <div>
             -
         </div>
         <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
             <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-@*             <div class="rounded-circle circle-wrapper-lite">
-                <i class="bi bi-clock text-primary"></i>
-            </div> *@
         </div>
     </div>
 </div>
@@ -42,7 +36,7 @@
             @foreach(var item in Model){
                 <tr class="text-center">
                     <th>@item.OrderNumber</th>
-                    <td>@item.OrderDate</td>
+                    <td>@{var dateConvert = item.OrderDate.ToString("MM/dd/yyyy - HH:mm");} @dateConvert</td>
                     <td>@item.Cashier</td>
                     <td>@item.Status</td>
                     <td>Rp @item.TotalPrice</td>

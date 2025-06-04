@@ -53,21 +53,21 @@ namespace pos_system.Services
                         Amount = decimal.Round(totalSalesAmount, 0),
                         IsGrowth = totalSalesAmount > prevTotalSalesAmount,
                         GrowthAmount = Math.Abs(decimal.Round(totalSalesAmount - prevTotalSalesAmount, 0)),
-                        GrowthPercentage = Math.Abs(prevTotalSalesAmount == 0 ? 0 : decimal.Round((totalSalesAmount - prevTotalSalesAmount) / prevTotalSalesAmount * 100, 2))
+                        GrowthPercentage = Math.Abs(prevTotalSalesAmount == 0 ? 100 : decimal.Round((totalSalesAmount - prevTotalSalesAmount) / prevTotalSalesAmount * 100, 2))
                     },
                     TotalProductSales = new TotalProductSales()
                     {
                         Amount = totalProductSales,
                         IsGrowth = totalProductSales > prevTotalProductSales,
                         GrowthAmount = Math.Abs(totalProductSales - prevTotalProductSales),
-                        GrowthPercentage = Math.Abs(prevTotalProductSales == 0 ? 0 : decimal.Round((totalProductSales - prevTotalProductSales) / prevTotalProductSales * 100, 2))
+                        GrowthPercentage = Math.Abs(prevTotalProductSales == 0 ? 100 : decimal.Round((totalProductSales - prevTotalProductSales) / prevTotalProductSales * 100, 2))
                     },
                     TotalCustomers = new TotalCustomers()
                     {
                         Amount = totalCustomers,
                         IsGrowth = totalCustomers > prevTotalCustomers,
                         GrowthAmount = Math.Abs(totalCustomers - prevTotalCustomers),
-                        GrowthPercentage = Math.Abs(prevTotalCustomers == 0 ? 0 : decimal.Round((totalCustomers - prevTotalCustomers) / prevTotalCustomers * 100, 2))
+                        GrowthPercentage = Math.Abs(prevTotalCustomers == 0 ? 100 : decimal.Round((totalCustomers - prevTotalCustomers) / prevTotalCustomers * 100, 2))
                     }
 
                 },

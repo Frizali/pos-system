@@ -16,9 +16,9 @@ namespace pos_system.Controllers
             return View(history);
         }
 
-        public async Task<IActionResult> LogAudit(string? action, string? entity, string? key, string? fromDate, string? toDate)
+        public async Task<IActionResult> LogAudit(string? logAction, string? entity, string? key, string? fromDate, string? toDate)
         {
-            List<TblLogAudit> logs = await _logService.GetLogs(action, entity, key, fromDate, toDate).ConfigureAwait(false);
+            List<TblLogAudit> logs = await _logService.GetLogs(logAction, entity, key, fromDate, toDate).ConfigureAwait(false);
             return View(logs);
         }
     }

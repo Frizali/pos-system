@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_ActivityLayout.cshtml";
+    ViewData["Title"] = "Activity";
+}
+@model List<TblLogAudit>
+
+<div class="bg-white p-2">
+    <div class="datetime-container d-flex gap-3 align-items-center">
+        <div>
+            Date:
+        </div>
+        <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+            <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div>
+            -
+        </div>
+        <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+            <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+    </div>
+</div>
+<div class="bg-white p-2">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Date & Time</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Table</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Key</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Field</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Old Value</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">New Value</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Username</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>@{
+                            var dateConvert = item.LogDateTime.ToString("MM/dd/yyyy - HH:mm");
+                        } @dateConvert</td>
+                    <th>@item.LogEntityName</th>
+                    <td>@item.LogKeyName : @item.LogKeyValue</td>
+                    <td>@item.LogFldName</td>
+                    <td>@item.LogFldOldValue</td>
+                    <td>@item.LogFldNewValue</td>
+                    <td>@item.LogUsername</td>
+                    <td>@item.LogAction</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

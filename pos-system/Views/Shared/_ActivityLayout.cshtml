@@ -69,15 +69,15 @@
         <main role="main" class="pb-3">
             <div class="row">
                 <div class="col-2">
-                    <div class="d-flex flex-column gap-1">
+                    <div class="d-flex flex-column gap-2">
                         <a asp-controller="Activity" asp-action="Order" class="text-decoration-none py-2 px-3 tab  @(currentController == "Activity" && currentAction == "Order" ? "active" : "")" data-tab="tab1">
                             <div class="box">
                                 Order History
                             </div>
                         </a>
-                        <a asp-controller="Activity" asp-action="Table" class="text-decoration-none py-2 px-3 tab  @(currentController == "Activity" && currentAction == "Table" ? "active" : "")" data-tab="tab2">
+                        <a asp-controller="Activity" asp-action="LogAudit" class="text-decoration-none py-2 px-3 tab  @(currentController == "Activity" && currentAction == "LogAudit" ? "active" : "")" data-tab="tab2">
                             <div class="box">
-                                Table History
+                                Log Audit
                             </div>
                         </a>
                         <a asp-controller="Activity" asp-action="Inventory" class="text-decoration-none py-2 px-3 tab  @(currentController == "Activity" && currentAction == "Inventory" ? "active" : "")" data-tab="tab3">
