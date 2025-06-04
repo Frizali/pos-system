@@ -9,6 +9,13 @@ namespace pos_system.Services
     {
         IInventoryRepo _inventoryRepo = inventoryRepo;
         readonly int codeLength = 4;
+        private string _username = "System";
+
+        public void SetUsername(string username)
+        {
+            _username = username;
+            _inventoryRepo.GetRepo().SetUsername(username);
+        }
 
         public async Task<InventoryViewModel> GetListPart(string search, string searchPartType)
         {

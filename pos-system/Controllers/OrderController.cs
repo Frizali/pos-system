@@ -18,5 +18,10 @@ namespace pos_system.Controllers
 
             return PartialView("_ShowPDF", base64WithHeader);
         }
+
+        private string GetCurrentUserName()
+        {
+            return User.Identity?.Name ?? "System";
+        }
     }
 }

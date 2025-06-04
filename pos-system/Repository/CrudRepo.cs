@@ -7,17 +7,23 @@ namespace pos_system.Repository
     {
         private readonly AppDbContext _context = context;
         private readonly DbSet<T> _dbSet = context.Set<T>();
+        private string _username = "System";
+
+        public void SetUsername(string username)
+        {
+            _username = username ?? "System";
+        }
 
         public async Task Add(T entity)
         {
             await _dbSet.AddAsync(entity).ConfigureAwait(false);
-            await _context.SaveChangesAsync("System").ConfigureAwait(false);
+            await _context.SaveChangesAsync(_username).ConfigureAwait(false);
         }
 
         public async Task AddRange(List<T> entities)
         {
             await _dbSet.AddRangeAsync(entities).ConfigureAwait(false);
-            await _context.SaveChangesAsync("System").ConfigureAwait(false);
+            await _context.SaveChangesAsync(_username).ConfigureAwait(false);
         }
 
         public async Task Delete(string id)
@@ -26,7 +32,7 @@ namespace pos_system.Repository
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                await _context.SaveChangesAsync("System").ConfigureAwait(false);
+                await _context.SaveChangesAsync(_username).ConfigureAwait(false);
             }
         }
 
@@ -43,7 +49,7 @@ namespace pos_system.Repository
         public async Task Update(T entity)
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync("System").ConfigureAwait(false);
+            await _context.SaveChangesAsync(_username).ConfigureAwait(false);
         }
     }
 }

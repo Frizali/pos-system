@@ -13,6 +13,15 @@ namespace pos_system.Services
         readonly IVariantGroupRepo _variantGroupRepo = variantGroupRepo;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly int codeLength = 4;
+        private string _username = "System";
+
+        public void SetUsername(string username)
+        {
+            _username = username;
+            _categoryRepo.GetRepo().SetUsername(username);
+            _productRepo.GetRepo().SetUsername(username);
+            _variantGroupRepo.GetRepo().SetUsername(username);
+        }
 
         public async Task<ProductFormModel> ProductFormModel()
         {
@@ -130,7 +139,7 @@ namespace pos_system.Services
         public async Task EditProduct(ProductFormModel data, IFormFile? productImage)
         {
             await SetImage(data, productImage).ConfigureAwait(false);
-            await _productRepo.EditProduct(data).ConfigureAwait(false);
+            await _productRepo.EditProduct(data, _username).ConfigureAwait(false);
         }
 
         public async Task<ProductFormModel> EditData(string id)

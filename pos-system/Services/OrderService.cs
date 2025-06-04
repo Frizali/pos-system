@@ -9,6 +9,15 @@ namespace pos_system.Services
         readonly IProductVariantRepo _productVariantRepo = productVariantRepo;
         readonly IProductRepo _productRepo = productRepo;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
+        private string _username = "System";
+
+        public void SetUsername(string username)
+        {
+            _username = username;
+            _orderRepo.GetRepo().SetUsername(username);
+            _productVariantRepo.GetRepo().SetUsername(username);
+            _productRepo.GetRepo().SetUsername(username);
+        }
 
         public async Task CreateOrder(TblOrder order)
         {
@@ -18,6 +27,7 @@ namespace pos_system.Services
                 order.OrderDate = DateTime.Now;
                 order.Status = "Pending";
                 order.TotalPrice = order.TblOrderItems.Sum(oi => oi.SubTotal);
+                order.Cashier = _username;
                 order.TblOrderItems = order.TblOrderItems.Select(oi =>
                 {
                     oi.OrderId = order.OrderId;
@@ -32,6 +42,22 @@ namespace pos_system.Services
             {
                 throw new Exception("Error creating order: " + ex.Message, ex);
             }
+        }
+
+        public async Task<List<TblOrder>> GetOrderHistory(string? fromDate, string? toDate)
+        {
+            if (string.IsNullOrEmpty(fromDate) || string.IsNullOrEmpty(toDate))
+            {
+                var year = DateTime.Now.Year;
+                var month = DateTime.Now.Month;
+
+                fromDate = new DateTime(year, month, DateTime.Now.Day).AddDays(-6).ToString("yyyy-MM-dd");
+                toDate = new DateTime(year, month, DateTime.Now.Day).ToString("yyyy-MM-dd");
+            }
+
+            var history = await _orderRepo.GetOrdersByDate(fromDate, toDate).ConfigureAwait(false);
+            history = history.Select(o => { o.TotalPrice = decimal.Round(o.TotalPrice, 0); return o; }).ToList();
+            return history.OrderByDescending(o => o.OrderDate).ThenByDescending(o => o.OrderNumber).ToList();
         }
 
         private async Task ReduceProductStock(TblOrder order)

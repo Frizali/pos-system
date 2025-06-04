@@ -21,6 +21,7 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> Save(ProductFormModel data, IFormFile productImage)
         {
+            _productService.SetUsername(GetCurrentUserName());
             var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
             if (ModelState.IsValid)
             {
@@ -76,6 +77,7 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> EditProduct(ProductFormModel data, IFormFile? productImage)
         {
+            _productService.SetUsername(GetCurrentUserName());
             await _productService.EditProduct(data, productImage);
             return RedirectToAction("EditData", new { id = data.Product.ProductId });
         }
@@ -84,6 +86,11 @@ namespace pos_system.Controllers
         {
             var product = await _productService.EditData(id).ConfigureAwait(false);
             return View("Edit", product);
+        }
+
+        private string GetCurrentUserName()
+        {
+            return User.Identity?.Name ?? "System";
         }
     }
 }
