@@ -48,7 +48,7 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IProductVariantRepo, ProductVariantRepo>();
 builder.Services.AddScoped<IInventoryRepo, InventoryRepo>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
-builder.Services.AddScoped<ILogAuditRepo, ILogAuditRepo>();
+builder.Services.AddScoped<ILogAuditRepo, LogAuditRepo>();
 builder.Services.AddScoped<ILogAuditService, LogAuditService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
