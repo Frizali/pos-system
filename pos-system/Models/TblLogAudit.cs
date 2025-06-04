@@ -1,9 +1,11 @@
 ﻿using pos_system.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace pos_system.Models
 {
     public class TblLogAudit
     {
+        [Key]
         public string LogID { get; set; } = Unique.ID();
         public string LogAction { get; set; } = null!;
         public string LogEntityName { get; set; } = null!;
