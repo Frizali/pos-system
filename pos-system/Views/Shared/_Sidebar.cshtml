@@ -14,7 +14,7 @@
                     <i class="bi bi-bag me-3"></i>
                     <span>Point of Sales</span>
                 </a>
-                <a asp-controller="Makanan" asp-action="Index" class="text-decoration-none text-black">
+                <a asp-controller="Activity" asp-action="Order" class="text-decoration-none text-black">
                     <i class="bi bi-activity me-3"></i>
                     <span>Activity</span>
                 </a>
@@ -41,7 +41,10 @@
                 </div>
             </div>
             <div>
-                Logout
+                <a asp-controller="Auth" asp-action="Logout" class="text-decoration-none text-black">
+                    <i class="bi bi-box-arrow-right me-3"></i>
+                    <span>Logout</span>
+                </a>
             </div>
         </div>
     </div>

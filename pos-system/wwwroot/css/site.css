@@ -32,7 +32,33 @@ body {
     justify-content: center;
 }
 
+.circle-wrapper-lite {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: .86rem;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .circle-con {
     border-radius: 50px;
     background-color: white;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(29%) sepia(98%) saturate(1045%) hue-rotate(201deg) brightness(95%) contrast(92%);
+    background-color: rgba(13,110,253,.15);
+    padding: .47rem;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
 }

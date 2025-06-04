@@ -31,7 +31,7 @@ namespace pos_system.Repository
                 .Include(p => p.TblVariantGroups)
                     .ThenInclude(v => v.TblVariantOptions)
                 .Include(p => p.TblProductVariants)
-                .FirstOrDefaultAsync().ConfigureAwait(false);
+                .FirstAsync().ConfigureAwait(false);
         }
 
         public ICrudRepo<TblProduct> GetRepo()
@@ -39,7 +39,7 @@ namespace pos_system.Repository
             return _repo;
         }
 
-        public async Task EditProduct(ProductFormModel data)
+        public async Task EditProduct(ProductFormModel data, string username)
         {
             var existing = await _context.TblProduct.FirstOrDefaultAsync(p => p.ProductId == data.Product.ProductId);
             if (existing != null)
@@ -122,14 +122,14 @@ namespace pos_system.Repository
                 }
             }
 
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            await _context.SaveChangesAsync(username).ConfigureAwait(false);
         }
 
         public async Task<ProductFormModel> EditData(string id)
         {
             var product = await _context.TblProduct
                 .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.ProductId == id).ConfigureAwait(false);
+                .FirstAsync(p => p.ProductId == id).ConfigureAwait(false);
 
             var productCategories = await _context.TblProductCategory
                 .ToListAsync().ConfigureAwait(false);

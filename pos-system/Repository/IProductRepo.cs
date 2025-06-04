@@ -8,7 +8,7 @@ namespace pos_system.Repository
         ICrudRepo<TblProduct> GetRepo();
         Task<List<ProductDTO>> ProductDetailsDTO();
         Task<TblProduct> ProductDetailByID(string id);
-        Task EditProduct(ProductFormModel data);
+        Task EditProduct(ProductFormModel data, string username);
         Task<ProductFormModel> EditData(string id);
     }
 }

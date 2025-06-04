@@ -29,6 +29,7 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public virtual DbSet<TblOrderItem> TblOrderItem { get; set; }
     public virtual DbSet<TblOrderItemAddon> TblOrderItemAddon { get; set; }
     public virtual DbSet<TblOrderNumberTracker> TblOrderNumberTracker { get; set; }
+    public virtual DbSet<TblLogAudit> TblLogAudit { get; set; }
 
     public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
     {

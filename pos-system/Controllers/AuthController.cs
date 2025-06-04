@@ -82,6 +82,7 @@ namespace pos_system.Controllers
         [HttpGet]
         public IActionResult NotFoundPage() => View();
 
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
