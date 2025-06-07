@@ -90,49 +90,11 @@ namespace pos_system.Controllers
             return RedirectToAction("Index");
         }
 
-        private string GetCurrentUserName()
+        public async Task<IActionResult> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year)
         {
-            return User.Identity?.Name ?? "System";
-        }
+            var result = await _inventoryService.GetListPartMovement(partId, partTypeId, date, month, year).ConfigureAwait(false);
 
-        public IActionResult InventoryLog()
-        {
-            // data dummy
-            var inventoryLogs = new List<InventoryLogViewModel>
-            {
-                new InventoryLogViewModel {
-                    NamaBarang  = "Ayam",
-                    Kategori    = "Mentah",
-                    StockIn     = 10,
-                    StockOut    = 0,
-                    Note        = "Restock gudang pusat",
-                    InputedBy   = "Admin",
-                    CreatedAt   = DateTime.Now.AddDays(-1)
-                },
-                new InventoryLogViewModel {
-                    NamaBarang  = "Beras",
-                    Kategori    = "Mentah",
-                    StockIn     = 0,
-                    StockOut    = 5,
-                    Note        = "Penjualan",
-                    InputedBy   = "Kasir",
-                    CreatedAt   = DateTime.Now.AddDays(-2)
-                },
-                new InventoryLogViewModel {
-                    NamaBarang  = "Teh Botol",
-                    Kategori    = "jadi",
-                    StockIn     = 20,
-                    StockOut    = 0,
-                    Note        = "Pembelian distributor",
-                    InputedBy   = "Admin",
-                    CreatedAt   = DateTime.Now.AddDays(-3)
-                }
-            };
-
-            ViewBag.Products = new List<string> { "Ayam", "Beras", "Teh Botol" };
-            ViewBag.Categories = new List<string> { "Mentah", "jadi" };
-
-            return View(inventoryLogs);
+            return View("InventoryLog", result);
         }
 
         public IActionResult ExportPdf()
@@ -141,5 +103,9 @@ namespace pos_system.Controllers
         public IActionResult ExportExcel()
             => Content("Excel export belum di-implement");
 
+        private string GetCurrentUserName()
+        {
+            return User.Identity?.Name ?? "System";
+        }
     }
 }

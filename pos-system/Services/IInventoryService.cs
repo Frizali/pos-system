@@ -13,5 +13,6 @@ namespace pos_system.Services
         Task Update(InventoryFormModel data);
         Task<EditStockFormModal> GetEditStockModal(string partId);
         Task AddPartMovement(EditStockFormModal param);
+        Task<InventoryMoveViewModel> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year);
     }
 }

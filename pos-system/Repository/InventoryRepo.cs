@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using pos_system.Data;
 using pos_system.DTOs;
 using pos_system.Models;
@@ -136,6 +137,65 @@ namespace pos_system.Repository
 
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
+        }
+
+        public async Task<InventoryMoveViewModel> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year)
+        {
+            partId ??= "";
+            partTypeId ??= "";
+            month ??= "";
+            year ??= "";
+
+            var query = from partMov in _context.TblPartMovements
+                        join part in _context.TblParts on partMov.PartId equals part.PartId
+                        join partType in _context.TblPartTypes on part.PartTypeId equals partType.PartTypeId
+                        join unit in _context.TblUnits on part.UnitId equals unit.UnitId
+                        where partMov.PartId.Contains(partId) &&
+                              partType.PartTypeId.Contains(partTypeId)
+                        select new
+                        {
+                            PartMov = partMov,
+                            Part = part,
+                            PartType = partType
+                        };
+
+            if (date != DateTime.MinValue)
+            {
+                query = query.Where(x => x.PartMov.CreatedAt.Date == date.Date);
+            }
+
+            if (!string.IsNullOrEmpty(month) && !string.IsNullOrEmpty(year))
+            {
+                if (int.TryParse(month, out int m) && int.TryParse(year, out int y))
+                {
+                    query = query.Where(x => x.PartMov.CreatedAt.Month == m && x.PartMov.CreatedAt.Year == y);
+                }
+            }
+
+            var partMoves = await query
+                .OrderBy(x => x.PartMov.CreatedAt)
+                .Select(x => new PartMovDTO
+                {
+                    PartName = x.Part.PartName,
+                    Category = x.PartType.PartTypeName,
+                    StockIn = x.PartMov.PartMovQty > 0 ? x.PartMov.PartMovQty : 0,
+                    StockOut = x.PartMov.PartMovQty < 0 ? x.PartMov.PartMovQty : 0,
+                    Note = x.PartMov.Remark ?? "",
+                    InputedBy = x.PartMov.InputedBy ?? "",
+                    CreatedAt = x.PartMov.CreatedAt,
+                })
+                .ToListAsync()
+                .ConfigureAwait(false);
+
+            var parts = await _context.TblParts.ToListAsync().ConfigureAwait(false);
+            var category = await _context.TblPartTypes.ToListAsync().ConfigureAwait(false);
+
+            return new InventoryMoveViewModel
+            {
+                PartMovs = partMoves,
+                Parts = parts,
+                PartTypes = category
+            };
         }
 
         public ICrudRepo<TblPart> GetRepo()

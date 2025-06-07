@@ -1,8 +1,8 @@
-﻿@model List<pos_system.Models.InventoryLogViewModel>
+﻿@model pos_system.Models.InventoryMoveViewModel
 @{
     ViewData["Title"] = "Riwayat Stock Barang";
-    var products = ViewBag.Products as List<string>;
-    var categories = ViewBag.Categories as List<string>;
+    var parts = Model.Parts;
+    var partTypes = Model.PartTypes;
     int no = 1;
 }
 
@@ -84,22 +84,22 @@
         </div>
     </div>
 
-    <form method="get" asp-action="InventoryLog" class="row g-2 mb-4">
+    <form method="get" asp-action="GetListPartMovement" class="row g-2 mb-4" autocomplete="off">
         <div class="col-md-3">
-            <select name="productName" class="form-select">
+            <select name="partId" class="form-select">
                 <option value="">Semua Produk</option>
-                @foreach (var p in products)
+                @foreach (var p in parts)
                 {
-                    <option value="@p">@p</option>
+                    <option value="@p.PartId">@p.PartName</option>
                 }
             </select>
         </div>
         <div class="col-md-2">
-            <select name="category" class="form-select">
+            <select name="partTypeId" class="form-select">
                 <option value="">Semua Kategori</option>
-                @foreach (var c in categories)
+                @foreach (var c in partTypes)
                 {
-                    <option value="@c">@c</option>
+                    <option value="@c.PartTypeId">@c.PartTypeName</option>
                 }
             </select>
         </div>
@@ -107,8 +107,8 @@
             <input type="date" name="date" class="form-control" />
         </div>
         <div class="col-md-2">
-            <select class="form-select">
-                <option>Bulan</option>
+            <select name="month" class="form-select">
+                <option value="">Bulan</option>
                 @for (int m = 1; m <= 12; m++)
                 {
                     <option value="@m">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)</option>
@@ -145,14 +145,14 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model != null && Model.Count > 0)
+                @if (Model != null && Model.PartMovs.Count > 0)
                 {
-                    foreach (var item in Model)
+                    foreach (var item in Model.PartMovs)
                     {
                         <tr>
                             <td class="text-center">@no</td>
-                            <td>@item.NamaBarang</td>
-                            <td>@item.Kategori</td>
+                            <td>@item.PartName</td>
+                            <td>@item.Category</td>
                             <td class="text-success text-center">@item.StockIn</td>
                             <td class="text-danger text-center">@item.StockOut</td>
                             <td>@item.Note</td>

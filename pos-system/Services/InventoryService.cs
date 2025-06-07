@@ -62,5 +62,11 @@ namespace pos_system.Services
         {
             await _inventoryRepo.AddPartMovement(param).ConfigureAwait(false);
         }
+
+        public async Task<InventoryMoveViewModel> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year)
+        {
+            InventoryMoveViewModel list = await _inventoryRepo.GetListPartMovement(partId, partTypeId, date, month, year).ConfigureAwait(false);
+            return list;
+        }
     }
 }
