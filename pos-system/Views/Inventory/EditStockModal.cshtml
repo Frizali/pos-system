@@ -1,0 +1,56 @@
+﻿@model pos_system.Models.EditStockFormModal;
+
+<div class="modal fade" id="inOutModal" tabindex="-1" aria-labelledby="inOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inOutModalLabel">Update Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @* Form Update Stock *@
+                <form asp-action="AddPartMovement" method="post">
+                    <input class="form-control" name="PartId" value="@Model.PartId" type="hidden" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input class="form-control" name="PartName" value="@Model.PartName" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product Category</label>
+                        <input class="form-control" name="PartTypeName" value="@Model.PartTypeName" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Unit</label>
+                        <input class="form-control" name="UnitCd" value="@Model.UnitCd" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stock Now</label>
+                        <input class="form-control" name="PartQty" value="@Model.PartQty" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input class="form-control" name="Price" value="@Model.Price" disabled />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Update Stock</label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(-1)">-</button>
+                            <input type="number" class="form-control text-center" name="PartMovQty" id="stockInput" value="0" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(1)">+</button>
+                        </div>
+                        <small class="form-text text-muted">Add stock with a positive number, remove with a negative one.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Remark / Note</label>
+                        <textarea class="form-control" name="Remark" rows="2"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

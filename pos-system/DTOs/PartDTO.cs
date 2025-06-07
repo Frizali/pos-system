@@ -2,10 +2,9 @@
 
 namespace pos_system.DTOs
 {
-    public class PartListDTO
+    public class PartDTO
     {
         public string PartId { get; set; } = Unique.ID();
-
         public string PartTypeId { get; set; } = null!;
         public string PartTypeName { get; set; } = null!;
         public string UnitId { get; set; } = null!;

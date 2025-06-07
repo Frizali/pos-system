@@ -5,7 +5,7 @@ namespace pos_system.Models
 {
     public class InventoryViewModel
     {
-        public List<PartListDTO> PartList { get; set; }
+        public List<PartDTO> PartList { get; set; }
         public List<TblPartType?> PartType { get; set; }
     }
 

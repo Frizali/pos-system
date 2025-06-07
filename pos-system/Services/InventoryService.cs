@@ -51,5 +51,16 @@ namespace pos_system.Services
         {
             await _inventoryRepo.Update(data).ConfigureAwait(false);
         }
+
+        public async Task<EditStockFormModal> GetEditStockModal(string partId)
+        {
+            var result = await _inventoryRepo.GetEditStockModal(partId).ConfigureAwait(false);
+            return result;
+        }
+
+        public async Task AddPartMovement(EditStockFormModal param)
+        {
+            await _inventoryRepo.AddPartMovement(param).ConfigureAwait(false);
+        }
     }
 }

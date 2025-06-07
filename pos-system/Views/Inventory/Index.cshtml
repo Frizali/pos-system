@@ -77,9 +77,6 @@
             <a class="btn btn-add btn-custom" asp-action="AddInventory">
                 <i class="bi bi-plus-circle me-1"></i> Add Item
             </a>
-            <button type="button" class="btn btn-inout btn-custom" data-bs-toggle="modal" data-bs-target="#inOutModal">
-                <i class="bi bi-arrow-left-right me-1"></i> IN / OUT
-            </button>
 
             <a class="btn btn-pdf btn-custom" asp-action="ExportPdf">
                 <i class="bi bi-file-earmark-pdf me-1"></i> Export to PDF
@@ -119,7 +116,7 @@
                         <th>Unit</th>
                         <th>Price</th>
                         <th>Note</th>
-                        <th style="width: 180px;">Action</th>
+                        <th style="width: 200px;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,11 +131,14 @@
                                 <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
                                 <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
                                 <td class="text-center">
+                                    <a href="#" class="btn btn-inout btn-custom me-2" data-part-id="@item.PartId">
+                                        <i class="bi bi-arrow-left-right me-1"></i>
+                                    </a>
                                     <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
-                                        <i class="bi bi-pencil-square"></i> Edit
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
-                                        <i class="bi bi-trash"></i> Delete
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -159,54 +159,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="inOutModal" tabindex="-1" aria-labelledby="inOutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="inOutModalLabel">Update Stock</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                @* Form Update Stock *@
-                <form asp-action="UpdateStock" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Product Name</label>
-                        <input class="form-control" name="ProductName" value="Ayam" disabled />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Category</label>
-                        <input class="form-control" name="ProductCategory" value="Mentah" disabled />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Unit</label>
-                        <input class="form-control" name="Unit" value="kg" disabled />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Price</label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
-                            <input class="form-control" name="Price" value="35000" disabled />
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Update Stock</label>
-                        <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(-1)">-</button>
-                            <input type="number" class="form-control text-center" name="Stock" id="stockInput" value="0" />
-                            <button class="btn btn-outline-secondary" type="button" onclick="adjustStock(1)">+</button>
-                        </div>
-                        <small class="form-text text-muted">Add stock with a positive number, remove with a negative one.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Remark / Note</label>
-                        <textarea class="form-control" name="Note" rows="2"></textarea>
-                    </div>
-                    <button class="btn btn-primary w-100" type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="editStockModalContainer"></div>
 
 <!-- Modal Konfirmasi Delete -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -254,6 +207,30 @@
 </script>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.btn-inout').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const partId = this.getAttribute('data-part-id');
+                GetEditStockModal(partId);
+            });
+        });
+    });
+
+    function GetEditStockModal(partId) {
+        fetch(`/Inventory/GetEditStockModal?partId=${partId}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('editStockModalContainer').innerHTML = html;
+                const modalElement = document.getElementById('inOutModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            })
+            .catch(error => console.error('Gagal load modal:', error));
+    }
+</script>
+
+<script>
     let partIdToDelete = "";
 
     const deleteModal = document.getElementById('deleteModal');
@@ -284,4 +261,14 @@
             })
             .catch(error => console.error('Error:', error));
     });
+</script>
+
+<script>
+    function adjustStock(amount) {
+        const input = document.getElementById("stockInput");
+        if (input) {
+            let currentValue = parseInt(input.value) || 0;
+            input.value = currentValue + amount;
+        }
+    }
 </script>

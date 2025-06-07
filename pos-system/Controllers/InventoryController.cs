@@ -76,6 +76,25 @@ namespace pos_system.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> GetEditStockModal(string partId)
+        {
+            var result = await _inventoryService.GetEditStockModal(partId).ConfigureAwait(false);
+            return PartialView("EditStockModal", result);
+        }
+
+        public async Task<IActionResult> AddPartMovement(EditStockFormModal data)
+        {
+            var userName = GetCurrentUserName();
+            data.InputedBy = userName;
+            await _inventoryService.AddPartMovement(data).ConfigureAwait(false);
+            return RedirectToAction("Index");
+        }
+
+        private string GetCurrentUserName()
+        {
+            return User.Identity?.Name ?? "System";
+        }
+
         public IActionResult InventoryLog()
         {
             // data dummy

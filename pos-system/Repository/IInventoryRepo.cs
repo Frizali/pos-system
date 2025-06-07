@@ -11,5 +11,7 @@ namespace pos_system.Repository
         Task DeletePart(string id);
         Task<InventoryFormModel> LoadEditModal(string id);
         Task Update(InventoryFormModel data);
+        Task<EditStockFormModal> GetEditStockModal(string partId);
+        Task AddPartMovement(EditStockFormModal param);
     }
 }

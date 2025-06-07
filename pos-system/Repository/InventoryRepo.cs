@@ -22,7 +22,7 @@ namespace pos_system.Repository
                         join partType in _context.TblPartTypes on part.PartTypeId equals partType.PartTypeId
                         join unit in _context.TblUnits on part.UnitId equals unit.UnitId
                         where part.PartName.Contains(search) && partType.PartTypeName.Contains(searchPartType)
-                        select new PartListDTO
+                        select new PartDTO
                         {
                             PartId = part.PartId,
                             PartTypeId = part.PartTypeId,
@@ -92,6 +92,50 @@ namespace pos_system.Repository
                 PartTypes = partType,
                 Units = unit
             };
+        }
+
+        public async Task<EditStockFormModal> GetEditStockModal(string partId)
+        {
+            var query = from part in _context.TblParts
+                        join unit in _context.TblUnits on part.UnitId equals unit.UnitId
+                        join type in _context.TblPartTypes on part.PartTypeId equals type.PartTypeId
+                        where part.PartId == partId
+                        select new EditStockFormModal
+                        {
+                            PartId = partId,
+                            PartName = part.PartName,
+                            PartTypeName = type.PartTypeName,
+                            UnitCd = unit.UnitCd,
+                            PartQty = part.PartQty,
+                            Price = part.Price,
+                        };
+
+            return await query.FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        public async Task AddPartMovement(EditStockFormModal param)
+        {
+            if (param.PartMovQty != 0)
+            {
+                param.PartMovType = param.PartMovQty > 0 ? 1 : 2;
+                TblPartMovement data = new TblPartMovement()
+                {
+                    PartMovementId = param.PartMovementId,
+                    PartId = param.PartId,
+                    PartMovQty = param.PartMovQty,
+                    Remark = param.Remark,
+                    PartMovType = param.PartMovType,
+                    InputedBy = param.InputedBy,
+                };
+
+                await _context.TblPartMovements.AddAsync(data).ConfigureAwait(false);
+
+                var part = await _context.TblParts.Where(x => x.PartId == param.PartId).FirstOrDefaultAsync().ConfigureAwait(false);
+                var qty = part.PartQty += param.PartMovQty;
+                part.PartQty = qty <= 0 ? 0 : qty;
+
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
 
         public ICrudRepo<TblPart> GetRepo()

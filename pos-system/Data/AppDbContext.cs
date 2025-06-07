@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using pos_system.Models;
@@ -16,6 +18,7 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
     {
     }
 
+    public virtual DbSet<TblPartMovement> TblPartMovements { get; set; }
     public virtual DbSet<TblPart> TblParts { get; set; }
     public virtual DbSet<TblPartType> TblPartTypes { get; set; }
     public virtual DbSet<TblUnit> TblUnits { get; set; }
@@ -110,6 +113,32 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblPartMovement>(entity =>
+        {
+            entity.HasKey(e => e.PartMovementId);
+
+            entity.ToTable("tblPartMovement");
+
+            entity.Property(e => e.PartMovementId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("PartMovementID");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.InputedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.PartId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("PartID");
+            entity.Property(e => e.Remark).IsUnicode(false);
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<TblPart>(entity =>
         {
             entity.HasKey(e => e.PartId);
