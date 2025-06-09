@@ -1,0 +1,61 @@
+﻿@model RegisterUserModel
+@{
+    ViewData["Title"] = "Register User";
+    Layout = null;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+<style>
+    body {
+        font-family: "Urbanist", sans-serif;
+        background-color: #f8f9fa;
+    }
+</style>
+
+<form asp-action="Register" method="post">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg border-0 rounded-4" style="max-width: 900px; width: 100%;">
+            <div class="row g-0">
+                <!-- Kiri: Form Register -->
+                <div class="col-md-7 p-5">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold">Register</h3>
+                        <p class="text-muted fs-5">Angkringan Omahmu</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input asp-for="Name" type="text" class="form-control" id="name" name="name" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="mb-4">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-warning text-white fw-semibold">Register</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p class="text-muted">
+                            Already have an account?
+                            <a asp-controller="Auth" asp-action="Login" class="text-decoration-none text-warning fw-semibold">Login</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Kanan: Gambar -->
+                <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center bg-light rounded-end-4">
+                    <img src="~/images/Logo omahmu HD.png" alt="Register Image" class="img-fluid p-4" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
