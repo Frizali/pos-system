@@ -39,29 +39,32 @@
                 }
                 else
                 {
-                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                    @if(currentController == "Product" && currentAction == "ProductList")
                     {
-                        @if (modifyMode)
+                        @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
                         {
-                            <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
-                                <p class="m-0">
-                                    View Mode
-                                </p>
-                                <div class="rounded-circle circle-wrapper bg-primary">
-                                    <i class="bi bi-eye text-white"></i>
-                                </div>
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
-                                <p class="m-0">
-                                    Modify Mode
-                                </p>
-                                <div class="rounded-circle circle-wrapper bg-primary">
-                                    <i class="bi bi-gear text-white"></i>
-                                </div>
-                            </a>                            
+                            @if (modifyMode)
+                            {
+                                <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
+                                    <p class="m-0">
+                                        View Mode
+                                    </p>
+                                    <div class="rounded-circle circle-wrapper bg-primary">
+                                        <i class="bi bi-eye text-white"></i>
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("ToggleModifyMode")" class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="download-report">
+                                    <p class="m-0">
+                                        Modify Mode
+                                    </p>
+                                    <div class="rounded-circle circle-wrapper bg-primary">
+                                        <i class="bi bi-gear text-white"></i>
+                                    </div>
+                                </a>                            
+                            }
                         }
                     }
                 }

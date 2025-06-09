@@ -47,7 +47,6 @@
                                             <i class="bi bi-pencil text-white"></i>
                                         </a>
                                     }
-
 @*                                  <b>
                                         <p class="card-text">
                                             @{
@@ -83,6 +82,16 @@
                         </div>
                     </div>
                 }
+@*                 <div class="col-md-4 col-lg-3 col-sm-12 col-xl-2">
+                    <div class="card h-100 border-0">
+                        <div class="card-body  d-flex flex-column justify-content-between gap-2 p-3 @(modifyMode ? "unclick-card" : "clickable-card")" style="cursor: pointer;">
+                            <div>
+                                <i class="bi bi-bag-plus"></i>
+                                <h3>New Product</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div> *@
             </div>
         </div>
     </div>
@@ -246,7 +255,7 @@
                             <p class="text-muted mb-2">Rp. ${item.SubTotal}</p>
                             <div class="d-flex justify-content-between">
                                 <a href="/" class="rounded-circle circle-wrapper btn-plus-minus bg-primary">
-                                    <i class="bi bi-pencil text-white"></i>
+                                    <i class="bi bi-journal text-white"></i>
                                 </a>
                                 <div class="input-group bg-light p-1" style="border-radius:50px;width:25%;">
                                     <span class="input-group-btn">

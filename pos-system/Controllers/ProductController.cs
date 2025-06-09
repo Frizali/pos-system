@@ -60,10 +60,10 @@ namespace pos_system.Controllers
             {
                 HttpContext.Session.SetString("ModifyMode", "true");
             }
-            return RedirectToAction("ProductList");
+            return RedirectToAction("ProductList", new { category= "All" });
         }
 
-        public async Task<IActionResult> ProductList(string? category, string? product)
+        public async Task<IActionResult> ProductList(string? category = "All", string? product = "")
         {
             var viewModel = await _productService.ProductListViewModel(category, product).ConfigureAwait(false);
             return View(viewModel);

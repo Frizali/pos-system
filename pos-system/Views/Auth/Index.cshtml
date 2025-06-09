@@ -1,44 +1,25 @@
 ﻿@model List<UserModel>
 
 <style>
-    .table thead th {
-        background-color: #f9fafc;
-        color: #4a4a4a;
-        font-weight: 600;
+    .table-header-cus {
+        margin-right: .5rem;
+        text-transform: none;
+        font-weight: 500;
+        text-align: center;
+        padding: .7rem;
+        /* border: 1px solid rgba(108, 117, 125, .2); */
+        border-radius: 50px;
+        margin-bottom: .5rem;
     }
 
-    .table td, .table th {
-        vertical-align: middle;
-    }
-
-    .btn-custom {
-        border-radius: 8px;
-        padding: 6px 10px;
-        font-size: 0.875rem;
-    }
-
-    .btn-add {
-        background-color: #d3f0ff;
-        color: #000;
-        border: 1px solid #c2e4f3;
-    }
-
-    .btn-edit {
-        background-color: #fff5cc;
-        color: #856404;
-        border: 1px solid #ffeeba;
-    }
-
-    .btn-delete {
-        background-color: #ffe5e5;
-        color: #a10000;
-        border: 1px solid #ffcccc;
-    }
-
-    .dot-middle {
-        height: 5px;
-        width: 5px;
-        border-radius: 50%;
+    .search-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 38px;
+        width: 38px;
+        border-radius: 50px;
+        cursor: pointer;
     }
 
     .borderless td, .borderless th {
@@ -60,7 +41,88 @@
     }
 </style>
 
+
 <div class="container">
+    <div class="bg-white p-2">
+        <div class="d-flex justify-content-between">
+@*             <div class="datetime-container d-flex gap-3 align-items-center">
+                <div>
+                    Date:
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+                <div>
+                    -
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+            </div> *@
+            <div class="d-flex gap-2 align-items-center">
+                <h5 class="m-0">Teams Management</h5>
+            </div>
+            <div class="d-flex gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="label-text">Status:</label>
+                    <select class="form-select" aria-label="Default select example" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);" id="report-name" name="ReportName">
+                        <option value="Active">Active</option>
+                        <option value="InActive">InActive</option>
+                    </select>
+                </div>
+                <div class="search-icon bg-light">
+                    <i class="bi bi-search"></i>
+                </div>
+                <a class="text-decoration-none text-black" asp-action="Register">
+                    <div class="search-icon bg-light">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white p-2">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Name</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Email</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Role</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Status</div></th>
+                    @* <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr class="text-center">
+                        <th>@user.UserName</th>
+                        <td>@user.Email</td>
+                        <td>@user.Role</td>
+                        <td>
+                            @if (user.IsActive)
+                            {
+                                <div class="pill-wrapper-success" style="margin:auto;">Active</div>
+                            }
+                        </td>
+@*                         <td>
+                            <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@user.Id">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@user.Id" onclick="return confirm('Are you sure you want to delete this user?');">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@* <div class="container">
     <div class="d-flex align-items-center justify-content-between bg-white rounded gap-3 p-2 mb-3">
         <div class="bg-white d-flex gap-2 align-items-center p-3">
             <div class="dot-middle bg-primary"></div>
@@ -127,4 +189,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
