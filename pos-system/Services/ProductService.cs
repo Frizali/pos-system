@@ -57,7 +57,8 @@ namespace pos_system.Services
             {
                 Products = products,
                 ProductCategories = productCategoriesDTO,
-                OrderNumber = orderNumber
+                OrderNumber = orderNumber,
+                ProductFilter = product
             };
         }
 

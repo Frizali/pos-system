@@ -16,7 +16,7 @@
         @Html.Partial("_ProductCategory", Model.ProductCategories)
         <div class="mb-3">
             <div class="input-group flex-nowrap">
-                <input type="text" class="form-control search-input" placeholder="Search something in your mind" aria-label="Search something in your mind" aria-describedby="addon-wrapping" name="product">
+                <input type="text" class="form-control search-input" placeholder="Search something in your mind" aria-label="Search something in your mind" aria-describedby="addon-wrapping" name="product" value="@Model.ProductFilter">
                 <span class="input-group-text search-input-icon" id="addon-wrapping">
                     <div class="search-icon bg-light">
                         <i class="bi bi-search"></i>
