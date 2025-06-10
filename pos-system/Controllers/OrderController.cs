@@ -12,6 +12,7 @@ namespace pos_system.Controllers
         readonly IReportService _reportService = reportService;
         public async Task<IActionResult> CreateOrder(TblOrder order)
         {
+            _orderService.SetUsername(GetCurrentUserName());
             await _orderService.CreateOrder(order);
             ReportModel base64Pdf = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
             string base64WithHeader = $"data:application/pdf;base64,{base64Pdf.Data}";
