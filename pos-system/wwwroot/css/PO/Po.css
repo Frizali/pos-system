@@ -1,0 +1,40 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #fdfdfd;
+}
+
+.container-fullscreen {
+    padding: 1rem;
+}
+
+.sticky-total {
+    background-color: #f97316;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+}
+
+#order-details {
+    background: #fff5e6;
+    border: 1px solid #f5c16c;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .card .row {
+        flex-direction: column;
+    }
+
+    .card .col-4, .card .col-8 {
+        width: 100%;
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+}
