@@ -84,9 +84,20 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> AddPartMovement(EditStockFormModal data)
         {
-            var userName = GetCurrentUserName();
-            data.InputedBy = userName;
-            await _inventoryService.AddPartMovement(data).ConfigureAwait(false);
+            try
+            {
+                var userName = GetCurrentUserName();
+                data.InputedBy = userName;
+                await _inventoryService.AddPartMovement(data).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                var modelError = ex.Message.Split(",");
+                ModelState.AddModelError(modelError[0], modelError[1].Trim());
+
+                await GetEditStockModal(data.PartId);
+                return PartialView("EditStockModal", data);
+            }
             return RedirectToAction("Index");
         }
 

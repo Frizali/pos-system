@@ -108,7 +108,7 @@ namespace pos_system.Services
                                  TotalOrder = g.Sum(x => x.ov.Quantity),
                              };
 
-            return resProduct.Concat(resVariant).Take(5).OrderByDescending(fp => fp.TotalOrder).ToList();
+            return resProduct.Concat(resVariant).OrderByDescending(fp => fp.TotalOrder).Take(5).ToList();
         }
 
         private ChartViewModel GetChartViewModel(string fromDate, string toDate, List<TblOrder> orders)

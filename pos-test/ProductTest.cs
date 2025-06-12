@@ -83,6 +83,68 @@ namespace pos_test
         }
 
         [Test]
+        public async Task Add_ProductWithVariant_ShouldBeAdded()
+        {
+            ProductFormModel data = new()
+            {
+                Product = new TblProduct
+                {
+                    ProductId = _productId,
+                    ProductName = "TP03",
+                    ProductDescription = "TP03",
+                    ProductCode = "TP03",
+                    CategoryId = "A726CF47-0C4F-4506-8023-CC244E7A1290",
+                    Price = 15000,
+                    ProductStock = 20,
+                },
+                ProductVariants = new List<TblProductVariant>
+                {
+                    new TblProductVariant
+                    {
+                        Sku = "Kecil",
+                        VariantPrice = 15000,
+                        VariantStock = 100,
+                        IsLimitedStock = true,
+                        IsAvailable = true,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    },
+                    new TblProductVariant
+                    {
+                        Sku = "Besar",
+                        VariantPrice = 15000,
+                        VariantStock = 100,
+                        IsLimitedStock = true,
+                        IsAvailable = true,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    }
+                },
+                VariantGroups = new List<TblVariantGroup>
+                {
+                    new TblVariantGroup
+                    {
+                        VariantName = "Size",
+                        ProductId = _productId,
+                        TblVariantOptions = new List<TblVariantOption>
+                        {
+                            new TblVariantOption
+                            {
+                                Value = "Kecil"
+                            },
+                            new TblVariantOption
+                            {
+                                Value = "Besar"
+                            }
+                        }
+                    }
+                }
+            };
+
+            await _service.Save(data, null);
+        }
+
+        [Test]
         public async Task Get_ProductDetailById_ShouldReturnSameProduct()
         {
             var result = await _service.ProductDetailByID(_productId);

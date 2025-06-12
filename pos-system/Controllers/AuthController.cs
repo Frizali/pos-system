@@ -55,7 +55,7 @@ namespace pos_system.Controllers
                     return RedirectToAction("Index", "Dashboard");
             }
 
-            ModelState.AddModelError("", "Invalid login attempt.");
+            ModelState.AddModelError("Password", "Invalid login attempt.");
             return View(model);
         }
 
@@ -82,7 +82,7 @@ namespace pos_system.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError("Password", error.Description);
                 }
             }
 

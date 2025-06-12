@@ -11,6 +11,7 @@ public partial class TblPartMovement
     public string PartId { get; set; } = null!;
 
     public int PartMovType { get; set; }
+    public double LastPartQty { get; set; }
 
     public int PartMovQty { get; set; }
 

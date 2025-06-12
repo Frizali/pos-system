@@ -25,9 +25,9 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> PartMovement(string partId, string partTypeId, DateTime date, string month, string year)
         {
-            var result = await _inventoryService.GetListPartMovement(partId, partTypeId, date, month, year).ConfigureAwait(false);
+            var logs = await _inventoryService.GetListPartMovement(partId, partTypeId, date, month, year).ConfigureAwait(false);
 
-            return View("InventoryLog", result);
+            return View(logs);
         }
     }
 }

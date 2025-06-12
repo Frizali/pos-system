@@ -118,6 +118,9 @@ namespace pos_system.Repository
         {
             if (param.PartMovQty != 0)
             {
+                var part = await _context.TblParts.Where(x => x.PartId == param.PartId).FirstAsync().ConfigureAwait(false);
+                if (param.PartMovQty < 0 && (part.PartQty - Math.Abs(param.PartMovQty)) < 0) throw new Exception($"PartMovQty, Can't input value more than Quantity");
+
                 param.PartMovType = param.PartMovQty > 0 ? 1 : 2;
                 TblPartMovement data = new TblPartMovement()
                 {
@@ -131,8 +134,9 @@ namespace pos_system.Repository
 
                 await _context.TblPartMovements.AddAsync(data).ConfigureAwait(false);
 
-                var part = await _context.TblParts.Where(x => x.PartId == param.PartId).FirstOrDefaultAsync().ConfigureAwait(false);
+                data.LastPartQty = part.PartQty;
                 var qty = part.PartQty += param.PartMovQty;
+
                 part.PartQty = qty <= 0 ? 0 : qty;
 
                 await _context.SaveChangesAsync().ConfigureAwait(false);
@@ -178,8 +182,10 @@ namespace pos_system.Repository
                 {
                     PartName = x.Part.PartName,
                     Category = x.PartType.PartTypeName,
+                    LastPartQry = x.PartMov.LastPartQty,
                     StockIn = x.PartMov.PartMovQty > 0 ? x.PartMov.PartMovQty : 0,
                     StockOut = x.PartMov.PartMovQty < 0 ? x.PartMov.PartMovQty : 0,
+                    CurrPartQry = x.Part.PartQty,
                     Note = x.PartMov.Remark ?? "",
                     InputedBy = x.PartMov.InputedBy ?? "",
                     CreatedAt = x.PartMov.CreatedAt,

@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\pos-report\pos-report.csproj" />
     <ProjectReference Include="..\pos-system\pos-system.csproj" />
   </ItemGroup>
 
