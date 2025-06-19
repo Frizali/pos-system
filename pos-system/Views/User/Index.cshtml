@@ -1,59 +1,12 @@
 ﻿@{
     ViewData["Title"] = "User";
     Layout = null;
-
 }
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-
-<style>
-    body{
-        font-family: "Urbanist", sans-serif;
-    }
-
-    .carousel-inner {
-        height: 300px; 
-    }
-
-        .carousel-inner img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-    .btn-orange {
-        background-color: orange;
-        color: white;
-    }
-
-        .btn-orange:hover {
-            background-color: darkorange;
-            color: white;
-        }
-
-    .menu-img {
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .text-orange {
-        color: orange;
-    }
-
-    .border-orange {
-        border: 2px solid orange;
-    }
-
-    footer a:hover {
-        color: #ff6600 !important;
-        text-decoration: underline;
-    }
-
-    footer h6 {
-        color: #ff6600;
-    }
-</style>
+<link rel="stylesheet" href="~/css/User/Index.css" asp-append-version="true" />
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
@@ -80,6 +33,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <li><a class="dropdown-item" href="/setting">Setting</a></li>
+                    <li><a class="dropdown-item" href="/User/PoOrderTable">Order</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
@@ -96,9 +50,8 @@
                 <h6 class="lead">
                     Tempat nongkrong asik khas Jawa dengan berbagai pilihan menu lezat dan harga bersahabat.
                     Cocok untuk kumpul santai bareng teman atau menikmati malam dengan suasana hangat dan tradisional.
-                    Kami menyajikan kopi, teh, sate usus, nasi kucing, dan masih banyak lagi dengan pelayanan ramah dan cepat.
                 </h6>
-                <a href="#menu" class="btn text-white mt-3" style="background-color: orange;">Lihat Menu</a>
+                <a asp-controller="Po" asp-action="OrderPo" class="btn text-white mt-3" style="background-color: orange;">Lihat Menu</a>
             </div>
 
             <div class="col-md-6">
@@ -130,8 +83,7 @@
     <div class="container">
         <h2 class="text-center mb-5 fw-bold">Menu Favorit</h2>
         <div class="row g-4">
-
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/nasi kucing.jpg" class="card-img-top menu-img" alt="Nasi Kucing">
                     <div class="card-body">
@@ -140,8 +92,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/sate usus.jpeg" class="card-img-top menu-img" alt="Sate Usus">
                     <div class="card-body">
@@ -150,8 +101,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/teh.jpg" class="card-img-top menu-img" alt="Teh Panas">
                     <div class="card-body">
@@ -163,74 +113,68 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="/Menu" class="btn btn-orange">Lihat Semua Menu / Pesan Sekarang</a>
+            <a asp-controller="Po" asp-action="OrderPo" class="btn btn-orange">Lihat Semua Menu / Pesan Sekarang</a>
         </div>
     </div>
 </section>
-
 
 <section id="service" class="py-5 bg-light">
     <div class="container">
         <h2 class="text-center fw-bold mb-5">Layanan Kami</h2>
         <div class="row g-4">
-
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="bg-white shadow rounded text-center p-4 h-100 d-flex flex-column align-items-center">
                     <i class="bi bi-shop-window fs-1 text-warning mb-3"></i>
                     <h5 class="fw-bold">Makan di Tempat</h5>
                     <p class="flex-grow-1">Rasakan langsung suasana angkringan khas Jawa yang hangat dan bersahabat.</p>
                 </div>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="bg-white shadow rounded text-center p-4 h-100 d-flex flex-column align-items-center">
                     <i class="bi bi-cash-coin fs-1 text-success mb-3"></i>
                     <h5 class="fw-bold">Harga Terjangkau</h5>
-                    <p class="flex-grow-1">Nikmati berbagai menu khas angkringan dengan harga bersahabat untuk semua kalangan.</p>
+                    <p class="flex-grow-1">Nikmati berbagai menu khas angkringan dengan harga bersahabat.</p>
                 </div>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="bg-white shadow rounded text-center p-4 h-100 d-flex flex-column align-items-center">
                     <i class="bi bi-calendar-event fs-1 text-danger mb-3"></i>
                     <h5 class="fw-bold">Reservasi Tempat</h5>
-                    <p class="flex-grow-1">Pesan tempat atau meja terlebih dahulu agar kunjunganmu lebih nyaman dan tidak kehabisan tempat.</p>
+                    <p class="flex-grow-1">Pesan tempat atau meja terlebih dahulu agar lebih nyaman.</p>
                 </div>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <div class="bg-white shadow rounded text-center p-4 h-100 d-flex flex-column align-items-center">
                     <i class="bi bi-calendar-check fs-1 text-primary mb-3"></i>
-                    <h5 class="fw-bold text-warning">Sistem PO (Pre-Order)</h5>
-                    <p class="flex-grow-1">Butuh dalam jumlah banyak atau untuk acara? Gunakan sistem PO kami untuk pesanan lebih fleksibel!</p>
-                    <a href="/PO" class="btn btn-warning text-white mt-2">Buat PO Sekarang</a>
+                    <h5 class="fw-bold text-warning">Sistem PO</h5>
+                    <p class="flex-grow-1">Gunakan sistem PO kami untuk pesanan acara atau banyak!</p>
+                    <a asp-controller="Po" asp-action="OrderPo" class="btn btn-warning text-white mt-2">Buat PO Sekarang</a>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<section id="review" class="py-5" style="background-color: #fff;">
+<section id="review" class="py-5 bg-white">
     <div class="container">
         <div class="text-center mb-5">
             <h6 class="text-uppercase" style="color: #d56500;">Testimoni</h6>
             <h2 class="fw-bold text-dark">Apa Kata Pelanggan Kami</h2>
         </div>
         <div class="row text-center">
-            <div class="col-md-4 mb-4">
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" width="60" height="60" alt="Pelanggan 1">
                 <h5 class="fw-bold text-dark">Budi Hartono</h5>
                 <p class="fst-italic text-muted">Pegawai Negeri</p>
                 <p class="text-secondary">“Sistem PO-nya sangat membantu untuk acara keluarga kami!”</p>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle mb-3" width="60" height="60" alt="Pelanggan 2">
-                <h5 class="fw-bold text-dark mb-0">Dewi Rahma</h5>
-                <p class="fst-italic text-muted mb-2">Mahasiswi</p>
+                <h5 class="fw-bold text-dark">Dewi Rahma</h5>
+                <p class="fst-italic text-muted">Mahasiswi</p>
                 <p class="text-secondary">“Pelayanan cepat dan ramah, cocok buat nongkrong bareng teman!”</p>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
                 <img src="https://randomuser.me/api/portraits/men/65.jpg" class="rounded-circle mb-3" width="60" height="60" alt="Pelanggan 3">
                 <h5 class="fw-bold text-dark">Riko Prasetyo</h5>
                 <p class="fst-italic text-muted">Mahasiswa</p>
@@ -240,22 +184,17 @@
     </div>
 </section>
 
-
 <footer class="bg-light text-dark pt-5 pb-4 shadow-sm mt-5">
     <div class="container text-center text-md-start">
         <div class="row">
-
-            <div class="col-md-4 mb-4">
+            <div class="col-12 col-md-4 mb-4">
                 <h5 class="fw-bold mb-3">
                     <img src="~/images/Logo omahmu HD.png" alt="Logo" width="40" class="me-2" />
                     Angkringan Omahmu
                 </h5>
-                <p class="text-muted">
-                    Tempat nongkrong santai, rasa rumahan, harga bersahabat. Nikmati suasana angkringan khas Jawa setiap hari.
-                </p>
+                <p class="text-muted">Tempat nongkrong santai, rasa rumahan, harga bersahabat.</p>
             </div>
-
-            <div class="col-md-2 mb-4">
+            <div class="col-12 col-md-2 mb-4">
                 <h6 class="fw-semibold mb-3">Menu</h6>
                 <ul class="list-unstyled">
                     <li><a href="#home" class="text-decoration-none text-muted">Home</a></li>
@@ -264,8 +203,7 @@
                     <li><a href="#review" class="text-decoration-none text-muted">Review</a></li>
                 </ul>
             </div>
-
-            <div class="col-md-3 mb-4">
+            <div class="col-12 col-md-3 mb-4">
                 <h6 class="fw-semibold mb-3">Kontak Kami</h6>
                 <p class="text-muted mb-1"><i class="bi bi-telephone me-2"></i> 0812-3456-7890</p>
                 <p class="text-muted mb-1"><i class="bi bi-envelope me-2"></i> info@omahmu.com</p>
@@ -273,10 +211,9 @@
                     <i class="bi bi-whatsapp me-2 text-success"></i>
                     <a href="https://wa.me/6281234567890" target="_blank" class="text-muted text-decoration-none">Chat via WhatsApp</a>
                 </p>
-                <p class="text-muted"><i class="bi bi-geo-alt me-2"></i> Batam center</p>
+                <p class="text-muted"><i class="bi bi-geo-alt me-2"></i> Batam Center</p>
             </div>
-
-            <div class="col-md-3 mb-4">
+            <div class="col-12 col-md-3 mb-4">
                 <h6 class="fw-semibold mb-3">Ikuti Kami</h6>
                 <a href="#" class="text-muted me-3"><i class="bi bi-facebook fs-5"></i></a>
                 <a href="#" class="text-muted me-3"><i class="bi bi-instagram fs-5"></i></a>
@@ -284,15 +221,9 @@
                 <a href="https://wa.me/6281234567890" class="text-muted" target="_blank"><i class="bi bi-whatsapp fs-5 text-success"></i></a>
             </div>
         </div>
-
         <hr>
-        <div class="text-center text-muted">
-            &copy; 2025 Angkringan Omahmu. All rights reserved.
-        </div>
+        <div class="text-center text-muted">&copy; 2025 Angkringan Omahmu. All rights reserved.</div>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-

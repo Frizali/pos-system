@@ -1,40 +1,22 @@
-﻿body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #fdfdfd;
+﻿.modal-content {
+    border-radius: 1.5rem;
 }
 
-.container-fullscreen {
-    padding: 1rem;
+.btn-outline-dark.active {
+    background-color: #333;
+    color: white;
 }
 
-.sticky-total {
-    background-color: #f97316;
-    position: sticky;
-    bottom: 0;
-    z-index: 1000;
+.modal-fullscreen-sm-down {
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
-#order-details {
-    background: #fff5e6;
-    border: 1px solid #f5c16c;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
+.object-fit-cover {
+    object-fit: cover;
 }
 
-@media (max-width: 768px) {
-    .card .row {
-        flex-direction: column;
-    }
-
-    .card .col-4, .card .col-8 {
-        width: 100%;
-    }
-
-    .card img {
-        height: 200px;
-        object-fit: cover;
-    }
+.btn.active {
+    background-color: #0d6efd !important;
+    color: white !important;
 }

@@ -1,0 +1,68 @@
+﻿body {
+    font-family: "Urbanist", sans-serif;
+}
+
+.carousel-inner {
+    height: 300px;
+}
+
+    .carousel-inner img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+.btn-orange {
+    background-color: orange;
+    color: white;
+}
+
+    .btn-orange:hover {
+        background-color: darkorange;
+        color: white;
+    }
+
+.menu-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.text-orange {
+    color: orange;
+}
+
+.border-orange {
+    border: 2px solid orange;
+}
+
+footer a:hover {
+    color: #ff6600 !important;
+    text-decoration: underline;
+}
+
+footer h6 {
+    color: #ff6600;
+}
+
+@media (max-width: 768px) {
+    h1 .display-5 {
+        font-size: 1.8rem;
+    }
+
+    .carousel-inner {
+        height: 200px;
+    }
+
+    .menu-img {
+        height: 150px;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .btn-orange, .btn-warning {
+        width: 100%;
+    }
+}
+

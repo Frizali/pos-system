@@ -3,106 +3,59 @@
     ViewBag.Title = "Order Makanan";
     Layout = null;
 }
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<style>
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    h3 {
-        font-weight: 600;
-        color: #333;
-    }
-
-    .card {
-        border-radius: 1rem;
-        overflow: hidden;
-        background-color: #fff;
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: scale(1.01);
-    }
-
-    .card-title {
-        font-weight: 600;
-    }
-
-    .btn-outline-success {
-        border-radius: 1rem;
-        font-size: 1.2rem;
-        width: 38px;
-        height: 38px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-outline-secondary {
-        border-radius: 1rem;
-        font-size: 0.9rem;
-    }
-
-    .sticky-total {
-        background-color: #28a745;
-        position: sticky;
-        bottom: 0;
-        z-index: 1000;
-        border-radius: 1rem;
-        margin-top: 2rem;
-    }
-
-    #order-details h5 {
-        margin-top: 1rem;
-        font-weight: bold;
-    }
-
-    #order-list .list-group-item {
-        border-radius: 0.75rem;
-        background-color: #fff;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        margin-bottom: 0.5rem;
-    }
-
-    .modal-content {
-        border-radius: 1rem;
-    }
-
-    #noteTextArea {
-        border-radius: 0.75rem;
-    }
-</style>
 
 <div class="container py-3">
-    <h3 class="text-center mb-4">🍽️ Menu Makanan</h3>
+    <div class="bg-light rounded-4 shadow-sm p-4 mb-4 position-relative text-center text-dark" style="background: linear-gradient(to right, #ffc107, #ff5722);">
+        <h2 class="fw-bold mb-1" style="font-family: 'Segoe UI', sans-serif; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            Angkringan Omahmu  <img src="~/images/Logo omahmu HD.png" alt="Logo Angkringan" width="50" class="mb-2" />
+        </h2>
+        <p class="fst-italic m-0 text-white">Nikmati berbagai pilihan menu khas angkringan favorit Anda</p>
+    </div>
 
-    <div class="row g-4" id="menu-list">
+    <div class="d-flex justify-content-center mb-3 gap-2">
+        <button id="orderNowBtn" class="btn btn-primary btn-sm rounded-pill active" onclick="setOrderType('now')">Order Now</button>
+        <button id="poBtn" class="btn btn-outline-secondary btn-sm rounded-pill" onclick="setOrderType('po')">PO (Pre-Order)</button>
+    </div>
+
+    <div id="poForm" class="mb-4" style="display: none;">
+        <div class="card shadow-sm p-3 rounded-4">
+            <div class="mb-2">
+                <label class="fw-bold">Tanggal Pengambilan</label>
+                <input type="date" id="poDate" class="form-control" />
+            </div>
+            <div class="mb-2">
+                <label class="fw-bold">Catatan PO</label>
+                <textarea id="poNote" class="form-control" rows="2" placeholder="Catatan tambahan untuk PO..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
         @foreach (var item in Model)
         {
-            <div class="col-md-6 col-12">
-                <div class="card shadow-sm border-0">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                     <div class="row g-0">
                         <div class="col-5">
-                            <img src="@Url.Content(item.ImageUrl)" class="img-fluid w-100 h-100 object-fit-cover" alt="@item.Name">
+                            <img src="@Url.Content(item.ImageUrl)" alt="@item.Name" class="img-fluid h-100 w-100 object-fit-cover">
                         </div>
-                        <div class="col-7">
-                            <div class="card-body d-flex flex-column justify-content-between h-100">
-                                <div>
-                                    <h5 class="card-title">@item.Name</h5>
-                                    <p class="text-muted small">@item.Description</p>
-                                    <p class="fw-bold text-success">Rp @item.Price.ToString("N0")</p>
-                                </div>
-                                <div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <button class="btn btn-outline-success" onclick="decreaseQty(@item.Id, @item.Price)">−</button>
-                                        <span id="qty-@item.Id" class="fw-bold fs-5">@orderData.ContainsKey(item.Id) ? orderData[item.Id].qty : 0</span>
-                                        <button class="btn btn-outline-success" onclick="increaseQty(@item.Id, @item.Price)">+</button>
-                                    </div>
-                                    <button class="btn btn-outline-secondary w-100" onclick="openNoteModal(@item.Id)">📝 Tambahkan Catatan</button>
-                                </div>
+                        <div class="col-7 p-3 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="mb-1">@item.Name</h5>
+                                <p class="text-muted small mb-1">@item.Description</p>
+                                <p class="text-success fw-bold mb-1">Rp @item.Price.ToString("N0")</p>
                             </div>
+                            <button class="btn btn-success btn-sm w-100 rounded-pill mt-2"
+                                    onclick="openDetailModal(
+                                        @item.Id,
+                                        '@item.Name',
+                                        @item.Price,
+                                        '@item.Description',
+                                        '@Url.Content(item.ImageUrl)')">
+                                Tambah
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -110,107 +63,242 @@
         }
     </div>
 
-    <div class="sticky-total text-white p-3 mt-4 text-end fw-bold fs-5">
-        Total: Rp <span id="total-price">0</span>
-    </div>
+    <div class="mt-5">
+        <h5 class="fw-bold mb-3">Order Detail</h5>
+        <div id="orderDetailContainer"></div>
 
-    <div id="order-details" class="mt-3 d-none">
-        <h5>Detail Pesanan</h5>
-        <ul class="list-group" id="order-list"></ul>
+        <div class="mt-3 text-center">
+            <button id="submitNowBtn" class="btn btn-success rounded-pill px-4" style="display: none;" onclick="submitOrder()">Submit Order</button>
+            <button id="submitPoBtn" class="btn btn-warning rounded-pill px-4" style="display: none;" onclick="submitOrderPo()">Submit PO</button>
+        </div>
     </div>
 </div>
 
-<!-- Modal Catatan -->
-<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Catatan Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-            </div>
+        <div class="modal-content p-3 rounded-4">
             <div class="modal-body">
-                <textarea id="noteTextArea" class="form-control" rows="4" placeholder="Masukkan catatan di sini..."></textarea>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button class="btn btn-primary" onclick="saveNote()">Simpan</button>
+                <div class="text-center mb-3">
+                    <img id="modalImage" class="img-fluid rounded" style="max-height: 200px;" />
+                </div>
+                <div class="text-center text-muted mb-1">Makanan</div>
+                <h5 id="modalTitle" class="text-center fw-bold mb-1"></h5>
+                <p id="modalDesc" class="text-muted text-center small"></p>
+
+                <label class="fw-bold d-block mt-3">Ukuran</label>
+                <div id="variantOptions" class="d-flex gap-2 flex-wrap justify-content-center mb-3">
+                    <button class="btn btn-outline-dark btn-sm rounded-pill" onclick="selectVariant('Kecil')">Kecil</button>
+                    <button class="btn btn-outline-dark btn-sm rounded-pill" onclick="selectVariant('Sedang')">Sedang</button>
+                    <button class="btn btn-outline-dark btn-sm rounded-pill" onclick="selectVariant('Besar')">Besar</button>
+                </div>
+
+                <label class="fw-bold">Catatan</label>
+                <textarea id="modalNote" class="form-control mb-3" rows="2" placeholder="Tambahkan catatan..."></textarea>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button class="btn btn-outline-success rounded-circle" onclick="changeQty(-1)">−</button>
+                    <span id="modalQty" class="fs-5 fw-bold">1</span>
+                    <button class="btn btn-outline-success rounded-circle" onclick="changeQty(1)">+</button>
+                </div>
+
+                <button class="btn btn-primary w-100 rounded-pill" onclick="addModalToCart()">Add to Cart</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    let orderData = {};
-    let currentNoteItemId = null;
+    let orderType = 'now';
+    const orderData = [];
 
-    function increaseQty(id, price) {
-        if (!orderData[id]) orderData[id] = { qty: 0, note: '', price: price };
-        orderData[id].qty++;
-        updateQty(id);
-        updateTotal();
+    function setOrderType(type) {
+        orderType = type;
+        document.getElementById('orderNowBtn').classList.toggle('active', type === 'now');
+        document.getElementById('poBtn').classList.toggle('active', type === 'po');
+        document.getElementById('poForm').style.display = (type === 'po') ? 'block' : 'none';
+
+        document.getElementById('submitNowBtn').style.display = (type === 'now') ? 'inline-block' : 'none';
+        document.getElementById('submitPoBtn').style.display = (type === 'po') ? 'inline-block' : 'none';
+
+        renderOrderDetails();
     }
 
-    function decreaseQty(id, price) {
-        if (!orderData[id]) return;
-        if (orderData[id].qty > 0) {
-            orderData[id].qty--;
-            updateQty(id);
-            updateTotal();
+    let modalQty = 1;
+    let modalItem = null;
+    let selectedVariant = '';
+
+    function openDetailModal(id, name, price, desc, imageUrl) {
+        modalItem = { id, name, price, desc, imageUrl };
+        modalQty = 1;
+        selectedVariant = '';
+
+        document.getElementById('modalImage').src = imageUrl;
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('modalQty').innerText = modalQty;
+        document.getElementById('modalNote').value = '';
+        [...document.getElementById('variantOptions').children].forEach(btn => btn.classList.remove('active'));
+
+        const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+        modal.show();
+    }
+
+    function selectVariant(variant) {
+        selectedVariant = variant;
+        [...document.getElementById('variantOptions').children].forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent === variant) btn.classList.add('active');
+        });
+    }
+
+    function changeQty(change) {
+        modalQty = Math.max(1, modalQty + change);
+        document.getElementById('modalQty').innerText = modalQty;
+    }
+
+    function addModalToCart() {
+        const note = document.getElementById('modalNote').value;
+
+        if (!selectedVariant) {
+            alert("Pilih ukuran terlebih dahulu!");
+            return;
+        }
+
+        const item = {
+            id: modalItem.id,
+            name: modalItem.name + ' (' + selectedVariant + ')',
+            qty: modalQty,
+            price: modalItem.price,
+            note: note,
+            desc: modalItem.desc,
+            imageUrl: modalItem.imageUrl,
+            orderType
+        };
+
+        orderData.push(item);
+        bootstrap.Modal.getInstance(document.getElementById('detailModal')).hide();
+        renderOrderDetails();
+    }
+
+    function renderOrderDetails() {
+        const container = document.getElementById('orderDetailContainer');
+        container.innerHTML = '';
+
+        if (orderData.length === 0) {
+            container.innerHTML = '<p class="text-muted">Belum ada pesanan.</p>';
+            return;
+        }
+
+        let totalHarga = 0;
+
+        const rows = orderData.map(item => {
+            const total = item.price * item.qty;
+            totalHarga += total;
+            return `
+                <tr>
+                    <td>${item.name}<br><small class="text-muted">${item.note || ''}</small></td>
+                    <td>${item.qty}</td>
+                    <td>Rp ${item.price.toLocaleString()}</td>
+                    <td>Rp ${total.toLocaleString()}</td>
+                </tr>
+            `;
+        });
+
+        const table = `
+            <table class="table table-bordered table-sm align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Menu</th>
+                        <th>Qty</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>${rows.join('')}</tbody>
+            </table>
+            <div class="text-end fw-bold">Total Harga: Rp ${totalHarga.toLocaleString()}</div>
+        `;
+
+        container.innerHTML = table;
+
+        if (orderType === 'po') {
+            const poDate = document.getElementById('poDate').value || '(Belum ditentukan)';
+            const poNote = document.getElementById('poNote').value || '(Tidak ada catatan)';
+            const info = `
+                <div class="alert alert-info mt-3 rounded-3">
+                    <strong>Jenis Order:</strong> PO<br>
+                    <strong>Tanggal Pengambilan:</strong> ${poDate}<br>
+                    <strong>Catatan PO:</strong> ${poNote}
+                </div>
+            `;
+            container.innerHTML += info;
         }
     }
 
-    function updateQty(id) {
-        document.getElementById(`qty-${id}`).innerText = orderData[id]?.qty || 0;
+    function submitOrder() {
+        alert("Order Now dikirim! Total item: " + orderData.length);
     }
 
-    function updateTotal() {
-        let total = 0;
-        const orderList = document.getElementById("order-list");
-        orderList.innerHTML = "";
-
-        let hasOrder = false;
-
-        for (const id in orderData) {
-            const item = orderData[id];
-            if (item.qty > 0) {
-                hasOrder = true;
-                total += item.qty * item.price;
-
-                const listItem = document.createElement("li");
-                listItem.className = "list-group-item";
-                listItem.innerHTML = `
-                    <div><strong>${item.qty}x</strong> ID ${id}</div>
-                    ${item.note ? `<div class="small fst-italic">📝 ${item.note}</div>` : ""}
-                    <div class="text-end text-success fw-bold">Rp ${(item.qty * item.price).toLocaleString()}</div>
-                `;
-                orderList.appendChild(listItem);
-            }
-        }
-
-        document.getElementById("total-price").innerText = total.toLocaleString();
-        document.getElementById("order-details").classList.toggle("d-none", !hasOrder);
-    }
-
-    function openNoteModal(id) {
-        currentNoteItemId = id;
-        const note = orderData[id]?.note || "";
-        document.getElementById("noteTextArea").value = note;
-
-        const noteModal = new bootstrap.Modal(document.getElementById("noteModal"));
-        noteModal.show();
-    }
-
-    function saveNote() {
-        const noteText = document.getElementById("noteTextArea").value;
-        if (!orderData[currentNoteItemId]) {
-            orderData[currentNoteItemId] = { qty: 0, note: '', price: 0 };
-        }
-        orderData[currentNoteItemId].note = noteText;
-
-        const noteModalEl = document.getElementById("noteModal");
-        const modal = bootstrap.Modal.getInstance(noteModalEl);
-        modal.hide();
-
-        updateTotal();
+    function submitOrderPo() {
+        alert("PO dikirim! Total item: " + orderData.length);
     }
 </script>
+
+<style>
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .btn-outline-dark.active {
+        background-color: #333;
+        color: white;
+    }
+
+    .btn.active {
+        background-color: #0d6efd !important;
+        color: white !important;
+    }
+
+    .bg-light-custom {
+        background: linear-gradient(to right, #ffe082, #ff8a65);
+        color: #4e342e;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .btn-primary,
+    .btn-success,
+    .btn-warning {
+        background-color: #ff6f00;
+        border-color: #ff6f00;
+        color: white;
+    }
+
+        .btn-primary:hover,
+        .btn-success:hover,
+        .btn-warning:hover {
+            background-color: #e65100;
+            border-color: #e65100;
+        }
+
+    .text-success {
+        color: #ff6f00 !important;
+    }
+
+    .btn-outline-dark.active {
+        background-color: #ff6f00;
+        color: white;
+        border-color: #ff6f00;
+    }
+
+    /* Tombol Order Type aktif */
+    .btn.active {
+        background-color: #ff6f00 !important;
+        color: white !important;
+        border-color: #ff6f00 !important;
+    }
+
+
+</style>
