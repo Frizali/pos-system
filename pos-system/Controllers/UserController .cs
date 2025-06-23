@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pos_system.Models;
 
 namespace pos_system.Controllers
 {
@@ -41,6 +42,10 @@ namespace pos_system.Controllers
         };
 
             return View("PoOrderTable", dummyOrders);
+        }
+        public IActionResult ManageAcc()
+        {
+            return View();
         }
     }
 }

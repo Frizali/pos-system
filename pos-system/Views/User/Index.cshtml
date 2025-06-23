@@ -32,8 +32,8 @@
                     <i class="bi bi-person-circle fs-4"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" href="/setting">Setting</a></li>
-                    <li><a class="dropdown-item" href="/User/PoOrderTable">Order</a></li>
+                    <li><a class="dropdown-item" asp-controller="User" asp-action="ManageAcc">Setting</a></li>
+                    <li><a class="dropdown-item" asp-controller="User" asp-action="PoOrderTable">Order</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>

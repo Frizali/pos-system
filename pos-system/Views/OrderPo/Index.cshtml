@@ -10,9 +10,17 @@
     <a href="javascript:history.back()" class="btn btn-secondary mb-3">Back</a>
 
     <h4 class="mb-4">Daftar PO Order</h4>
-    <table class="table table-bordered text-center">
+
+    <!-- Search -->
+    <div class="input-group mb-3">
+        <span class="input-group-text">Search</span>
+        <input type="text" class="form-control" id="searchInput" placeholder="Cari nama atau invoice...">
+    </div>
+
+    <table class="table table-bordered text-center" id="orderTable">
         <thead class="table-light">
             <tr>
+                <th>No Invoice</th>
                 <th>Nama</th>
                 <th>Tanggal PO</th>
                 <th>Detail Orderan</th>
@@ -26,6 +34,7 @@
             {
                 var order = Model[i];
                 <tr>
+                    <td>@order.InvoiceNumber</td> <!-- Pastikan POModel punya property InvoiceNumber -->
                     <td>@order.Name</td>
                     <td>@order.TanggalPO.ToString("yyyy-MM-dd")</td>
                     <td>
@@ -72,7 +81,7 @@
                     <td>@order.Note</td>
                     <td>Rp @order.Total.ToString("N0")</td>
                     <td>
-                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#approveModal@i">Approve</button>
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#approveModal@i">Process</button>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal@i">Reject</button>
 
                         <!-- Modal Approve -->
@@ -81,7 +90,7 @@
                                 <div class="modal-content">
                                     <form method="post" action="/OrderPo/Approve">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Catatan Approve</h5>
+                                            <h5 class="modal-title">Catatan Process</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
@@ -126,3 +135,17 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Simple search filtering -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#orderTable tbody tr");
+
+        rows.forEach(row => {
+            let invoice = row.children[0].innerText.toLowerCase();
+            let name = row.children[1].innerText.toLowerCase();
+            row.style.display = (invoice.includes(value) || name.includes(value)) ? "" : "none";
+        });
+    });
+</script>

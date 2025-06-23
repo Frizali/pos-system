@@ -1,0 +1,140 @@
+﻿@model List<POModel>
+
+@{
+    ViewBag.Title = "PO Order Table";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<div class="container py-4">
+    <a href="javascript:history.back()" class="btn btn-secondary mb-3">Back</a>
+
+    <h4 class="mb-4">Daftar Order</h4>
+
+    <!-- Search & Filter -->
+    <div class="row mb-3">
+        <div class="col-md-4 mb-2">
+            <label for="searchInput" class="form-label">Search Nama / Invoice:</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Cari nama atau invoice...">
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="filterDate" class="form-label">Filter Tanggal PO:</label>
+            <input type="date" class="form-control" id="filterDate">
+        </div>
+    </div>
+
+    <table class="table table-bordered text-center" id="orderTable">
+        <thead class="table-light">
+            <tr>
+                <th>No Invoice</th>
+                <th>Nama</th>
+                <th>Tanggal PO</th>
+                <th>Detail Orderan</th>
+                <th>Note</th>
+                <th>Total Harga</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var order = Model[i];
+                string tanggalPO = order.TanggalPO.ToString("yyyy-MM-dd");
+                <tr data-tanggal="@tanggalPO" data-name="@order.Name.ToLower()" data-invoice="@order.InvoiceNumber.ToLower()">
+                    <td>@order.InvoiceNumber</td>
+                    <td>@order.Name</td>
+                    <td>@tanggalPO</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailModal@i">
+                            Lihat Detail
+                        </button>
+
+                        <!-- Modal Detail -->
+                        <div class="modal fade" id="detailModal@i" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detail Order - @order.Name</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produk</th>
+                                                    <th>Variant</th>
+                                                    <th>Note</th>
+                                                    <th>Jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in order.Detail)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Produk</td>
+                                                        <td>@item.Variant</td>
+                                                        <td>@item.Note</td>
+                                                        <td>@item.Qty</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@order.Note</td>
+                    <td>Rp @order.Total.ToString("N0")</td>
+                    <td>
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#approveModal@i">Success</button>
+                        <!-- Modal Approve -->
+                        <div class="modal fade" id="approveModal@i" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" action="/OrderPo/Status">
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button class="btn btn-success" type="submit">Kirim</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Search + Filter Script -->
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const filterDate = document.getElementById("filterDate");
+
+    function applyFilters() {
+        const keyword = searchInput.value.toLowerCase();
+        const selectedDate = filterDate.value;
+        const rows = document.querySelectorAll("#orderTable tbody tr");
+
+        rows.forEach(row => {
+            const name = row.getAttribute("data-name");
+            const invoice = row.getAttribute("data-invoice");
+            const tanggal = row.getAttribute("data-tanggal");
+
+            const matchKeyword = !keyword || name.includes(keyword) || invoice.includes(keyword);
+            const matchDate = !selectedDate || tanggal === selectedDate;
+
+            row.style.display = (matchKeyword && matchDate) ? "" : "none";
+        });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    filterDate.addEventListener("change", applyFilters);
+</script>

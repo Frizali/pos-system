@@ -1,58 +1,78 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pos_system.Models;
 
 namespace pos_system.Controllers
 {
     public class OrderPoController : Controller
     {
-        [HttpGet]
         public IActionResult Index()
         {
-            var dummyOrders = new List<POModel>
+            var listPO = new List<POModel>
             {
-                new POModel
+                GetSamplePO(1, "Customer A", "Waiting"),
+                GetSamplePO(2, "Customer B", "Waiting")
+            };
+            return View(listPO);
+        }
+
+        public IActionResult Process()
+        {
+            var listPO = new List<POModel>
+            {
+                GetSamplePO(3, "Customer C", "Process"),
+                GetSamplePO(6, "Customer F", "Process")
+            };
+            return View(listPO);
+        }
+
+        public IActionResult Status()
+        {
+            var listPO = new List<POModel>
+            {
+                GetSamplePO(4, "Customer D", "Delivered"),
+                GetSamplePO(7, "Customer G", "Delivered")
+            };
+            return View(listPO);
+        }
+
+        [HttpPost]
+        public IActionResult Approve(int orderId, string note)
+        {
+            TempData["Message"] = $"PO ID {orderId} telah di-process dengan catatan: {note}";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Reject(int orderId, string note)
+        {
+            TempData["Message"] = $"PO ID {orderId} telah di-reject dengan catatan: {note}";
+            return RedirectToAction("Index");
+        }
+
+        private POModel GetSamplePO(int id, string name, string status)
+        {
+            return new POModel
+            {
+                Id = id,
+                Name = name,
+                InvoiceNumber = GenerateInvoiceNumber(id),
+                TanggalPO = DateTime.Now.AddDays(1),
+                Note = "Catatan pesanan",
+                Total = 56000,
+                Status = status,
+                Detail = new List<PODetail>
                 {
-                    Id = 1,
-                    Name = "Joko Santoso",
-                    TanggalPO = DateTime.Today,
-                    Note = "Diantar sebelum jam 7 malam",
-                    Total = 35000,
-                    Status = "Diproses",
-                    Detail = new List<PODetail>
-                    {
-                        new PODetail { Produk = "Sate Usus", Variant = "Besar", Note = "Pedas", Qty = 3 },
-                        new PODetail { Produk = "Nasi Kucing", Variant = "Sedang", Note = "Tambah sambel", Qty = 2 }
-                    }
-                },
-                new POModel
-                {
-                    Id = 2,
-                    Name = "Rina Marlina",
-                    TanggalPO = DateTime.Today.AddDays(-1),
-                    Note = "Dibungkus rapat",
-                    Total = 10000,
-                    Status = "Menunggu",
-                    Detail = new List<PODetail>
-                    {
-                        new PODetail { Produk = "Wedang Jahe", Variant = "Kecil", Note = "Tanpa gula", Qty = 1 }
-                    }
+                    new PODetail { Produk = "Nasi Bakar", Variant = "Besar", Note = "Pedas", Qty = 2 },
+                    new PODetail { Produk = "Wedang Jahe", Variant = "Sedang", Note = "Manis", Qty = 1 }
                 }
             };
-
-            return View(dummyOrders); 
         }
 
-        [HttpPost]
-        public IActionResult Approve(int OrderId, string Note)
+        private string GenerateInvoiceNumber(int id)
         {
-            TempData["Message"] = $"Order #{OrderId} disetujui: {Note}";
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult Reject(int OrderId, string Note)
-        {
-            TempData["Message"] = $"Order #{OrderId} ditolak: {Note}";
-            return RedirectToAction("Index");
+            // Format: INV20250623-001
+            string tanggal = DateTime.Now.ToString("yyyyMMdd");
+            return $"INV{tanggal}-{id:000}";
         }
     }
 }
