@@ -7,7 +7,6 @@
         font-weight: 500;
         text-align: center;
         padding: .7rem;
-        /* border: 1px solid rgba(108, 117, 125, .2); */
         border-radius: 50px;
         margin-bottom: .5rem;
     }
@@ -45,20 +44,6 @@
 <div class="container">
     <div class="bg-white p-2">
         <div class="d-flex justify-content-between">
-@*             <div class="datetime-container d-flex gap-3 align-items-center">
-                <div>
-                    Date:
-                </div>
-                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                    <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                </div>
-                <div>
-                    -
-                </div>
-                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                    <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                </div>
-            </div> *@
             <div class="d-flex gap-2 align-items-center">
                 <h5 class="m-0">Teams Management</h5>
             </div>
@@ -89,7 +74,6 @@
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Email</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Role</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Status</div></th>
-                    @* <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th> *@
                 </tr>
             </thead>
             <tbody>
@@ -105,88 +89,9 @@
                                 <div class="pill-wrapper-success" style="margin:auto;">Active</div>
                             }
                         </td>
-@*                         <td>
-                            <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@user.Id">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@user.Id" onclick="return confirm('Are you sure you want to delete this user?');">
-                                <i class="bi bi-trash"></i> Delete
-                            </a>
-                        </td> *@
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
-
-
-
-@* <div class="container">
-    <div class="d-flex align-items-center justify-content-between bg-white rounded gap-3 p-2 mb-3">
-        <div class="bg-white d-flex gap-2 align-items-center p-3">
-            <div class="dot-middle bg-primary"></div>
-            <h5 class="m-0">User Management</h5>
-        </div>
-        <a class="d-flex gap-3 align-items-center py-2 ps-3 pe-2 circle-con text-decoration-none" role="button" id="add-user" asp-action="Register">
-            <p class="m-0 text-black">
-                Add User
-            </p>
-            <div class="rounded-circle circle-wrapper bg-primary">
-                <i class="bi bi-plus-lg text-white"></i>
-            </div>
-        </a>
-    </div>
-
-    <div class="card border-0">
-        <div class="card-body border-0">
-            <div class="table-responsive">
-                <table class="table borderless table-hover mb-0">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-muted p-3">Name</th>
-                            <th class="text-muted p-3">Email</th>
-                            <th class="text-muted p-3">Role</th>
-                            <th class="text-muted p-3">Status</th>
-                            <th class="text-muted p-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null && Model.Count > 0)
-                        {
-                            foreach (var user in Model)
-                            {
-                                <tr>
-                                    <td>@user.UserName</td>
-                                    <td>@user.Email</td>
-                                    <td>@user.Role</td>
-                                    <td>
-                                        @if(user.IsActive){
-                                            <div class="pill-wrapper-success">Active</div>
-                                        }   
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-edit btn-custom me-2" asp-action="Edit" asp-route-id="@user.Id">
-                                            <i class="bi bi-pencil-square"></i> Edit
-                                        </a>
-                                        <a class="btn btn-delete btn-custom" asp-action="Delete" asp-route-id="@user.Id" onclick="return confirm('Are you sure you want to delete this user?');">
-                                            <i class="bi bi-trash"></i> Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="3" class="text-muted py-4">
-                                    <i class="bi bi-info-circle"></i> No users found.
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div> *@

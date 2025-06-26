@@ -4,6 +4,7 @@
     {
         public string PartName { get; set; }
         public string Category { get; set; }
+        public string UnitCD { get; set; }
         public double LastPartQry { get; set; }
         public int StockIn { get; set; }
         public int StockOut { get; set; }

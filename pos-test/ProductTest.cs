@@ -1,4 +1,4 @@
-using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using pos_system.Data;
@@ -14,6 +14,7 @@ namespace pos_test
         private AppDbContext _context;
         private ProductService _service;
         private string _productId;
+        private string _filePath;
 
         [OneTimeSetUp]
         public void GlobalSetup()
@@ -22,6 +23,7 @@ namespace pos_test
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=POS;");
             _context = new AppDbContext(optionsBuilder.Options);
             _productId = Unique.ID();
+            _filePath = "C:\\Users\\Rizal\\Pictures\\pngtree-coffee-cup-coffee-white-background-transparent-png-image_6673498-2216671691.png";
         }
 
         [OneTimeTearDown]
@@ -33,17 +35,18 @@ namespace pos_test
         [SetUp]
         public void Setup()
         {
-            var crudCategoryRepo = new CrudRepo<TblProductCategory>(_context);
-            var crudProductRepo = new CrudRepo<TblProduct>(_context);
-            var categoryRepo = new ProductCategoryRepo(_context, null, crudCategoryRepo);
-            var productRepo = new ProductRepo(_context, null, crudProductRepo);
-            var variantGroupRepo = new VariantGroupRepo(null);
+            var mockCateRepo = new Mock<IProductCategoryRepo>();
+            mockCateRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblProductCategory>(_context));
+            var mockProductRepo = new Mock<IProductRepo>();
+            mockProductRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblProduct>(_context));
+            var mockVariantGroupRepo = new Mock<IVariantGroupRepo>();
+            mockVariantGroupRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblVariantGroup>(_context));
             var orderNumberRepo = new OrderNumberTrackerRepo(_context);
 
             var service = new ProductService(
-                categoryRepo,
-                productRepo,
-                variantGroupRepo,
+                mockCateRepo.Object,
+                mockProductRepo.Object,
+                mockVariantGroupRepo.Object,
                 orderNumberRepo
             );
 
@@ -58,16 +61,16 @@ namespace pos_test
                 Product = new TblProduct
                 {
                     ProductId = _productId,
-                    ProductName = "TP02",
-                    ProductDescription = "TP02",
-                    ProductCode = "TP02",
-                    CategoryId = "066B57ED-1AB7-4F1B-A596-B9A14114DBA9",
+                    ProductName = "TP01",
+                    ProductDescription = "TP01",
+                    ProductCode = "TP01",
+                    CategoryId = "753A1C7F-9F91-4E1E-AEAA-B152259DDE91",
                     Price = 10000,
                     ProductStock = 10,
                 }
             };
 
-            await _service.Save(data, null);
+            await _service.Save(data, CreateImageFormFile(_filePath, "coffie"));
             var result = await _service.ProductDetailByID(_productId);
 
             Assert.That(result, Is.Not.Null);
@@ -82,17 +85,29 @@ namespace pos_test
             });
         }
 
+        public IFormFile CreateImageFormFile(string filePath, string contentType = "image/png")
+        {
+            var fileStream = File.OpenRead(filePath);
+            return new FormFile(fileStream, 0, fileStream.Length, "productImage", Path.GetFileName(filePath))
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = contentType
+            };
+        }
+
         [Test]
         public async Task Add_ProductWithVariant_ShouldBeAdded()
         {
+            var newProductId = Unique.ID();
+
             ProductFormModel data = new()
             {
                 Product = new TblProduct
                 {
-                    ProductId = _productId,
-                    ProductName = "TP03",
-                    ProductDescription = "TP03",
-                    ProductCode = "TP03",
+                    ProductId = newProductId,
+                    ProductName = "TP02",
+                    ProductDescription = "TP02",
+                    ProductCode = "TP02",
                     CategoryId = "A726CF47-0C4F-4506-8023-CC244E7A1290",
                     Price = 15000,
                     ProductStock = 20,
@@ -125,23 +140,34 @@ namespace pos_test
                     new TblVariantGroup
                     {
                         VariantName = "Size",
-                        ProductId = _productId,
-                        TblVariantOptions = new List<TblVariantOption>
-                        {
-                            new TblVariantOption
-                            {
-                                Value = "Kecil"
-                            },
-                            new TblVariantOption
-                            {
-                                Value = "Besar"
-                            }
-                        }
+                        ProductId = newProductId
                     }
                 }
             };
 
-            await _service.Save(data, null);
+
+            await _service.Save(data, CreateImageFormFile(_filePath, "coffie"));
+            var result = await _service.ProductDetailByID(newProductId);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.ProductId, Is.EqualTo(data.Product.ProductId));
+                Assert.That(result.ProductName, Is.EqualTo(data.Product.ProductName));
+                Assert.That(result.ProductCode, Is.EqualTo(data.Product.ProductCode));
+                Assert.That(result.CategoryId, Is.EqualTo(data.Product.CategoryId));
+                Assert.That(result.Price, Is.EqualTo(data.Product.Price));
+                Assert.That(result.ProductStock, Is.EqualTo(data.Product.ProductStock));
+                Assert.That(result.TblProductVariants.Count, Is.EqualTo(data.ProductVariants.Count));
+                foreach (var (variant, index) in data.ProductVariants.Select((v,i) => (v,i)))
+                {
+                    Assert.That(result.TblProductVariants.ToList()[index].Sku, Is.EqualTo(variant.Sku));
+                    Assert.That(result.TblProductVariants.ToList()[index].VariantPrice, Is.EqualTo(variant.VariantPrice));
+                    Assert.That(result.TblProductVariants.ToList()[index].VariantStock, Is.EqualTo(variant.VariantStock));
+                    Assert.That(result.TblProductVariants.ToList()[index].IsLimitedStock, Is.EqualTo(variant.IsLimitedStock));
+                    Assert.That(result.TblProductVariants.ToList()[index].IsAvailable, Is.EqualTo(variant.IsAvailable));
+                }
+            });
         }
 
         [Test]

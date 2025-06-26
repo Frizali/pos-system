@@ -17,7 +17,7 @@ namespace pos_system.Repository
         public async Task<List<TblLogAudit>> GetLogs(string? action, string? entity, string? key, string? fromDate, string? toDate)
         {
             return await _context.TblLogAudit
-                .Where(log => (string.IsNullOrEmpty(action) || log.LogAction == action) &&
+                .Where(log => (log.LogAction != "Modified" || log.LogFldOldValue != log.LogFldNewValue) && (string.IsNullOrEmpty(action) || log.LogAction == action) &&
                               (string.IsNullOrEmpty(entity) || log.LogEntityName == entity) &&
                               (string.IsNullOrEmpty(key) || log.LogKeyName == key) &&
                               (string.IsNullOrEmpty(fromDate) || log.LogDateTime >= DateTime.Parse(fromDate)) &&

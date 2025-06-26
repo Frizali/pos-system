@@ -33,6 +33,7 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public virtual DbSet<TblOrderItemAddon> TblOrderItemAddon { get; set; }
     public virtual DbSet<TblOrderNumberTracker> TblOrderNumberTracker { get; set; }
     public virtual DbSet<TblLogAudit> TblLogAudit { get; set; }
+    public virtual DbSet<TblSetup> TblSetup { get; set; }
 
     public async Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = default)
     {
@@ -77,6 +78,8 @@ public partial class AppDbContext : IdentityDbContext<ApplicationUser, IdentityR
                         continue;
                     var currentValue = field.OriginalValue;
                     var modifiedValue = field.CurrentValue;
+
+                    if (currentValue == modifiedValue) continue;
 
                     await this.Database.ExecuteSqlRawAsync("INSERT INTO tblLogAudit (LogAction, LogEntityName, LogKeyName, LogKeyValue, LogUsername, LogFldName, LogFldOldValue, LogFldNewValue, LogDateTime) VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
                     "Modified", entityName, string.Join("?", logKeyName), string.Join("?", logKeyValue), username, fieldName, currentValue, modifiedValue, DateTime.Now);

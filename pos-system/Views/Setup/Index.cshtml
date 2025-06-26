@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Setup";
+}
+
+@model TblSetup
+
+@using (Html.BeginForm("Save", "Setup", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="container d-flex flex-column gap-2">
+        <div class="card border-0">
+            <div class="card-body">
+                <h5 class="card-title">Company Information</h5>
+                <hr />
+                <div class="d-flex flex-column gap-2">
+                    <div>
+                        <label for="name" class="form-label">Company Name</label>
+                        <input class="form-control" id="name" placeholder="Roti Kacang" asp-for="@Model.CompanyName">
+                        <span asp-validation-for="@Model.CompanyName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label for="address" class="form-label">Company Address</label>
+                        <textarea class="form-control" id="address" rows="3" asp-for="@Model.CompanyAddress"></textarea>
+                        <span asp-validation-for="@Model.CompanyAddress" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label for="mail" class="form-label">Email for notification</label>
+                        <input class="form-control" id="mail" asp-for="@Model.Email">
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    <div class="w-100">
+                        <button class="btn btn-primary w-100" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
