@@ -1,0 +1,395 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = null;
+    ViewData["Title"] = "Menu";
+    ViewBag.OrderNumber = Model.OrderNumber;
+    var session = HttpContextAccessor.HttpContext.Session;
+}
+@model ProductListViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="~/css/Menu/index.css" asp-append-version="true" />
+</head>
+
+
+<body style="background-color:rgb(248,249,250)">
+    <div style="position:fixed;bottom:1rem;left:50%;" class="py-2 ps-2 pe-3 circle-con" id="order-detail-btn">
+        <div class="d-flex gap-2 align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <div class="rounded-circle circle-wrapper">
+                <i class="bi bi-cart3 text-primary"></i>
+            </div>
+            <p class="m-0 text-black">Cart</p>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="~/images/Logo omahmu HD.png" alt="Logo" width="50" class="me-2" />
+                <strong>Angkringan Omahmu</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#review">Review</a></li>
+                </ul>
+
+                <a href="Auth/Login" class="btn btn-orange ms-3">Login</a>
+
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light border-0 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" asp-controller="User" asp-action="ManageAcc">Setting</a></li>
+                        <li><a class="dropdown-item" asp-controller="User" asp-action="PoOrderTable">Order</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <form asp-action="Index" asp-controller="Menu" method="get">
+            @Html.Partial("_ProductCategory", Model.ProductCategories)
+            <div class="mb-3">
+                <div class="input-group flex-nowrap">
+                    <input type="text" class="form-control search-input" placeholder="Search something in your mind" aria-label="Search something in your mind" aria-describedby="addon-wrapping" name="product" value="@Model.ProductFilter">
+                    <span class="input-group-text search-input-icon" id="addon-wrapping">
+                        <div class="search-icon bg-light">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </form>
+        <div>
+            <div>
+                <div class="row g-3">
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                            <div class="card h-100 border-0">
+                                <div class="card-body d-flex gap-2 p-3 clickable-card" data-id="@item.ProductId" style="cursor: pointer;">
+                                    <div style="width:35%; min-width:90px;">
+                                        <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100 img-fluid" style="object-fit:cover;max-height:120px;" />
+                                    </div>
+                                    <div class="w-100" style="min-width: 0;">
+                                        <div class="d-flex flex-column">
+                                            <h6 class="card-title m-0">@item.ProductName</h6>
+                                            <p class="text-muted m-0 text-truncate" style="max-width: 100%;">
+                                                @item.ProductDescription
+                                            </p>
+                                            <p class="text-muted m-0">@item.Category.CategoryName</p>
+                                            <p class="card-text">
+                                                @{
+                                                    var priceText = String.Empty;
+                                                    if (item.ProductVariants.Count() > 1)
+                                                    {
+                                                        var lowPrice = item.ProductVariants.Min(x => x.VariantPrice);
+                                                        var hightPrice = item.ProductVariants.Max(x => x.VariantPrice);
+                                                        if (lowPrice == hightPrice)
+                                                        {
+                                                            priceText = $"Rp{hightPrice}";
+                                                        }
+                                                        else
+                                                        {
+                                                            priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                        }
+                                                    }
+                                                    else if (item.ProductVariants.Count() == 1)
+                                                    {
+                                                        var price = item.ProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                        priceText = $"Rp{price}";
+                                                    }
+                                                    else
+                                                    {
+                                                        priceText = $"Rp{item.Price}";
+                                                    }
+                                                }
+                                                @priceText
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="AddOrderItem" asp-controller="Product" method="post">
+        <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content modal-menu border-0">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-center" id="productDetailModalLabel">Product Detail</h6>
+                        <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close" id="product-detail-close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="productModalBody"></div>
+                    <div class="modal-footer p-0 border-top-0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="Quantity">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="Quantity" name="Quantity" class="form-control input-number text-center border-white" value="1" min="1" max="9999">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="Quantity">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-add-cart m-0 w-100" data-dismiss="modal" id="add-cart" data-prodid="" disabled>
+                            Add to Cart<span id="priceContainer"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form asp-action="CreateOrder" asp-controller="Order" method="post">
+        <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content modal-menu border-0">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-center" id="orderDetailModalLabel">Order Detail</h6>
+                        <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close" id="order-detail-close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="orderModalBody">
+                    </div>
+                    <div class="modal-footer p-0 border-top-0">
+                        <input type="hidden" name="Type" value="PreOrder" />
+                        <div class="w-100 px-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total</span>
+                                <span id="order-subtotal">Rp0</span>
+                            </div>
+                        </div>
+                        <div id="preorder-active" style="border: 1px solid #328572;background-color:rgba(28, 135, 48, .05);" class="py-1 ps-3 pe-2 circle-con w-100 mx-3 mb-2" style="cursor:pointer;">
+                            <div class="d-flex gap-2 align-items-center justify-content-between" type="button">
+                                <p class="m-0" style="color:#328572;">Pre Order</p>
+                                <div class="rounded-circle circle-wrapper" style="background-color:#328572;">
+                                    <i class="bi bi-cart3 text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="preorder-inactive" style="border:1px solid #ced4da;" class="py-1 ps-3 pe-2 circle-con w-100 mx-3 mb-2" style="cursor:pointer;">
+                            <div class="d-flex gap-2 align-items-center justify-content-between" type="button">
+                                <p class="m-0 text-black">Pre Order</p>
+                                <div class="rounded-circle circle-wrapper bg-light">
+                                    <i class="bi bi-cart3 text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-create-order m-0 w-100" id="btn-create-order">
+                            Order Now<span id="priceContainer"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.ProductVariants).Select(v => new
+            {
+                id = v.VariantId,
+                productId = v.ProductId,
+                sku = v.Sku,
+                price = v.VariantPrice,
+                stock = v.VariantStock
+            })));
+
+        const products = @Html.Raw(Json.Serialize(Model.Products.Select(x => new
+            {
+                id = x.ProductId,
+                name = x.ProductName,
+                stock = x.ProductStock,
+                price = x.Price,
+                image = x.ProductImage,
+                type = x.ImageType
+            })));
+    </script>
+    <script>
+        let selected = {};
+        let menuPrice = 0;
+
+        $(document).on('click', '.variant-option-tag', function () {
+            const value = $(this).data('value');
+            const group = $(this).data('group');
+            const dataProductId = $(this).data('productid');
+
+            $(this).closest('.body-variant-group').find('.variant-option-tag').removeClass('option-selected');
+            $(this).addClass('option-selected');
+
+            selected[group] = value;
+
+            var input = parseInt($("input[name='Quantity']").val());
+            const totalGroups = $('.body-variant-group').length;
+            if (Object.keys(selected).length === totalGroups) {
+                const combined = Array.from({ length: totalGroups }, (_, i) => selected[i]).join('-');
+                const match = variants.find(v => v.sku === combined && v.productId == dataProductId)
+
+                if (match) {
+                    $("#stock-container").attr("class", "d-flex align-items-center ms-2");
+                    $("#stock-variant").text(match.stock)
+
+                    menuPrice = match.price;
+                    const btnAddCart = $('.btn-add-cart');
+                    btnAddCart.removeAttr("disabled");
+                    $('#priceContainer').text(' (Rp' + match.price * input + ')');
+                } else {
+                    $('#priceContainer').text(' (-)');
+                }
+            }
+        });
+
+        const orderItems = [];
+
+        $(document).on('click', '.btn-add-cart', function(){
+            const totalGroups = $('.body-variant-group').length;
+            const totalSelected = $('.option-selected').length;
+            const orderItemsContainer = $('#orderModalBody');
+            const quantity = $('#Quantity').val();
+            const notes = $('#order-notes').val();
+
+            if(totalGroups == 0 && totalSelected == 0){
+                var productId = $(this).attr('data-prodid');
+                const product = products.find(p => p.id == productId);
+
+                console.log(product)
+
+
+                orderItems.push({
+                    ProductID: product.id,
+                    VariantID: "",
+                    Name: product.name,
+                    SKU: "",
+                    Quantity: quantity,
+                    UnitPrice: product.price,
+                    SubTotal: product.price * quantity,
+                    Image: product.image,
+                    Type: product.type,
+                    Notes: notes
+                });
+            }else if(totalGroups == totalSelected){
+                var selectedItem = [];
+                var dataProductId = $(this).attr('data-prodid');
+                console.log(dataProductId);
+                $('.option-selected').each(function (index) {
+                    selectedItem.push($(this).text().trim());
+                });
+
+                const combined = selectedItem.join('-');
+                const match = variants.find(v => v.sku.trim() === combined && v.productId == dataProductId);
+                const product = products.find(p => p.id == match.productId);
+
+                orderItems.push({
+                    ProductID: match.productId,
+                    VariantID: match.id,
+                    Name: product.name,
+                    SKU: match.sku,
+                    Quantity: quantity,
+                    UnitPrice: match.price,
+                    SubTotal: match.price * quantity,
+                    Image: product.image,
+                    Type: product.type,
+                    Notes: notes
+                });
+            }
+            orderItemsContainer.empty();
+            orderItems.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'card border-0 order-item-anim';
+                itemElement.innerHTML = `
+                    <div class="card-bodyp-0">
+                        <div class="d-flex gap-3 ">
+                            <div style="width:15%">
+                                <img src="data:${item.Type};base64,${item.Image}" class="w-100"/>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <h6 class="card-title m-0">${item.Name} ${item.SKU ? `(${item.SKU})` : ''}</h6>
+                                <p class="text-muted mb-2">Rp. ${item.SubTotal}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="/" class="rounded-circle circle-wrapper btn-plus-minus bg-primary">
+                                        <i class="bi bi-journal text-white"></i>
+                                    </a>
+                                    <div class="input-group bg-light p-1" style="border-radius:50px;width:25%;">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="minus" data-field="Quantity">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="QuantityOrder" name="QuantityOrder" class="form-control input-number text-center border-white bg-light" value="${item.Quantity}" min="1" max="9999" style="padding:0;border:0;height:28px;">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-number btn-plus-minus" data-type="plus" data-field="Quantity">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="TblOrderItems[${index}].ProductId" value="${item.ProductID}" />
+                        <input type="hidden" name="TblOrderItems[${index}].VariantId" value="${item.VariantID}" />
+                        <input type="hidden" name="TblOrderItems[${index}].Quantity" value="${item.Quantity}" />
+                        <input type="hidden" name="TblOrderItems[${index}].UnitPrice" value="${item.UnitPrice}" />
+                        <input type="hidden" name="TblOrderItems[${index}].SubTotal" value="${item.SubTotal}" />
+                        <input type="hidden" name="TblOrderItems[${index}].Notes" value="${item.Notes}" />
+                    </div>
+                    <hr />
+                    `;
+                orderItemsContainer.append(itemElement);
+            });
+
+            let totalOrder = orderItems.map(item => item.SubTotal).reduce((prev, next) => prev + next);
+            console.log(totalOrder);
+
+            $('#productDetailModal').modal('hide');
+            var input = $("input[name='Quantity']");
+            input.val(1).trigger('change');
+
+            $("#order-subtotal").text(`Rp${totalOrder}`);
+            $("#order-total").text(`Rp${totalOrder}`);
+        })
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Views/Menu/Index.cshtml.js"></script>
+</body>
+</html>

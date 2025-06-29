@@ -6,7 +6,7 @@ using pos_system.Services;
 
 namespace pos_system.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductController(IProductService productService) : Controller
     {
         readonly IProductService _productService = productService;

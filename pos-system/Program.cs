@@ -52,6 +52,7 @@ builder.Services.AddScoped<ILogAuditRepo, LogAuditRepo>();
 builder.Services.AddScoped<ILogAuditService, LogAuditService>();
 builder.Services.AddScoped<ISetupRepo, SetupRepo>();
 builder.Services.AddScoped<ISetupService, SetupService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {

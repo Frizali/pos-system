@@ -33,6 +33,7 @@ namespace pos_system.Repository
                             UnitCd = unit.UnitCd,
                             PartCd = part.PartCd,
                             PartName = part.PartName,
+                            LowerLimit = part.LowerLimit,
                             PartQty = part.PartQty,
                             Price = part.Price,
                             Note = part.Note
@@ -68,6 +69,7 @@ namespace pos_system.Repository
             partData.UnitId = data.Part.UnitId;
             partData.PartQty = data.Part.PartQty;
             partData.Price = data.Part.Price;
+            partData.LowerLimit = data.Part.LowerLimit;
             partData.Note = data.Part.Note;
 
             await _context.SaveChangesAsync().ConfigureAwait(false);
@@ -109,38 +111,15 @@ namespace pos_system.Repository
                             UnitCd = unit.UnitCd,
                             PartQty = part.PartQty,
                             Price = part.Price,
+                            LowerLimit = part.LowerLimit
                         };
 
             return await query.FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
-        public async Task AddPartMovement(EditStockFormModal param)
+        public async Task AddPartMovement(TblPartMovement data)
         {
-            if (param.PartMovQty != 0)
-            {
-                var part = await _context.TblParts.Where(x => x.PartId == param.PartId).FirstAsync().ConfigureAwait(false);
-                if (param.PartMovQty < 0 && (part.PartQty - Math.Abs(param.PartMovQty)) < 0) throw new Exception($"PartMovQty, Can't input value more than Quantity");
-
-                param.PartMovType = param.PartMovQty > 0 ? 1 : 2;
-                TblPartMovement data = new TblPartMovement()
-                {
-                    PartMovementId = param.PartMovementId,
-                    PartId = param.PartId,
-                    PartMovQty = param.PartMovQty,
-                    Remark = param.Remark,
-                    PartMovType = param.PartMovType,
-                    InputedBy = param.InputedBy,
-                };
-
-                await _context.TblPartMovements.AddAsync(data).ConfigureAwait(false);
-
-                data.LastPartQty = part.PartQty;
-                var qty = part.PartQty += param.PartMovQty;
-
-                part.PartQty = qty <= 0 ? 0 : qty;
-
-                await _context.SaveChangesAsync().ConfigureAwait(false);
-            }
+            await _context.TblPartMovements.AddAsync(data).ConfigureAwait(false);
         }
 
         public async Task<InventoryMoveViewModel> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year)

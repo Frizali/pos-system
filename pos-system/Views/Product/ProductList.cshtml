@@ -142,7 +142,8 @@
             id = v.VariantId,
             productId = v.ProductId,
             sku = v.Sku,
-            price = v.VariantPrice
+            price = v.VariantPrice,
+            stock = v.VariantStock
         })));
 
     const products = @Html.Raw(Json.Serialize(Model.Products.Select(x => new
@@ -177,6 +178,9 @@
             const match = variants.find(v => v.sku === combined && v.productId == dataProductId)
 
             if (match) {
+                $("#stock-container").attr("class", "d-flex align-items-center ms-2");
+                $("#stock-variant").text(match.stock)
+
                 menuPrice = match.price;
                 const btnAddCart = $('.btn-add-cart');
                 btnAddCart.removeAttr("disabled");

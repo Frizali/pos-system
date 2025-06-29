@@ -2,28 +2,34 @@
     Layout = "~/Views/Shared/_ActivityLayout.cshtml";
     ViewData["Title"] = "Activity";
 }
-@model List<TblOrder>
+@model ActivityViewModel
+@{
+    var fromDate = Model.FromDate ?? DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+    var toDate = Model.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
+}
 
 <div class="bg-white p-2">
-    <div class="d-flex justify-content-between">
-        <div class="datetime-container d-flex gap-3 align-items-center">
-            <div>
-                Date:
+    <form asp-action="Order" asp-controller="Activity" method="get">
+        <div class="d-flex justify-content-between">
+            <div class="datetime-container d-flex gap-3 align-items-center">
+                <div>
+                    Date:
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" value="@fromDate" name="fromDate" />
+                </div>
+                <div>
+                    -
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" value="@toDate" name="toDate" />
+                </div>
             </div>
-            <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-            </div>
-            <div>
-                -
-            </div>
-            <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                <input type="date" class="border-0 text-muted" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-            </div>
+            <button class="search-icon bg-light border-0" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
         </div>
-        <div class="search-icon bg-light">
-            <i class="bi bi-search"></i>
-        </div>
-    </div>
+    </form>
 </div>
 <div class="bg-white p-2">
     <table class="table table-borderless">
@@ -38,17 +44,43 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var item in Model){
+            @foreach(var item in Model.TblOrders){
                 <tr class="text-center">
                     <th>@item.OrderNumber</th>
                     <td>@{var dateConvert = item.OrderDate.ToString("MM/dd/yyyy - HH:mm");} @dateConvert</td>
                     <td>@item.Cashier</td>
                     <td>@item.Status</td>
                     <td>Rp @item.TotalPrice</td>
-                    <td>Detail</td>
+                    <td>
+                        <button class="text-primary text-decoration-underline detail-download bg-transparent border-0" data-id="@item.OrderId">
+                            Detail
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 
+<script>
+    $(document).on("click", ".detail-download", function () {
+        const reportName = "Order Detail";
+        const id = $(this).data("id");
+        const fromDate = "";
+        const toDate = "";
+
+        fetch('/Dashboard/DownloadReport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ FromDate: fromDate, ToDate: toDate, ReportName: reportName, ID: id })
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        });
+    });
+</script>
+    

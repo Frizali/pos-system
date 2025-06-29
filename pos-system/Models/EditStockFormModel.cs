@@ -11,6 +11,7 @@ namespace pos_system.Models
         public string? UnitCd { get; set; } = null;
         public double? PartQty { get; set; } = null;
         public double? Price { get; set; } = null;
+        public double? LowerLimit { get; set; } = null;
         public int PartMovType { get; set; }
         public int PartMovQty { get; set; }
         public string? Remark { get; set; }

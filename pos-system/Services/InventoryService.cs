@@ -5,9 +5,11 @@ using pos_system.Repository;
 
 namespace pos_system.Services
 {
-    public class InventoryService(IInventoryRepo inventoryRepo) : IInventoryService
+    public class InventoryService(IInventoryRepo inventoryRepo, ISetupRepo setupRepo, IEmailService emailService) : IInventoryService
     {
         IInventoryRepo _inventoryRepo = inventoryRepo;
+        ISetupRepo _setupRepo = setupRepo;
+        IEmailService _emailService = emailService;
         readonly int codeLength = 4;
         private string _username = "System";
 
@@ -60,7 +62,39 @@ namespace pos_system.Services
 
         public async Task AddPartMovement(EditStockFormModal param)
         {
-            await _inventoryRepo.AddPartMovement(param).ConfigureAwait(false);
+            if (param.PartMovQty != 0)
+            {
+                var part = await _inventoryRepo.GetRepo().GetById(param.PartId).ConfigureAwait(false);
+                if (param.PartMovQty < 0 && (part.PartQty - Math.Abs(param.PartMovQty)) < 0) throw new Exception($"PartMovQty, Can't input value more than Quantity");
+
+                param.PartMovType = param.PartMovQty > 0 ? 1 : 2;
+                TblPartMovement data = new TblPartMovement()
+                {
+                    PartMovementId = param.PartMovementId,
+                    PartId = param.PartId,
+                    PartMovQty = param.PartMovQty,
+                    Remark = param.Remark,
+                    PartMovType = param.PartMovType,
+                    InputedBy = param.InputedBy,
+                };
+
+                data.LastPartQty = part.PartQty;
+                var qty = part.PartQty += param.PartMovQty;
+                part.PartQty = qty <= 0 ? 0 : qty;
+
+                await _inventoryRepo.AddPartMovement(data).ConfigureAwait(false);
+                await _inventoryRepo.GetRepo().Update(part).ConfigureAwait(false);
+
+                if(part.PartQty <= part.LowerLimit)
+                {
+                    var setup = await _setupRepo.GetRepo().GetAll().ConfigureAwait(false);
+                    var toEmail = setup.Select(s => s.Email).First();
+                    var parts = await _inventoryRepo.GetListPart(param.PartName,"").ConfigureAwait(false);
+                    var partDTO = parts.PartList.Where(p => p.PartId == param.PartId).First();
+
+                    await _emailService.SendStockNotification(partDTO, toEmail).ConfigureAwait(false);
+                }
+            }
         }
 
         public async Task<InventoryMoveViewModel> GetListPartMovement(string partId, string partTypeId, DateTime date, string month, string year)

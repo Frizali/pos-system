@@ -18,6 +18,8 @@ public partial class TblPart
 
     public double PartQty { get; set; }
 
+    public double LowerLimit { get; set; }
+
     public double Price { get; set; }
 
     public string? Note { get; set; }

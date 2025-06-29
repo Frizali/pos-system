@@ -47,8 +47,13 @@
     }
 
     .btn-custom {
-        border-radius: 8px;
-        padding: 4px 12px;
+        width:38px;
+        height:38px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        /* border-radius: 8px; */
+        /* padding: 4px 12px; */
         font-size: 0.875rem;
     }
 
@@ -128,7 +133,8 @@
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Unit</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Price</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Note</div></th>
-                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th>
+                    <th scope="col" class="p-0" style="width: 200px;"><div class="table-header-cus text-muted bg-light mx-0">Action
+    </div></th>
                 </tr>
             </thead>
             <tbody>
@@ -141,15 +147,17 @@
                         <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
                         <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-inout btn-custom me-2" data-part-id="@item.PartId">
-                                <i class="bi bi-arrow-left-right me-1"></i>
-                            </a>
-                            <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                            <div class="d-flex justify-content-center">
+                                <a href="#" class="btn btn-inout btn-custom me-2" data-part-id="@item.PartId">
+                                    <i class="bi bi-arrow-left-right me-1"></i>
+                                </a>
+                                <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 }

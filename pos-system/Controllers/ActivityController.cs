@@ -14,19 +14,30 @@ namespace pos_system.Controllers
         public async Task<IActionResult> Order(string? fromDate, string? toDate)
         {
             List<TblOrder> history = await _orderService.GetOrderHistory(fromDate, toDate).ConfigureAwait(false);
-            return View(history);
+            ActivityViewModel historyViewModel = new ActivityViewModel
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                TblOrders = history
+            };
+            return View(historyViewModel);
         }
 
         public async Task<IActionResult> LogAudit(string? logAction, string? entity, string? key, string? fromDate, string? toDate)
         {
             List<TblLogAudit> logs = await _logService.GetLogs(logAction, entity, key, fromDate, toDate).ConfigureAwait(false);
-            return View(logs);
+            ActivityViewModel historyViewModel = new ActivityViewModel
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                TblLogAudits = logs
+            };
+            return View(historyViewModel);
         }
 
         public async Task<IActionResult> PartMovement(string partId, string partTypeId, DateTime date, string month, string year)
         {
             var logs = await _inventoryService.GetListPartMovement(partId, partTypeId, date, month, year).ConfigureAwait(false);
-
             return View(logs);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using pos_system.Data;
 using pos_system.Helpers;
 using pos_system.Models;
@@ -39,9 +40,13 @@ namespace pos_test
         {
             var crudInventoryRepo = new CrudRepo<TblPart>(_context);
             var inventoryRepo = new InventoryRepo(_context, null, crudInventoryRepo);
+            var setupRepoMock = new Mock<ISetupRepo>();
+            var mailServiceMock = new Mock<IEmailService>();
 
             var service = new InventoryService(
-                inventoryRepo
+                inventoryRepo,
+                setupRepoMock.Object,
+                mailServiceMock.Object
             );
 
             _service = service;

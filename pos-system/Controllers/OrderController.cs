@@ -14,14 +14,12 @@ namespace pos_system.Controllers
         public async Task<IActionResult> CreateOrder(TblOrder order)
         {
             _orderService.SetUsername(GetCurrentUserName());
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            order.UserID = userId;
+
             await _orderService.CreateOrder(order);
             ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
             ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
-
-            //byte[] pdfBytes = Convert.FromBase64String(base64Pdf.Data);
-
-            //Response.Headers.Add("Content-Disposition", "inline; filename=Order.pdf");
-            //return File(pdfBytes, "application/pdf");
 
             var pdfBytesCustomer = Convert.FromBase64String(base64PdfCustomer.Data);
             var pdfBytesDapur = Convert.FromBase64String(base64PdfKitchen.Data);

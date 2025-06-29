@@ -1,0 +1,235 @@
+﻿.modal-menu {
+    border-radius: .7rem;
+}
+
+.btn-add-cart {
+    border-bottom-left-radius: .7rem;
+    border-bottom-right-radius: .7rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+        max-width: 450px;
+    }
+}
+
+.variant-option-tag {
+    cursor: pointer;
+    padding: .3rem .7rem;
+    border: 1px solid #6c757d;
+    border-radius: .3rem;
+}
+
+    .variant-option-tag:hover {
+        color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+.option-selected {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.order-container {
+    border-left: 1px solid rgba(0,0,0,.125);
+}
+
+.circle-con {
+    border-radius: 50px;
+    background-color: white;
+}
+
+.circle-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fixed-icon {
+    vertical-align: middle;
+}
+
+.custom-icon.bi::before {
+    vertical-align: middle;
+}
+
+.search-input {
+    border: 0;
+    padding: 1rem;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-input-icon {
+    border-radius: 0 50px 50px 0;
+    background-color: white;
+    border: 0;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btn-plus-minus {
+    font-size: .86rem;
+    padding: 0;
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    border: none;
+}
+
+.modal-menu {
+    border-radius: .7rem;
+}
+
+.btn-add-cart {
+    border-bottom-left-radius: .7rem;
+    border-bottom-right-radius: .7rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+        max-width: 450px;
+    }
+}
+
+.variant-option-tag {
+    cursor: pointer;
+    padding: .3rem .7rem;
+    border: 1px solid #6c757d;
+    border-radius: .3rem;
+}
+
+    .variant-option-tag:hover {
+        color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+.option-selected {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.order-container {
+    border-left: 1px solid rgba(0,0,0,.125);
+}
+
+.circle-con {
+    border-radius: 50px;
+    background-color: white;
+}
+
+.circle-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fixed-icon {
+    vertical-align: middle;
+}
+
+.custom-icon.bi::before {
+    vertical-align: middle;
+}
+
+.search-input {
+    border: 0;
+    padding: 1rem;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-input-icon {
+    border-radius: 0 50px 50px 0;
+    background-color: white;
+    border: 0;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btn-plus-minus {
+    font-size: .86rem;
+    padding: 0;
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    border: none;
+}
+
+
+.card-body img {
+    border-radius: 8px;
+}
+
+@media (max-width: 575.98px) {
+    .search-input {
+        font-size: 0.95rem;
+    }
+
+    .card-body {
+        padding: 1rem !important;
+    }
+
+    .card-title {
+        font-size: 1rem !important;
+    }
+}
+
+.circle-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(13,110,253,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-wrapper-order {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(28, 135, 48, .05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-create-order {
+    border-bottom-left-radius: .7rem;
+    border-bottom-right-radius: .7rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
