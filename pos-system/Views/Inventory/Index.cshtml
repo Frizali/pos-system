@@ -8,69 +8,158 @@
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
 <style>
-     .custom-card {
-         background-color: #ffffff;
-         border-radius: 10px;
-         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-         padding: 20px;
-         border: 1px solid #f0f0f0;
-     }
+    .table-header-cus {
+        margin-right: .5rem;
+        text-transform: none;
+        font-weight: 500;
+        text-align: center;
+        padding: .7rem;
+        border-radius: 50px;
+        margin-bottom: .5rem;
+    }
 
-     .table thead th {
-         background-color: #f9fafc;
-         color: #4a4a4a;
-         font-weight: 600;
-     }
+    .search-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 38px;
+        width: 38px;
+        border-radius: 50px;
+        cursor: pointer;
+    }
 
-     .table td, .table th {
-         vertical-align: middle;
-     }
+    .borderless td, .borderless th {
+        border: none;
+    }
 
-     .btn-custom {
-         border-radius: 8px;
-         padding: 4px 12px;
-         font-size: 0.875rem;
-     }
+    .pill-wrapper-success {
+        column-gap: .1rem;
+        font-size: .8rem;
+        color: #328572;
+        width: max-content;
+        height: 28px;
+        padding: 0 .7rem 0 .7rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(28, 135, 48, .05);
+    }
 
-     .btn-add {
-         background-color: #d3f0ff;
-         color: #000;
-         border: 1px solid #c2e4f3;
-     }
+    .btn-custom {
+        border-radius: 8px;
+        padding: 4px 12px;
+        font-size: 0.875rem;
+    }
 
-     .btn-inout {
-         background-color: #e0fce0;
-         color: #14532d;
-         border: 1px solid #b2f2bb;
-     }
+    .btn-add {
+        background-color: #d3f0ff;
+        color: #000;
+        border: 1px solid #c2e4f3;
+    }
 
-     .btn-pdf {
-         background-color: #ffe7cc;
-         color: #8a4f00;
-         border: 1px solid #ffc080;
-     }
+    .btn-inout {
+        background-color: #e0fce0;
+        color: #14532d;
+        border: 1px solid #b2f2bb;
+    }
 
-     .btn-excel {
-         background-color: #e6f4ea;
-         color: #196f3d;
-         border: 1px solid #b7dfc6;
-     }
+    .btn-pdf {
+        background-color: #ffe7cc;
+        color: #8a4f00;
+        border: 1px solid #ffc080;
+    }
 
-     .btn-edit {
-         background-color: #fff5cc;
-         color: #856404;
-         border: 1px solid #ffeeba;
-     }
+    .btn-excel {
+        background-color: #e6f4ea;
+        color: #196f3d;
+        border: 1px solid #b7dfc6;
+    }
 
-     .btn-delete {
-         background-color: #ffe5e5;
-         color: #a10000;
-         border: 1px solid #ffcccc;
-     }
+    .btn-edit {
+        background-color: #fff5cc;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    .btn-delete {
+        background-color: #ffe5e5;
+        color: #a10000;
+        border: 1px solid #ffcccc;
+    }
 </style>
 
+<div class="container">
+    <div class="bg-white p-2">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+                <h5 class="m-0">Inventory Item</h5>
+            </div>
+            <div class="d-flex gap-2">
+                <form asp-action="Index" class="d-flex gap-2 align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="label-text">Type:</label>
+                        <select class="form-select" aria-label="Default select example" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);" id="report-name" name="searchPartType">
+                            <option value="">All</option>
+                            @foreach (var kat in Model.PartType)
+                            {
+                                <option value="@kat.PartTypeName">@kat.PartTypeName</option>
+                            }
+                        </select>
+                    </div>
+                    <button class="search-icon bg-light border-0" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <a class="text-decoration-none text-black" asp-action="AddInventory">
+                    <div class="search-icon bg-light">
+                        <i class="bi bi-patch-plus"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white p-2">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Item Name</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Category</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Unit</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Price</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Note</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PartList)
+                {
+                    <tr class="text-center">
+                        <td>@item.PartName</td>
+                        <td>@item.PartTypeName</td>
+                        <td class="text-center">@(item.PartQty + " " + item.UnitCd)</td>
+                        <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
+                        <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
+                        <td class="text-center">
+                            <a href="#" class="btn btn-inout btn-custom me-2" data-part-id="@item.PartId">
+                                <i class="bi bi-arrow-left-right me-1"></i>
+                            </a>
+                            <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<div class="container mt-5">
+
+@* <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold" style="color: #333;">Inventory Item</h2>
         <div class="d-flex flex-wrap gap-2">
@@ -156,7 +245,7 @@
             </table>
         </div>
     </div>
-</div>
+</div> *@
 
 <!-- Modal -->
 <div id="editStockModalContainer"></div>

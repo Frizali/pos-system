@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Text;
+using PdfSharpCore.Pdf;
+using PdfSharpCore.Pdf.IO;
 
 namespace pos_system.Helpers
 {
@@ -60,6 +62,37 @@ namespace pos_system.Helpers
                 {
                     await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
+            }
+        }
+
+        public static byte[] MergePdfs(byte[] pdf1, byte[] pdf2)
+        {
+            using (var outStream = new MemoryStream())
+            {
+                using (var outputDocument = new PdfDocument())
+                {
+                    using (var ms1 = new MemoryStream(pdf1))
+                    {
+                        var inputDoc1 = PdfReader.Open(ms1, PdfDocumentOpenMode.Import);
+                        foreach (var page in inputDoc1.Pages)
+                        {
+                            outputDocument.AddPage(page);
+                        }
+                    }
+
+                    using (var ms2 = new MemoryStream(pdf2))
+                    {
+                        var inputDoc2 = PdfReader.Open(ms2, PdfDocumentOpenMode.Import);
+                        foreach (var page in inputDoc2.Pages)
+                        {
+                            outputDocument.AddPage(page);
+                        }
+                    }
+
+                    outputDocument.Save(outStream);
+                }
+
+                return outStream.ToArray();
             }
         }
     }

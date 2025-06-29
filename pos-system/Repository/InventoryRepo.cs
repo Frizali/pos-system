@@ -160,7 +160,8 @@ namespace pos_system.Repository
                         {
                             PartMov = partMov,
                             Part = part,
-                            PartType = partType
+                            PartType = partType,
+                            Unit = unit
                         };
 
             if (date != DateTime.MinValue)
@@ -177,11 +178,12 @@ namespace pos_system.Repository
             }
 
             var partMoves = await query
-                .OrderBy(x => x.PartMov.CreatedAt)
+                .OrderByDescending(x => x.PartMov.CreatedAt)
                 .Select(x => new PartMovDTO
                 {
                     PartName = x.Part.PartName,
                     Category = x.PartType.PartTypeName,
+                    UnitCD = x.Unit.UnitCd,
                     LastPartQry = x.PartMov.LastPartQty,
                     StockIn = x.PartMov.PartMovQty > 0 ? x.PartMov.PartMovQty : 0,
                     StockOut = x.PartMov.PartMovQty < 0 ? x.PartMov.PartMovQty : 0,

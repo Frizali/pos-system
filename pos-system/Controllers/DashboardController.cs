@@ -22,7 +22,7 @@ namespace pos_system.Controllers
         {
             ReportModel base64Pdf = await _reportService.GenerateReportPDF(param).ConfigureAwait(false);
             byte[] bytes = Convert.FromBase64String(base64Pdf.Data);
-            return File(bytes, "application/pdf", "Laporan.pdf");
+            return File(bytes, "application/pdf", "Sales.pdf");
         }
     }
 }

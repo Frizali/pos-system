@@ -52,18 +52,18 @@
                         <th>@no</th>
                         <td>@item.PartName</td>
                         <td>@item.Category</td>
-                        <td>@item.LastPartQry</td>
+                        <td>@(item.LastPartQry + " " + item.UnitCD)</td>
                         <td>
                             @if (item.StockIn > 0)
                             {
-                                <span class="text-success">@item.StockIn</span>
+                                <span class="text-success">@(item.StockIn + " " + item.UnitCD)</span>
                             }
                             else
                             {
-                                <span class="text-danger">@item.StockOut</span>
+                                <span class="text-danger">@(item.StockOut + " " + item.UnitCD)</span>
                             }
                         </td>
-                        <td>@item.CurrPartQry</td>
+                        <td>@(item.CurrPartQry + " " + item.UnitCD)</td>
                         <td>@item.Note</td>
                         <td>@item.InputedBy</td>
                         <td>@{

@@ -1,49 +1,101 @@
 ﻿@{
+    @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+    var orderId = Guid.NewGuid().ToString();
     var orderNumber = ViewBag.OrderNumber as string;
 }
-@using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post))
+@using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post, new { target = "_blank", id = "payment-form" }))
 {
-    <div class="d-flex flex-column vh-100">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="OrderId" value="@orderId" />
+    <input type="hidden" id="order-total-input" name="totalAmount" value="0" />
 
+    <div class="d-flex flex-column vh-100">
         <div class="px-3 pt-3">
             <div class="order-header card text-center rounded-4 border-0">
-                <h4 class="fw-bold mb-1">
-                    @User.Identity?.Name
-                </h4>
+                <h4 class="fw-bold mb-1">@User.Identity?.Name</h4>
                 <small class="text-muted">Order Number #@orderNumber</small>
             </div>
             <hr />
         </div>
 
-        <div id="order-items" class="flex-grow-1 overflow-auto p-3"></div>
+        <div id="order-items" class="flex-grow-1 overflow-auto p-3">
+            <!-- Diisi via JavaScript -->
+        </div>
 
         <div class="p-3">
-           <div class="d-flex justify-content-between mb-2">
+            <div class="d-flex justify-content-between mb-2">
                 <span>Subtotal</span>
                 <span id="order-subtotal">Rp0</span>
             </div>
-    @*         <div class="d-flex justify-content-between mb-2">
-                <span>Tax (11%)</span>
-                <span>Rp 2.00</span>
-            </div>
-            <div class="d-flex justify-content-between mb-2 text-success">
-                <span>Discount</span>
-                <span>-Rp 1.00</span>
-            </div>
-            <hr /> *@
             <div class="d-flex justify-content-between fw-bold fs-5">
                 <span>TOTAL</span>
                 <span id="order-total">Rp0</span>
             </div>
-
-    @*         <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-outline-success rounded-pill flex-grow-1 ms-2">CASH</button>
-                <button class="btn btn-outline-primary rounded-pill flex-grow-1 ms-2">QRIS</button>
-            </div> *@
         </div>
 
-        <button class="btn btn-primary w-100 p-3" style="border-radius:0" type="submit">
+        <button id="btn-pay" class="btn btn-primary w-100 p-3" style="border-radius:0" type="submit">
             Place Order
         </button>
     </div>
 }
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="@Configuration["Midtrans:ClientKey"]">
+</script>
+
+<script>
+    document.getElementById("payment-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // cegah submit form langsung
+
+        const form = document.getElementById("payment-form");
+        const formData = new FormData(form);
+
+        const orderItems = [];
+        for (let i = 0; ; i++) {
+            const productId = formData.get(`TblOrderItems[${i}].ProductId`);
+            if (!productId) break;
+
+            orderItems.push({
+                ProductId: productId,
+                VariantId: formData.get(`TblOrderItems[${i}].VariantId`),
+                Quantity: parseInt(formData.get(`TblOrderItems[${i}].Quantity`)),
+                UnitPrice: parseFloat(formData.get(`TblOrderItems[${i}].UnitPrice`)),
+                SubTotal: parseFloat(formData.get(`TblOrderItems[${i}].SubTotal`))
+            });
+        }
+
+        const data = {
+            orderId: formData.get("OrderId"),
+            totalAmount: parseFloat(document.getElementById("order-total-input").value),
+            tblOrderItems: orderItems
+        };
+
+        fetch('@Url.Action("GetSnapToken", "Order")', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                snap.pay(data.token, {
+                    onSuccess: function () {
+                        form.submit();
+                    },
+                    onClose: function () {
+                        alert("Pembayaran dibatalkan");
+                    },
+                    onError: function () {
+                        alert("Terjadi error saat pembayaran");
+                    }
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Terjadi kesalahan saat menghubungi server.");
+            });
+    });
+</script>
