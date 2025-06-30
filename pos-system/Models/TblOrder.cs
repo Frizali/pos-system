@@ -14,9 +14,10 @@ public partial class TblOrder
 
     public decimal TotalPrice { get; set; } = 0;
     public string Cashier { get; set; } = String.Empty;
-    public string Type { get; set; } = String.Empty;
+    public string Type { get; set; } = "Cashier";
     public DateTime? ScheduledAt { get; set; }
     public string? Notes { get; set; } = String.Empty;
+    public string? PreOrderStatus { get; set; } = String.Empty;
 
     public virtual ICollection<TblOrderItem> TblOrderItems { get; set; } = [];
 }

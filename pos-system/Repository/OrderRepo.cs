@@ -36,5 +36,18 @@ namespace pos_system.Repository
         {
             return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).SumAsync(o => o.TotalPrice);
         }
+
+        public async Task<List<TblOrder>> GetPreOrder(string userId, string role)
+        {
+            return await _context.TblOrder.Where(o => o.Type == "PreOrder" && (role != "User" || o.UserID == userId)).ToListAsync();
+        }
+
+        public async Task UpdatePreOrderStatus(string orderId, string status)
+        {
+            var order = await _context.TblOrder.FindAsync(orderId);
+            order.PreOrderStatus = status;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

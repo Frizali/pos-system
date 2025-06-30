@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
 
-public class RegisterUserController : Controller
+public class RegisterUserController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : Controller
 {
+    private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
+
     [HttpGet]
     public IActionResult RegisterUser()
     {
@@ -10,12 +14,26 @@ public class RegisterUserController : Controller
     }
 
     [HttpPost]
-    public IActionResult Index(RegisterUserModel model)
+    public async Task<IActionResult> Index(RegisterFormModel model)
     {
-        // Dummy response 
-        ViewBag.Message = "Form submitted!";
-        ViewBag.MessageType = "success";
+        if (ModelState.IsValid)
+        {
+            var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-        return View("~/Views/Auth/RegisterUser.cshtml", model);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, model.Role);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Login", "Auth");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("Password", error.Description);
+            }
+        }
+
+        return View(model);
     }
 }

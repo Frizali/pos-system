@@ -6,19 +6,18 @@ using pos_system.Services;
 
 namespace pos_system.Controllers
 {
-    //[Authorize]
     public class ProductController(IProductService productService) : Controller
     {
         readonly IProductService _productService = productService;
 
-
-
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index()
         {
             var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Save(ProductFormModel data, IFormFile productImage)
         {
             _productService.SetUsername(GetCurrentUserName());
@@ -45,6 +44,7 @@ namespace pos_system.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult ToggleModifyMode()
         {
             if(HttpContext.Session.GetString("ModifyMode") is null)
@@ -63,18 +63,21 @@ namespace pos_system.Controllers
             return RedirectToAction("ProductList", new { category= "All" });
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductList(string? category = "All", string? product = "")
         {
             var viewModel = await _productService.ProductListViewModel(category, product).ConfigureAwait(false);
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductDetailByID(string id)
         {
             var data = await _productService.ProductDetailByID(id).ConfigureAwait(false);
             return PartialView("_ProductDetail", data);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> EditProduct(ProductFormModel data, IFormFile? productImage)
         {
             _productService.SetUsername(GetCurrentUserName());
@@ -82,6 +85,7 @@ namespace pos_system.Controllers
             return RedirectToAction("EditData", new { id = data.Product.ProductId });
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> EditData(string id)
         {
             var product = await _productService.EditData(id).ConfigureAwait(false);

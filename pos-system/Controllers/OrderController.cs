@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using pos_system.Repository;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace pos_system.Controllers
 {
@@ -45,6 +46,10 @@ namespace pos_system.Controllers
                 TotalPrice = snapParam.totalAmount,
                 OrderDate = DateTime.Now,
                 UserID = userId,
+                Type = snapParam.type,
+                ScheduledAt = snapParam.scheduledAt,
+                Notes = snapParam.notes,
+                PreOrderStatus = snapParam.type == "PreOrder" ? "Pending" : null,
                 TblOrderItems = snapParam.TblOrderItems
             };
 
@@ -111,6 +116,12 @@ namespace pos_system.Controllers
         private string GetCurrentUserName()
         {
             return User.Identity?.Name ?? "System";
+        }
+
+        public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status)
+        {
+            await _orderService.UpdatePreOrderStatus(orderId, status).ConfigureAwait(false);
+            return RedirectToAction("Index", "PreOrder");
         }
     }
 }

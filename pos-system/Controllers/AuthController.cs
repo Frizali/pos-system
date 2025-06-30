@@ -52,12 +52,21 @@ namespace pos_system.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Dashboard");
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var role = roles.FirstOrDefault();
+
+                    if (role != "User")
+                        return RedirectToAction("Login", "Auth");
+                    else
+                        return RedirectToAction("Index", "User");
+                }
             }
 
             ModelState.AddModelError("Password", "Invalid login attempt.");
             return View(model);
         }
+
 
         [HttpGet]
         public IActionResult Register()
@@ -77,7 +86,11 @@ namespace pos_system.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Login", "Auth");
+
+                    if(model.Role != "User")
+                        return RedirectToAction("Login", "Auth");
+                    else
+                        return RedirectToAction("Index", "User");
                 }
 
                 foreach (var error in result.Errors)

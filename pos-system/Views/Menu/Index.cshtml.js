@@ -80,6 +80,7 @@ $(document).ready(function () {
 
     $('#preorder-inactive').on('click', function () {
         $('#btn-create-order').text('Pre Order');
+        $('#OrderType').val('PreOrder')
         $('#detail-po').slideDown();
         $('#preorder-inactive').hide();
         $('#preorder-active').show();
@@ -87,6 +88,7 @@ $(document).ready(function () {
 
     $('#preorder-active').on('click', function () {
         $('#btn-create-order').text('Order Now');
+        $('#OrderType').val('Online')
         $('#detail-po').slideUp();
         $('#preorder-active').hide();
         $('#preorder-inactive').show();

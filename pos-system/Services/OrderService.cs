@@ -79,5 +79,15 @@ namespace pos_system.Services
                 }
             }
         }
+
+        public async Task<List<TblOrder>> GetPreOrder(string userId, string role)
+        {
+            return await _orderRepo.GetPreOrder(userId, role).ConfigureAwait(false);
+        }
+
+        public async Task UpdatePreOrderStatus(string orderId, string status)
+        {
+            await _orderRepo.UpdatePreOrderStatus(orderId, status).ConfigureAwait(false);
+        }
     }
 }

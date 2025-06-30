@@ -6,9 +6,7 @@ using pos_system.Services;
 
 namespace pos_system.Controllers
 {
-    //[Authorize(Roles ="Admin")]
-    [Authorize]
-
+    [Authorize(Roles = "Admin,Manager")]
     public class InventoryController(IInventoryService inventoryService) : Controller
     {
         readonly IInventoryService _inventoryService = inventoryService;
