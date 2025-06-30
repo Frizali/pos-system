@@ -185,7 +185,23 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="orderModalBody">
+                    <div class="modal-body">
+                        <div id="detail-po">
+                            <div class="mb-2">
+                                <label for="name" class="form-label">Pick-Up Date*</label>
+                                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:.25rem;border:1px solid rgba(108, 117, 125, .2);">
+                                    <input type="date" class="border-0 text-muted w-100" id="fromDate" />
+                                </div>
+                            </div>
+                            <div>
+                                <label for="notes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="Notes" rows="2"></textarea>
+                            </div>
+                            <hr />
+                        </div>
+                        <div id="orderModalBody">
+
+                        </div>
                     </div>
                     <div class="modal-footer p-0 border-top-0">
                         <input type="hidden" name="Type" value="PreOrder" />

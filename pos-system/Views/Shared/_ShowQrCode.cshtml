@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "QRIS Pembayaran";
+}
+<div class="text-center mt-5">
+    <h3>Scan QRIS Untuk Membayar</h3>
+    <img src="@ViewBag.QrCodeUrl" class="img-fluid" style="max-width: 300px;" />
+    <p class="mt-3">Order ID: <strong>@ViewBag.OrderId</strong></p>
+    <p>Total: <strong>Rp @ViewBag.Total</strong></p>
+</div>

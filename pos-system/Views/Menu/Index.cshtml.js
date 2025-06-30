@@ -76,16 +76,18 @@
 
 $(document).ready(function () {
     $('#preorder-active').hide();
+    $('#detail-po').hide();
 
     $('#preorder-inactive').on('click', function () {
-        $('#btn-create-order').text('Pre Order')
+        $('#btn-create-order').text('Pre Order');
+        $('#detail-po').slideDown();
         $('#preorder-inactive').hide();
         $('#preorder-active').show();
-
     });
 
     $('#preorder-active').on('click', function () {
-        $('#btn-create-order').text('Order Now')
+        $('#btn-create-order').text('Order Now');
+        $('#detail-po').slideUp();
         $('#preorder-active').hide();
         $('#preorder-inactive').show();
     });

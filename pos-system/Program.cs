@@ -34,6 +34,9 @@ builder.Services.Configure<IdentityOptions>(options =>
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 });
 
+builder.Services.Configure<MidtransSettings>(
+    builder.Configuration.GetSection("Midtrans")
+);
 
 builder.Services.AddScoped<IProductCategoryRepo, ProductCategoryRepo>();
 builder.Services.AddScoped<IProductService, ProductService>();

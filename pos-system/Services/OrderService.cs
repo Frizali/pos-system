@@ -25,12 +25,13 @@ namespace pos_system.Services
             {
                 order.OrderNumber = await _orderNumberTrackerRepo.GetOrderNumber();
                 order.OrderDate = DateTime.Now;
-                order.Status = "Pending";
+                order.Status = "Success";
                 order.TotalPrice = order.TblOrderItems.Sum(oi => oi.SubTotal);
                 order.Cashier = _username;
                 order.TblOrderItems = order.TblOrderItems.Select(oi =>
                 {
                     oi.OrderId = order.OrderId;
+                    oi.Notes = oi.Notes ?? "";
                     return oi;
                 }).ToList();
 
@@ -64,7 +65,7 @@ namespace pos_system.Services
         {
             foreach (var item in order.TblOrderItems)
             {
-                if (item.VariantId is null)
+                if (string.IsNullOrEmpty(item.VariantId))
                 {
                     var product = await _productRepo.GetRepo().GetById(item.ProductId).ConfigureAwait(false);
                     product.ProductStock -= item.Quantity;
