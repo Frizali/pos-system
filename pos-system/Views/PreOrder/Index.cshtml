@@ -3,6 +3,10 @@
     ViewData["Title"] = "PreOrder";
 }
 @model List<TblOrder>
+@{
+    // var fromDate = Model.FromDate ?? DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+    // var toDate = Model.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
+}
 <style>
     .btn-add {
         background-color: #d3f0ff;
@@ -89,6 +93,7 @@
                                 <i class="bi bi-x"></i>
                             </button>
                         }
+
                         @if (item.PreOrderStatus == "Approved")
                         {
                             <a href="@Url.Action("UpdatePreOrderStatus", "Order", new { orderId = item.OrderId, status = "Done" })" class="btn btn-inout btn-custom">
@@ -182,3 +187,4 @@
         });
     });
 </script>
+
