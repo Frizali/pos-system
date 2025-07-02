@@ -15,11 +15,36 @@ namespace pos_system.Repository
 
         public async Task<List<ProductDTO>> ProductDetailsDTO()
         {
-            var products = await _context.TblProduct.Where(p => p.IsAvailable).ProjectTo<ProductDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);    
+            var products = await _context.TblProduct.Where(p => p.IsAvailable).ProjectTo<ProductDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);
             var productCategories = await _context.TblProductCategory.ProjectTo<ProductCategoryDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);
-            var productVariants = await _context.TblProductVariant.ProjectTo<ProductVariantDTO>(_mapper.ConfigurationProvider).GroupBy(pv => pv.ProductId).ToListAsync().ConfigureAwait(false);
-            var result = products.Join(productCategories, p => p.CategoryId, pc => pc.CategoryId, (p,pc) => { p.Category = pc; return p; }).ToList();
-            result = result.Join(productVariants, p => p.ProductId, pv => pv.Key, (p, pv) => { p.ProductVariants = [.. pv]; return p; }).ToList();
+            var productVariants = await _context.TblProductVariant.ProjectTo<ProductVariantDTO>(_mapper.ConfigurationProvider).ToListAsync().ConfigureAwait(false);
+
+            var result = (from p in products
+                          join pc in productCategories on p.CategoryId equals pc.CategoryId into pcGroup
+                          from pc in pcGroup.DefaultIfEmpty()
+                          select new ProductDTO
+                          {
+                              ProductId = p.ProductId,
+                              ProductCode = p.ProductCode,
+                              ProductName = p.ProductName,
+                              ProductDescription = p.ProductDescription,
+                              ProductStock = p.ProductStock,
+                              IsLimitedStock = p.IsLimitedStock,
+                              IsAvailable = p.IsAvailable,
+                              Price = p.Price,
+                              IsRecommended = p.IsRecommended,
+                              CategoryId = p.CategoryId,
+                              Category = pc,
+                              ImageType = p.ImageType,
+                              ProductImage = p.ProductImage,
+                              ProductVariants = new List<ProductVariantDTO>()
+                          }).ToList();
+
+            foreach (var product in result)
+            {
+                product.ProductVariants = productVariants.Where(pv => pv.ProductId == product.ProductId).ToList();
+            }
+
             return result;
         }
 

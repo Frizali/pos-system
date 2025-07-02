@@ -22,7 +22,7 @@ namespace pos_system.Controllers
         readonly MidtransSettings _midtrans = midtrans.Value;
         readonly IConfiguration _configuration= configuration;
 
-        public async Task<IActionResult> CreateOrder(string orderId)
+        public async Task<IActionResult> CreateOrder(string orderId, bool? isTest)
         {
             _orderService.SetUsername(GetCurrentUserName());
             var orderDataJson = HttpContext.Session.GetString("OrderData");
@@ -46,7 +46,7 @@ namespace pos_system.Controllers
                 TotalPrice = snapParam.totalAmount,
                 OrderDate = DateTime.Now,
                 UserID = userId,
-                Type = snapParam.type,
+                Type = snapParam.type ?? "Cashier",
                 ScheduledAt = snapParam.scheduledAt,
                 Notes = snapParam.notes,
                 PreOrderStatus = snapParam.type == "PreOrder" ? "Pending" : null,
@@ -54,6 +54,12 @@ namespace pos_system.Controllers
             };
 
             await _orderService.CreateOrder(order);
+
+            if(isTest!= null && isTest == true)
+            {
+                return StatusCode(200);
+            }
+
             ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
             ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
 

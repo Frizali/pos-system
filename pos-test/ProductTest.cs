@@ -41,12 +41,15 @@ namespace pos_test
             mockProductRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblProduct>(_context));
             var mockVariantGroupRepo = new Mock<IVariantGroupRepo>();
             mockVariantGroupRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblVariantGroup>(_context));
+            var mockOrderRepo = new Mock<IOrderRepo>();
+            mockOrderRepo.Setup(repo => repo.GetRepo()).Returns(new CrudRepo<TblOrder>(_context));
             var orderNumberRepo = new OrderNumberTrackerRepo(_context);
 
             var service = new ProductService(
                 mockCateRepo.Object,
                 mockProductRepo.Object,
                 mockVariantGroupRepo.Object,
+                mockOrderRepo.Object,
                 orderNumberRepo
             );
 
