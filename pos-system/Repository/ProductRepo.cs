@@ -20,7 +20,7 @@ namespace pos_system.Repository
             var productVariants = await _context.TblProductVariant.ProjectTo<ProductVariantDTO>(_mapper.ConfigurationProvider).GroupBy(pv => pv.ProductId).ToListAsync().ConfigureAwait(false);
             var result = products.Join(productCategories, p => p.CategoryId, pc => pc.CategoryId, (p,pc) => { p.Category = pc; return p; }).ToList();
             result = result.Join(productVariants, p => p.ProductId, pv => pv.Key, (p, pv) => { p.ProductVariants = [.. pv]; return p; }).ToList();
-            return products;
+            return result;
         }
 
         public async Task<TblProduct> ProductDetailByID(string id)

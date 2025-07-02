@@ -98,34 +98,40 @@
                                                 @item.ProductDescription
                                             </p>
                                             <p class="text-muted m-0">@item.Category.CategoryName</p>
-                                            <p class="card-text">
-                                                @{
-                                                    var priceText = String.Empty;
-                                                    if (item.ProductVariants.Count() > 1)
-                                                    {
-                                                        var lowPrice = item.ProductVariants.Min(x => x.VariantPrice);
-                                                        var hightPrice = item.ProductVariants.Max(x => x.VariantPrice);
-                                                        if (lowPrice == hightPrice)
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text m-0">
+                                                    @{
+                                                        var priceText = String.Empty;
+                                                        if (item.ProductVariants.Count() > 1)
                                                         {
-                                                            priceText = $"Rp{hightPrice}";
+                                                            var lowPrice = item.ProductVariants.Min(x => x.VariantPrice);
+                                                            var hightPrice = item.ProductVariants.Max(x => x.VariantPrice);
+                                                            if (lowPrice == hightPrice)
+                                                            {
+                                                                priceText = $"Rp{hightPrice}";
+                                                            }
+                                                            else
+                                                            {
+                                                                priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                            }
+                                                        }
+                                                        else if (item.ProductVariants.Count() == 1)
+                                                        {
+                                                            var price = item.ProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
+                                                            priceText = $"Rp{price}";
                                                         }
                                                         else
                                                         {
-                                                            priceText = $"Rp{lowPrice}-{hightPrice}";
+                                                            priceText = $"Rp{item.Price}";
                                                         }
                                                     }
-                                                    else if (item.ProductVariants.Count() == 1)
-                                                    {
-                                                        var price = item.ProductVariants.Select(x => x.VariantPrice).FirstOrDefault();
-                                                        priceText = $"Rp{price}";
-                                                    }
-                                                    else
-                                                    {
-                                                        priceText = $"Rp{item.Price}";
-                                                    }
+                                                    @priceText
+                                                </p>
+                                                @if (item.IsRecommended)
+                                                {
+                                                    <i class="bi bi-star-fill text-primary"></i>
                                                 }
-                                                @priceText
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

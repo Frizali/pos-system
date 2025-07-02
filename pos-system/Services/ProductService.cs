@@ -6,11 +6,12 @@ using pos_system.Repository;
 
 namespace pos_system.Services
 {
-    public class ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo, IOrderNumberTrackerRepo orderNumberTrackerRepo) : IProductService
+    public class ProductService(IProductCategoryRepo categoryRepo, IProductRepo productRepo, IVariantGroupRepo variantGroupRepo, IOrderRepo orderRepo, IOrderNumberTrackerRepo orderNumberTrackerRepo) : IProductService
     {
         readonly IProductCategoryRepo _categoryRepo = categoryRepo;
         readonly IProductRepo _productRepo = productRepo;
         readonly IVariantGroupRepo _variantGroupRepo = variantGroupRepo;
+        readonly IOrderRepo _orderRepo = orderRepo;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly int codeLength = 4;
         private string _username = "System";
@@ -34,9 +35,41 @@ namespace pos_system.Services
 
         public async Task<ProductListViewModel> ProductListViewModel(string? category, string? product)
         {
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
+
+            var fromDate = new DateTime(year, month, DateTime.Now.Day).AddDays(-6).ToString("yyyy-MM-dd");
+            var toDate = new DateTime(year, month, DateTime.Now.Day).ToString("yyyy-MM-dd");
+
+            var orders = await _orderRepo.GetOrdersByDate(fromDate, toDate);
+            var productDTOs = await _productRepo.ProductDetailsDTO();
+
+            var favoriteProducts = GetFavoriteProduct(orders, productDTOs);
             var products = await _productRepo.ProductDetailsDTO().ConfigureAwait(false);
             var productCategoriesDTO = await _categoryRepo.ProductCategoriesDTO().ConfigureAwait(false);
             var orderNumber = await _orderNumberTrackerRepo.GetOrderNumber().ConfigureAwait(false);
+
+            products = (from p in products join fp in favoriteProducts on p.ProductId equals fp.ProductId into fpGroup
+                       from fp in fpGroup.DefaultIfEmpty()
+                       select new ProductDTO() {
+                           ProductId = p.ProductId,
+                           ProductName = p.ProductName,
+                           CategoryId = p.CategoryId,
+                           Category = p.Category,
+                           Price = p.Price,
+                           ProductImage = p.ProductImage,
+                           ImageType = p.ImageType,
+                           IsAvailable = p.IsAvailable,
+                           ProductDescription = p.ProductDescription,
+                           ProductStock = p.ProductStock,
+                           ProductCode = p.ProductCode,
+                           ProductVariants = p.ProductVariants,
+                           IsLimitedStock = p.IsLimitedStock,
+                           IsRecommended = fp != null && fp.TotalOrder > 0,
+                           CreatedAt = p.CreatedAt,
+                           UpdatedAt = p.UpdatedAt
+                       }).ToList();
+
             ProductCategoryDTO allProductCategory = new ()
             {
                 CategoryId = "All",
@@ -146,6 +179,29 @@ namespace pos_system.Services
         public async Task<ProductFormModel> EditData(string id)
         {
             return await _productRepo.EditData(id).ConfigureAwait(false);
+        }
+
+        private List<FavoriteProduct> GetFavoriteProduct(List<TblOrder> orders, List<ProductDTO> productDTOs)
+        {
+            var orderProductID = orders.SelectMany(o => o.TblOrderItems).Select(oi => new { ProductID = oi.ProductId, oi.Quantity }).ToList();
+
+            var resProduct = from op in orderProductID
+                             join p in productDTOs on op.ProductID equals p.ProductId
+                             select new
+                             {
+                                 op,
+                                 p
+                             } into joined
+                             group joined by joined.op.ProductID into g
+                             select new FavoriteProduct()
+                             {
+                                 ProductId = g.First().p.ProductId,
+                                 ProductName = g.First().p.ProductName,
+                                 CategoryName = g.First().p.Category.CategoryName,
+                                 TotalOrder = g.Sum(x => x.op.Quantity),
+                             };
+
+            return resProduct.OrderByDescending(fp => fp.TotalOrder).Take(5).ToList();
         }
     }
 }

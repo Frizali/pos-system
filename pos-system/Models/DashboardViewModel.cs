@@ -49,6 +49,8 @@
 
     public class FavoriteProduct
     {
+        public string? ProductId { get; set; }
+        public string? VariantId { get; set; }
         public string ProductName { get; set; } = String.Empty;
         public string CategoryName { get; set; } = String.Empty;
         public int TotalOrder { get; set; } = 0;
