@@ -85,9 +85,9 @@ namespace pos_system.Services
             return await _orderRepo.GetPreOrder(userId, role).ConfigureAwait(false);
         }
 
-        public async Task UpdatePreOrderStatus(string orderId, string status)
+        public async Task UpdatePreOrderStatus(string orderId, string status, string comment)
         {
-            await _orderRepo.UpdatePreOrderStatus(orderId, status).ConfigureAwait(false);
+            await _orderRepo.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
         }
     }
 }

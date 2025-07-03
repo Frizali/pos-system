@@ -72,6 +72,18 @@ namespace pos_system.Controllers
             return File(mergedPdf, "application/pdf");
         }
 
+        public async Task<IActionResult> UserCreateOrder(TblOrder order)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            order.UserID = userId;
+            order.PreOrderStatus = order.Type == "PreOrder" ? "Pending" : null;
+            _orderService.SetUsername(GetCurrentUserName());
+            await _orderService.CreateOrder(order);
+            ReportModel base64Pdf = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
+            string base64WithHeader = $"data:application/pdf;base64,{base64Pdf.Data}";
+            return PartialView("_ShowPDF", base64WithHeader);
+        }
+
         [HttpPost]
         public async Task<IActionResult> GetSnapToken([FromBody] SnapTokenModel param)
         {
@@ -124,9 +136,9 @@ namespace pos_system.Controllers
             return User.Identity?.Name ?? "System";
         }
 
-        public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status)
+        public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status, string comment)
         {
-            await _orderService.UpdatePreOrderStatus(orderId, status).ConfigureAwait(false);
+            await _orderService.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
             return RedirectToAction("Index", "PreOrder");
         }
     }

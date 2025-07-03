@@ -10,6 +10,6 @@ namespace pos_system.Repository
         Task<decimal> GetTotalSalesAmount(string fromDate, string toDate);
         Task<int> GetTotalProductSales(string fromDate, string toDate);
         Task<int> GetTotalCustomers(string fromDate, string toDate);
-        Task UpdatePreOrderStatus(string orderId, string status);
+        Task UpdatePreOrderStatus(string orderId, string status, string comment);
     }
 }

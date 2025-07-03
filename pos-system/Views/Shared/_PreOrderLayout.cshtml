@@ -80,12 +80,12 @@
             <div class="row">
                 <div class="col-2">
                     <div class="d-flex flex-column gap-2">
-                        <a asp-controller="Activity" asp-action="Order" class="text-decoration-none py-2 px-3 tab  @(currentController == "PreOrder" && currentAction == "Index" ? "active" : "")" data-tab="tab1">
+                        <a asp-controller="PreOrder" asp-action="Index" class="text-decoration-none py-2 px-3 tab  @(currentController == "PreOrder" && currentAction == "Index" ? "active" : "")" data-tab="tab1">
                             <div class="box">
                                 PreOrder List
                             </div>
                         </a>
-                        <a asp-controller="Activity" asp-action="LogAudit" class="text-decoration-none py-2 px-3 tab  @(currentController == "PreOrder" && currentAction == "Process" ? "active" : "")" data-tab="tab2">
+                        <a asp-controller="PreOrder" asp-action="History" class="text-decoration-none py-2 px-3 tab  @(currentController == "PreOrder" && currentAction == "History" ? "active" : "")" data-tab="tab2">
                             <div class="box">
                                 History
                             </div>

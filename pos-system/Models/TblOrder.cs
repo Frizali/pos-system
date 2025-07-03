@@ -18,6 +18,7 @@ public partial class TblOrder
     public DateTime? ScheduledAt { get; set; }
     public string? Notes { get; set; } = String.Empty;
     public string? PreOrderStatus { get; set; } = String.Empty;
+    public string? Comment { get; set; }
 
     public virtual ICollection<TblOrderItem> TblOrderItems { get; set; } = [];
 }

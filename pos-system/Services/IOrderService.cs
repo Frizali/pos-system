@@ -8,6 +8,6 @@ namespace pos_system.Services
         Task CreateOrder(TblOrder order);
         Task<List<TblOrder>> GetOrderHistory(string? fromDate, string? toDate);
         Task<List<TblOrder>> GetPreOrder(string userId, string role);
-        Task UpdatePreOrderStatus(string orderId, string status);
+        Task UpdatePreOrderStatus(string orderId, string status, string comment);
     }
 }

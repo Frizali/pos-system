@@ -58,7 +58,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" asp-controller="User" asp-action="ManageAcc">Setting</a></li>
-                        <li><a class="dropdown-item" asp-controller="User" asp-action="PoOrderTable">Order</a></li>
+                        <li><a class="dropdown-item" asp-controller="PreOrder" asp-action="UserOrder">Order</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
@@ -183,7 +183,7 @@
         </div>
     </form>
 
-    @using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post, new { target = "_blank", id = "payment-form" }))
+    @using (Html.BeginForm("UserCreateOrder", "Order", FormMethod.Post, new { target = "_blank" }))
     {
         @Html.AntiForgeryToken()
         <input type="hidden" name="OrderId" value="@orderId" />
@@ -203,12 +203,12 @@
                             <div class="mb-2">
                                 <label for="name" class="form-label">Pick-Up Date*</label>
                                 <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:.25rem;border:1px solid rgba(108, 117, 125, .2);">
-                                    <input type="date" class="border-0 text-muted w-100" id="ScheduledAt" />
+                                    <input type="date" class="border-0 text-muted w-100" name="ScheduledAt" />
                                 </div>
                             </div>
                             <div>
                                 <label for="notes" class="form-label">Notes</label>
-                                <textarea class="form-control" id="Notes" rows="2"></textarea>
+                                <textarea class="form-control" name="Notes" rows="2"></textarea>
                             </div>
                             <hr />
                         </div>
@@ -251,71 +251,6 @@
             </div>
         </div>
     }
-
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
-            data-client-key="@Configuration["Midtrans:ClientKey"]">
-    </script>
-
-    <script>
-        document.getElementById("payment-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const form = document.getElementById("payment-form");
-            const formData = new FormData(form);
-
-            const orderItems = [];
-            for (let i = 0; ; i++) {
-                const productId = formData.get(`TblOrderItems[${i}].ProductId`);
-                if (!productId) break;
-
-                orderItems.push({
-                    ProductId: productId,
-                    VariantId: formData.get(`TblOrderItems[${i}].VariantId`),
-                    Quantity: parseInt(formData.get(`TblOrderItems[${i}].Quantity`)),
-                    UnitPrice: parseFloat(formData.get(`TblOrderItems[${i}].UnitPrice`)),
-                    SubTotal: parseFloat(formData.get(`TblOrderItems[${i}].SubTotal`))
-                });
-            }
-
-            const data = {
-                orderId: formData.get("OrderId"),
-                totalAmount: parseFloat(document.getElementById("order-total-input").value),
-                scheduledAt: document.getElementById("ScheduledAt").value == "" ? null : document.getElementById("ScheduledAt").value,
-                notes: document.getElementById("Notes").value == "" ? null : document.getElementById("Notes").value,
-                type: document.getElementById("OrderType").value,
-                tblOrderItems: orderItems
-            };
-
-
-            fetch('@Url.Action("GetSnapToken", "Order")', {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    snap.pay(data.token, {
-                        onSuccess: function () {
-                            form.submit();
-                        },
-                        onClose: function () {
-                            alert("Pembayaran dibatalkan");
-                        },
-                        onError: function () {
-                            alert("Terjadi error saat pembayaran");
-                        }
-                    });
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Terjadi kesalahan saat menghubungi server.");
-                });
-        });
-    </script>
     <script>
         const variants = @Html.Raw(Json.Serialize(Model.Products.SelectMany(x => x.ProductVariants).Select(v => new
             {

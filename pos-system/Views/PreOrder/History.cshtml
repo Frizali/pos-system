@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_PreOrderLayout.cshtml";
+    ViewData["Title"] = "PreOrder";
+}
+@model List<TblOrder>
+@{
+    // var fromDate = Model.FromDate ?? DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+    // var toDate = Model.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
+}
+<style>
+    .btn-add {
+        background-color: #d3f0ff;
+        color: #000;
+        border: 1px solid #c2e4f3;
+    }
+
+    .btn-inout {
+        background-color: #e0fce0;
+        color: #14532d;
+        border: 1px solid #b2f2bb;
+    }
+
+    .btn-delete {
+        background-color: #ffe5e5;
+        color: #a10000;
+        border: 1px solid #ffcccc;
+    }
+</style>
+<div class="bg-white p-2">
+    <form asp-action="Order" asp-controller="Activity" method="get">
+        <div class="d-flex justify-content-between">
+            <div class="datetime-container d-flex gap-3 align-items-center">
+                <div>
+                    Date:
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" name="fromDate" />
+                </div>
+                <div>
+                    -
+                </div>
+                <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
+                    <input type="date" class="border-0 text-muted" name="toDate" />
+                </div>
+            </div>
+            <button class="search-icon bg-light border-0" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
+<div class="bg-white p-2">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">#</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Scheduled At</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">User</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Status</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Total Payment</div></th>
+                <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Orders</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(o => o.PreOrderStatus == "Rejected" || o.PreOrderStatus == "Done"))
+            {
+                <tr class="text-center">
+                    <th>@item.OrderNumber</th>
+                    <td>
+                        @{
+                            var dateConvert = item.ScheduledAt?.ToString("MM/dd/yyyy - HH:mm");
+                        } @dateConvert
+                    </td>
+                    <td>@item.Cashier</td>
+                    <td>@item.PreOrderStatus</td>
+                    <td>Rp @item.TotalPrice</td>
+                    <td>
+                        <button class="text-primary text-decoration-underline detail-download bg-transparent border-0" data-id="@item.OrderId">
+                            Detail
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).on("click", ".detail-download", function () {
+        const reportName = "PreOrder Detail";
+        const id = $(this).data("id");
+        const fromDate = "";
+        const toDate = "";
+
+        fetch('/Dashboard/DownloadReport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ FromDate: fromDate, ToDate: toDate, ReportName: reportName, ID: id })
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        });
+    });
+</script>
+

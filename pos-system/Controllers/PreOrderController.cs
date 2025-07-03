@@ -21,6 +21,30 @@ namespace pos_system.Controllers
             return View(preOrders);
         }
 
+        public async Task<IActionResult> History()
+        {
+            var user = await _userManager.FindByNameAsync(GetCurrentUserName());
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
+            var preOrders = await _orderService.GetPreOrder(userId, role).ConfigureAwait(false);
+
+            return View(preOrders);
+        }
+
+        public async Task<IActionResult> UserOrder()
+        {
+            var user = await _userManager.FindByNameAsync(GetCurrentUserName());
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
+            var preOrders = await _orderService.GetPreOrder(userId, role).ConfigureAwait(false);
+
+            return View("~/Views/User/Order.cshtml", preOrders);
+        }
+
         private string GetCurrentUserName()
         {
             return User.Identity?.Name ?? "System";

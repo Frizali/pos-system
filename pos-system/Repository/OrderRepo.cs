@@ -42,10 +42,11 @@ namespace pos_system.Repository
             return await _context.TblOrder.Where(o => o.Type == "PreOrder" && (role != "User" || o.UserID == userId)).ToListAsync();
         }
 
-        public async Task UpdatePreOrderStatus(string orderId, string status)
+        public async Task UpdatePreOrderStatus(string orderId, string status, string comment)
         {
             var order = await _context.TblOrder.FindAsync(orderId);
             order.PreOrderStatus = status;
+            order.Comment = comment;
 
             await _context.SaveChangesAsync();
         }
