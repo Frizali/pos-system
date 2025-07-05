@@ -59,7 +59,8 @@
                 VariantId: formData.get(`TblOrderItems[${i}].VariantId`),
                 Quantity: parseInt(formData.get(`TblOrderItems[${i}].Quantity`)),
                 UnitPrice: parseFloat(formData.get(`TblOrderItems[${i}].UnitPrice`)),
-                SubTotal: parseFloat(formData.get(`TblOrderItems[${i}].SubTotal`))
+                SubTotal: parseFloat(formData.get(`TblOrderItems[${i}].SubTotal`)),
+                Notes: formData.get(`TblOrderItems[${i}].Notes`) || ""
             });
         }
 
