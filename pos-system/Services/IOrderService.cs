@@ -7,7 +7,7 @@ namespace pos_system.Services
         void SetUsername(string username);
         Task CreateOrder(TblOrder order);
         Task<List<TblOrder>> GetOrderHistory(string? fromDate, string? toDate);
-        Task<List<TblOrder>> GetPreOrder(string userId, string role);
-        Task UpdatePreOrderStatus(string orderId, string status, string comment);
+        Task<PreOrderViewModel> GetPreOrder(string? fromDate, string? toDate, string? status, string? userId, string? role);
+        Task UpdatePreOrderStatus(string orderId, string status, string? comment);
     }
 }

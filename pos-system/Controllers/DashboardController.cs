@@ -5,18 +5,20 @@ using pos_system.Services;
 
 namespace pos_system.Controllers
 {
-    [Authorize(Roles = "Admin,Manager")]
+    
     public class DashboardController(IDashboardService dashboardService, IReportService reportService) : Controller
     {
         readonly IDashboardService _dashboardService = dashboardService;
         readonly IReportService _reportService = reportService;
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Index(string? fromDate, string? toDate)
         {
             DashboardViewModel dashboardViewModel = await _dashboardService.DashboardViewModel(fromDate, toDate);
             return View(dashboardViewModel);
         }
 
+        [Authorize(Roles = "Admin,Manager,User")]
         [HttpPost]
         public async Task<IActionResult> DownloadReport([FromBody]ReportParamModel param)
         {

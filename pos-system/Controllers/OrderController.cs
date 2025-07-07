@@ -49,7 +49,7 @@ namespace pos_system.Controllers
                 Type = snapParam.type ?? "Cashier",
                 ScheduledAt = snapParam.scheduledAt,
                 Notes = snapParam.notes,
-                PreOrderStatus = snapParam.type == "PreOrder" ? "Pending" : null,
+                PreOrderStatus = snapParam.type == "PreOrder" ? "Pending Approval" : null,
                 TblOrderItems = snapParam.TblOrderItems
             };
 
@@ -76,7 +76,7 @@ namespace pos_system.Controllers
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             order.UserID = userId;
-            order.PreOrderStatus = order.Type == "PreOrder" ? "Pending" : null;
+            order.PreOrderStatus = order.Type == "PreOrder" ? "Pending Approval" : null;
             _orderService.SetUsername(GetCurrentUserName());
             await _orderService.CreateOrder(order);
             ReportModel base64Pdf = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
@@ -136,10 +136,13 @@ namespace pos_system.Controllers
             return User.Identity?.Name ?? "System";
         }
 
-        public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status, string comment)
+        public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status, string? comment)
         {
             await _orderService.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
-            return RedirectToAction("Index", "PreOrder");
+            if (User.IsInRole("User"))
+                return RedirectToAction("UserOrder", "PreOrder");
+            else
+                return RedirectToAction("Index", "PreOrder");
         }
     }
 }

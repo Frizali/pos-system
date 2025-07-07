@@ -1,8 +1,10 @@
-﻿@{
+﻿@model PreOrderViewModel
+@{
     Layout = "~/Views/Shared/_PreOrderLayout.cshtml";
     ViewData["Title"] = "PreOrder";
+    var fromDate = Model.FromDate ?? DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+    var toDate = Model.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
 }
-@model List<TblOrder>
 <style>
     .btn-add {
         background-color: #d3f0ff;
@@ -24,25 +26,38 @@
 </style>
 
 <div class="bg-white p-2">
-    <form asp-action="Order" asp-controller="Activity" method="get">
+    <form asp-action="Index" asp-controller="PreOrder" method="get">
         <div class="d-flex justify-content-between">
             <div class="datetime-container d-flex gap-3 align-items-center">
                 <div>
                     Date:
                 </div>
                 <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                    <input type="date" class="border-0 text-muted" name="fromDate" />
+                    <input type="date" class="border-0 text-muted" name="fromDate" value="@fromDate" />
                 </div>
                 <div>
                     -
                 </div>
                 <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
-                    <input type="date" class="border-0 text-muted" name="toDate" />
+                    <input type="date" class="border-0 text-muted" name="toDate" value="@toDate" />
                 </div>
             </div>
-            <button class="search-icon bg-light border-0" type="submit">
-                <i class="bi bi-search"></i>
-            </button>
+            <div class="d-flex gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="label-text">Status:</label>
+                    <select id="status-select" name="Status" class="form-select" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);">
+                        <option value="All">All</option>
+                        <option value="Pending Approval">Pending Approval</option>
+                        <option value="Awaiting Payment">Awaiting Payment</option>
+                        <option value="Paid">Paid</option>
+                    </select>
+                    <button class="text-decoration-none text-black border-0 p-0 bg-transparent" type="submit">
+                        <div class="search-icon bg-light">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -61,7 +76,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Where(o => o.PreOrderStatus != "Rejected" && o.PreOrderStatus != "Done"))
+            @foreach (var item in Model.Orders.Where(o => o.PreOrderStatus != "Rejected" && o.PreOrderStatus != "Done"))
             {
                 <tr class="text-center">
                     <th>@item.OrderNumber</th>
@@ -80,16 +95,16 @@
                         </button>
                     </td>
                     <td>
-                        @if (item.PreOrderStatus == "Pending")
+                        @if (item.PreOrderStatus == "Pending Approval")
                         {
-                            <button type="button" class="btn btn-inout btn-custom me-2 btn-action-status" data-id="@item.OrderId" data-action="Approved">
+                            <button type="button" class="btn btn-inout btn-custom me-2 btn-action-status" data-id="@item.OrderId" data-action="Awaiting Payment">
                                 <i class="bi bi-check2"></i>
                             </button>
                             <button type="button" class="btn btn-delete btn-custom btn-action-status" data-id="@item.OrderId" data-action="Rejected">
                                 <i class="bi bi-x"></i>
                             </button>
                         }
-                        @if (item.PreOrderStatus == "Approved")
+                        @if (item.PreOrderStatus == "Paid")
                         {
                             <a href="@Url.Action("UpdatePreOrderStatus", "Order", new { orderId = item.OrderId, status = "Done" })" class="btn btn-inout btn-custom">
                                 <i class="bi bi-check2-all"></i>

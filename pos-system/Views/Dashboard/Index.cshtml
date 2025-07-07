@@ -15,12 +15,6 @@
     <div class="d-flex align-items-center justify-content-between bg-white rounded gap-3 p-2 mb-3">
         <div class="d-flex align-items-center gap-3">
             <label class="label-text">Date Periode:</label>
-@*             <div class="input-group bg-white" style="width:50%">
-                <input id="dateRange" type="text" class="form-control search-input bg-light" placeholder="Monthly" style="border-radius: 50px 0 0 50px;" readonly>
-                <span class="input-group-text search-input-icon">
-                    <i class="bi bi-calendar4-range search-icon"></i>
-                </span>
-            </div> *@
             <div class="datetime-container d-flex gap-3 align-items-center">
                 <div class="d-flex gap-3 align-items-center py-1 ps-3 pe-1" style="border-radius:50px;border:1px solid rgba(108, 117, 125, .2);">
                     <input type="date" class="border-0 text-muted" id="fromDate" value="@fromDate" />
@@ -38,7 +32,6 @@
             <select class="form-select" aria-label="Default select example" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);" id="report-name" name="ReportName">
                 <option value="Sales Analytics">Sales Analytics</option>
                 <option value="Order Detail">Order Detail</option>
-                <option value="Favorite Product">Favorite Product</option>
             </select>
         </div>
     </div>
@@ -178,6 +171,30 @@
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
                         <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers.Amount</h2>
                         <span class="card-unit">Persons</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-left" : "pill-wrapper-danger-left")">
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-plus" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-dash" style="font-size:.8rem"></i>
+                            }
+                            @Model.SalesAnalytics.TotalCustomers.GrowthAmount Persons
+                        </div>
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-right" : "pill-wrapper-danger-right")">
+                            @Model.SalesAnalytics.TotalCustomers.GrowthPercentage%
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-arrow-up" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-down" style="font-size:.8rem"></i>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

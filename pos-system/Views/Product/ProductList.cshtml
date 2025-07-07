@@ -32,7 +32,7 @@
                 {
                     <div class="col-md-4 col-lg-3 col-sm-12 col-xl-2">
                         <div class="card h-100 border-0">
-                            <div class="card-body  d-flex flex-column justify-content-between gap-2 p-3 @(modifyMode ? "unclick-card" : "clickable-card")" data-id="@item.ProductId" style="cursor: pointer;">
+                            <div class="card-body  d-flex flex-column justify-content-between gap-2 p-3 @(modifyMode ? "unclick-card" : "clickable-card")" data-id="@item.ProductId" style="cursor: pointer;position:relative;">
                                 <div>
                                     <img src="data:@item.ImageType;base64,@item.ProductImage" class="w-100" />
                                 </div>
@@ -43,7 +43,7 @@
                                     </div>
                                     @if ((User.IsInRole("Admin") || User.IsInRole("Manager")) && modifyMode)
                                     {
-                                        <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary">
+                                        <a href="@Url.Action("EditData", "Product", new { id = item.ProductId })" class="rounded-circle circle-wrapper bg-primary" style="position:absolute;top:-.5rem;right:-.5rem;">
                                             <i class="bi bi-pencil text-white"></i>
                                         </a>
                                     }

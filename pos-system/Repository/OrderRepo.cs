@@ -37,16 +37,17 @@ namespace pos_system.Repository
             return await _context.TblOrder.Where(o => DateOnly.FromDateTime(o.OrderDate) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.OrderDate) <= DateOnly.Parse(toDate)).SumAsync(o => o.TotalPrice);
         }
 
-        public async Task<List<TblOrder>> GetPreOrder(string userId, string role)
+        public async Task<List<TblOrder>> GetPreOrder(string fromDate, string toDate, string status, string userId, string role)
         {
-            return await _context.TblOrder.Where(o => o.Type == "PreOrder" && (role != "User" || o.UserID == userId)).ToListAsync();
+            return await _context.TblOrder.Where(o => o.Type == "PreOrder" && (role != "User" || o.UserID == userId) && (status == "All" || o.PreOrderStatus == status) && (DateOnly.FromDateTime(o.ScheduledAt ?? DateTime.Now) >= DateOnly.Parse(fromDate) && DateOnly.FromDateTime(o.ScheduledAt ?? DateTime.Now) <= DateOnly.Parse(toDate))).ToListAsync();
         }
 
-        public async Task UpdatePreOrderStatus(string orderId, string status, string comment)
+        public async Task UpdatePreOrderStatus(string orderId, string status, string? comment)
         {
             var order = await _context.TblOrder.FindAsync(orderId);
             order.PreOrderStatus = status;
-            order.Comment = comment;
+            if(!String.IsNullOrEmpty(comment))
+                order.Comment = comment;
 
             await _context.SaveChangesAsync();
         }

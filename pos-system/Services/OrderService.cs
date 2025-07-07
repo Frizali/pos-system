@@ -1,4 +1,5 @@
-﻿using pos_system.Models;
+﻿using Org.BouncyCastle.Utilities.Collections;
+using pos_system.Models;
 using pos_system.Repository;
 
 namespace pos_system.Services
@@ -23,7 +24,7 @@ namespace pos_system.Services
         {
             try
             {
-                order.OrderNumber = await _orderNumberTrackerRepo.GetOrderNumber();
+                order.OrderNumber = order.Type == "PreOrder" ? GeneratePreorderNumber(await _orderNumberTrackerRepo.GetOrderNumber()) : await _orderNumberTrackerRepo.GetOrderNumber();
                 order.OrderDate = DateTime.Now;
                 order.Status = "Success";
                 order.TotalPrice = order.TblOrderItems.Sum(oi => oi.SubTotal);
@@ -43,6 +44,15 @@ namespace pos_system.Services
             {
                 throw new Exception("Error creating order: " + ex.Message, ex);
             }
+        }
+
+        public string GeneratePreorderNumber(string sequenceNumber)
+        {
+            string prefix = "PO";
+            string datePart = DateTime.Now.ToString("yyyyMM");
+            string paddedSequence = sequenceNumber;
+
+            return $"{prefix}-{datePart}-{paddedSequence}";
         }
 
         public async Task<List<TblOrder>> GetOrderHistory(string? fromDate, string? toDate)
@@ -80,12 +90,30 @@ namespace pos_system.Services
             }
         }
 
-        public async Task<List<TblOrder>> GetPreOrder(string userId, string role)
+        public async Task<PreOrderViewModel> GetPreOrder(string? fromDate, string? toDate, string status, string userId, string role)
         {
-            return await _orderRepo.GetPreOrder(userId, role).ConfigureAwait(false);
+            if (string.IsNullOrEmpty(fromDate) || string.IsNullOrEmpty(toDate))
+            {
+                var year = DateTime.Now.Year;
+                var month = DateTime.Now.Month;
+
+                fromDate = new DateTime(year, month, DateTime.Now.Day).AddDays(-6).ToString("yyyy-MM-dd");
+                toDate = new DateTime(year, month, DateTime.Now.Day).ToString("yyyy-MM-dd");
+            }
+
+            var data = await _orderRepo.GetPreOrder(fromDate, toDate, status, userId, role).ConfigureAwait(false);
+            data = data.Select(o => { o.TotalPrice = decimal.Round(o.TotalPrice, 0); return o; }).ToList();
+
+            return new PreOrderViewModel()
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                Status = status,
+                Orders = data,
+            };
         }
 
-        public async Task UpdatePreOrderStatus(string orderId, string status, string comment)
+        public async Task UpdatePreOrderStatus(string orderId, string status, string? comment)
         {
             await _orderRepo.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
         }

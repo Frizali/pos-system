@@ -1,4 +1,5 @@
-﻿@model List<TblOrder>
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model List<TblOrder>
 @{
     Layout = null;
     ViewData["Title"] = "Order";
@@ -168,6 +169,7 @@
                         <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Status</div></th>
                         <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Total Payment</div></th>
                         <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Orders</div></th>
+                        <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Action</div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -184,9 +186,16 @@
                             <td>@item.PreOrderStatus</td>
                             <td>Rp @item.TotalPrice</td>
                             <td>
-                                <button class="text-primary text-decoration-underline detail-download bg-transparent border-0" data-id="@item.OrderId">
+                                <button class="text-primary text-decoration-underline detail-download bg-transparent border-0" data-id="@item.OrderId" data-total="@item.TotalPrice">
                                     Detail
                                 </button>
+                            </td>
+                            <td>
+                                @if(@item.PreOrderStatus == "Awaiting Payment"){
+                                <button type="button" class="btn btn-inout btn-custom me-2 btn-action-status payment-btn" data-id="@item.OrderId" data-total="@item.TotalPrice" data-action="Awaiting Payment">
+                                    <i class="bi bi-credit-card"></i>
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }
@@ -196,10 +205,53 @@
 
 
     </div>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="@Configuration["Midtrans:ClientKey"]">
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
+        document.querySelector(".payment-btn").addEventListener("click", function (e) {
+            const orderId = this.getAttribute("data-id");
+            const total = parseFloat(this.getAttribute("data-total"));
+            const action = "Paid"
+
+            const data = {
+                orderId: orderId,
+                totalAmount: total,
+            };
+
+            fetch('@Url.Action("GetSnapToken", "Order")', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                snap.pay(data.token, {
+                    onSuccess: function () {
+                        var url = `/Order/UpdatePreOrderStatus?orderId=${orderId}&status=${action}`;
+                        window.location.href = url;
+                    },
+                    onClose: function () {
+                        alert("Pembayaran dibatalkan");
+                    },
+                    onError: function () {
+                        alert("Terjadi error saat pembayaran");
+                    }
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Terjadi kesalahan saat menghubungi server.");
+            });
+        });
+
+
         $(document).on("click", ".detail-download", function () {
             const reportName = "PreOrder Detail";
             const id = $(this).data("id");
