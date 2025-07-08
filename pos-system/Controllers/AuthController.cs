@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
+using System.Data;
 
 namespace pos_system.Controllers
 {
@@ -36,7 +37,10 @@ namespace pos_system.Controllers
         {
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Dashboard");
+                if (User.IsInRole("User"))
+                    return RedirectToAction("Index", "User");
+                else
+                    return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }

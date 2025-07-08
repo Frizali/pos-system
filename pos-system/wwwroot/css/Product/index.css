@@ -92,3 +92,9 @@
     border-radius: 50px;
     border:none;
 }
+
+.btn-delete {
+    background-color: #ffe5e5;
+    color: #a10000;
+    border: 1px solid #ffcccc;
+}

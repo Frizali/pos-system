@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css" media="all">
+      *{
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+      }
+      
+      h3{
+        font-weight: 500;
+      }
+      
+      th, td {
+        padding: .3rem;
+      }
+      
+      .greeting{
+        margin-bottom: .5rem;
+      }
+      
+      .title{
+        margin-bottom: 1rem;
+      }
+      
+      .email-card {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: .35rem;
+        border: thin solid #dadce0;
+      }
+      
+      .header{
+        border-top-left-radius: .35rem;
+        border-top-right-radius: .35rem;
+        background-color: #0d6efd;
+        color: white;
+        padding: 1.7rem;
+        text-align: center;
+      }
+      
+      .body{
+        padding: 1.7rem  2rem;
+        border-bottom-left-radius: .35rem;
+        border-bottom-right-radius: .35rem;
+      }
+      
+      .detail-stock{
+        padding: .7rem .5rem;
+        border: thin solid #dadce0;
+        border-radius: .35rem;
+        margin-bottom: 1rem;
+      }
+      
+      .footer{
+        text-align: center;
+      }
+      
+      @media only screen and (max-width: 600px) {
+        .email-card {
+          max-width: 100% !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .body {
+          padding: 1.1rem .8rem !important;
+        }
+        .header {
+          padding: 1.1rem .8rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin:0 .5rem;">
+      <div class="email-card">
+        <div class="header">
+          <h1>Pre-Order Notifikasi</h1>
+        </div>
+        <div class="body">
+          <h3 class="greeting">Halo, Manajer</h3>
+          <b><h2 class="title">Seorang pengguna baru saja melakukan pre-order melalui sistem. Berikut detailnya:</h2></b>
+          <div class="detail-stock">
+            <table border="0">
+              <tbody>
+                <tr>
+                  <td><h3>Nama Pengguna</h3></td>
+                  <td><label style="margin:0 .5rem;" for=":">:</label></td>
+                  <td><b><h3>{{ Username }}</h3></b></td>
+                </tr>
+                <tr>
+                  <td><h3>Tanggal Pengambilan</h3></td>
+                  <td><label style="margin:0 .5rem;" for=":">:</label></td>
+                  <td><b><h3>{{ ScheduledAt }}</h3></b></td>
+                </tr>
+                <tr>
+                  <td><h3>Total Harga</h3></td>
+                  <td><label style="margin:0 .5rem;" for=":">:</label></td>
+                  <td><b><h3>{{ TotalPrice }}</h3></b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="detail-stock">
+            <table border="0" style="width:100%">
+              <thead>
+                <tr>
+                  <th style="text-align:left;"><h3>Produk</h3></th>
+                  <th style="text-align:right;"><h3>Jumlah</h3></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                <tr>
+                    <td><h3>{{ item.ProductName }}</h3></td>
+                    <td style="text-align:right;"><h3>{{ item.Quantity }}</h3></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="footer">
+            <h3>Silakan segera proses pre-order ini melalui panel admin.</h3>
+            <h3>Terima kasih atas perhatian dan kerjasamanya.</h3>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

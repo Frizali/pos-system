@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MailKit.Search;
+using Microsoft.EntityFrameworkCore;
 using pos_system.DTOs;
 using pos_system.Helpers;
 using pos_system.Models;
@@ -169,6 +170,41 @@ namespace pos_system.Services
         {
             return await _productRepo.ProductDetailByID(id).ConfigureAwait(false);
         }
+
+        public async Task<List<PreOrderItemDTO>> GetPreOrderItem(TblOrder order)
+        {
+            var productDTOs = await _productRepo.ProductDetailsDTO().ConfigureAwait(false);
+            var orderProductID = order.TblOrderItems.Where(oi => oi.VariantId is null).Select(oi => new { ProductID = oi.ProductId, oi.Quantity }).ToList();
+            var orderVariantID = order.TblOrderItems.Where(oi => oi.VariantId is not null).Select(oi => new { ProductID = oi.ProductId, VariantID = oi.VariantId, oi.Quantity }).ToList();
+
+            var resProduct = from op in orderProductID
+                             join p in productDTOs on op.ProductID equals p.ProductId
+                             select new
+                             {
+                                 op,
+                                 p
+                             } into joined
+                             group joined by joined.op.ProductID into g
+                             select new PreOrderItemDTO()
+                             {
+                                 ProductName = g.First().p.ProductName,
+                                 Quantity = g.Sum(x => x.op.Quantity),
+                             };
+
+            var resVariant = from ov in orderVariantID
+                             join v in productDTOs.SelectMany(p => p.ProductVariants).ToList() on ov.VariantID equals v.VariantId
+                             join p in productDTOs on v.ProductId equals p.ProductId
+                             select new { p, v, ov } into vpJoined
+                             group vpJoined by vpJoined.v.VariantId into g
+                             select new PreOrderItemDTO()
+                             {
+                                 ProductName = g.First().p.ProductName + $" ({g.First().v.Sku})",
+                                 Quantity = g.Sum(x => x.ov.Quantity),
+                             }; 
+
+            return resProduct.Concat(resVariant).ToList();
+        }
+
 
         public async Task EditProduct(ProductFormModel data, IFormFile? productImage)
         {

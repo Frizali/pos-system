@@ -1,15 +1,20 @@
-﻿using Org.BouncyCastle.Utilities.Collections;
+﻿using MailKit;
+using Org.BouncyCastle.Utilities.Collections;
+using pos_system.DTOs;
 using pos_system.Models;
 using pos_system.Repository;
 
 namespace pos_system.Services
 {
-    public class OrderService(IOrderRepo orderRepo, IProductVariantRepo productVariantRepo, IProductRepo productRepo, IOrderNumberTrackerRepo orderNumberTrackerRepo) : IOrderService
+    public class OrderService(IOrderRepo orderRepo, IProductVariantRepo productVariantRepo, IProductRepo productRepo, IOrderNumberTrackerRepo orderNumberTrackerRepo, IProductService productService, IEmailService emailService, ISetupService setupService) : IOrderService
     {
         readonly IOrderRepo _orderRepo = orderRepo;
         readonly IProductVariantRepo _productVariantRepo = productVariantRepo;
         readonly IProductRepo _productRepo = productRepo;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
+        readonly IProductService _productService = productService;
+        readonly IEmailService _emailService = emailService;
+        readonly ISetupService _setupService = setupService;
         private string _username = "System";
 
         public void SetUsername(string username)
@@ -39,6 +44,21 @@ namespace pos_system.Services
                 await _orderRepo.GetRepo().Add(order);
                 await ReduceProductStock(order).ConfigureAwait(false);
                 await _orderNumberTrackerRepo.GenerateOrderNumber();
+
+                if(order.Type == "PreOrder")
+                {
+                    var preOrderItemList = await _productService.GetPreOrderItem(order).ConfigureAwait(false);
+                    var setup = await _setupService.GetSetup().ConfigureAwait(false);
+                    var data = new PreOrderMailDTO()
+                    {
+                        Username = _username,
+                        TotalPrice = order.TotalPrice,
+                        ScheduledAt = order.ScheduledAt,
+                        items = preOrderItemList
+                    };
+
+                    await _emailService.SendPreOrderNotification(data, setup.Email).ConfigureAwait(false);
+                }
             }
             catch(Exception ex)
             {
@@ -96,9 +116,10 @@ namespace pos_system.Services
             {
                 var year = DateTime.Now.Year;
                 var month = DateTime.Now.Month;
+                var days = DateTime.DaysInMonth(year, month);
 
-                fromDate = new DateTime(year, month, DateTime.Now.Day).AddDays(-6).ToString("yyyy-MM-dd");
-                toDate = new DateTime(year, month, DateTime.Now.Day).ToString("yyyy-MM-dd");
+                fromDate = new DateTime(year, month, 1).ToString("yyyy-MM-dd");
+                toDate = new DateTime(year, month, days).ToString("yyyy-MM-dd");
             }
 
             var data = await _orderRepo.GetPreOrder(fromDate, toDate, status, userId, role).ConfigureAwait(false);
@@ -111,6 +132,13 @@ namespace pos_system.Services
                 Status = status,
                 Orders = data,
             };
+        }
+
+        public async Task SendPreOrderFeedback(string orderId)
+        {
+            var order = await _orderRepo.GetRepo().GetById(orderId).ConfigureAwait(false);
+            var setup = await _setupService.GetSetup().ConfigureAwait(false);
+            await _emailService.SendPreOrderFeedbackNotification(order, setup.Email).ConfigureAwait(false);
         }
 
         public async Task UpdatePreOrderStatus(string orderId, string status, string? comment)

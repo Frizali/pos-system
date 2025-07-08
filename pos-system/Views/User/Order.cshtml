@@ -1,5 +1,7 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
-@model List<TblOrder>
+@using Microsoft.AspNetCore.Identity
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model PreOrderViewModel
 @{
     Layout = null;
     ViewData["Title"] = "Order";
@@ -31,10 +33,10 @@
             color: black;
         }
 
-            .tab.active {
-                background-color: #0d6efd;
-                color: white;
-            }
+        .tab.active {
+            background-color: #0d6efd;
+            color: white;
+        }
 
         .tab-content {
             border: 1px solid #ccc;
@@ -59,7 +61,6 @@
             font-weight: 500;
             text-align: center;
             padding: .7rem;
-            /* border: 1px solid rgba(108, 117, 125, .2); */
             border-radius: 50px;
             margin-bottom: .5rem;
         }
@@ -105,10 +106,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Menu" asp-action="Index">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#review">Review</a></li>
+                    <li class="nav-item"><a class="nav-link active" asp-controller="User" asp-action="Index">Home</a></li>
                 </ul>
 
                 @if (String.IsNullOrEmpty(@User.Identity?.Name))
@@ -134,7 +132,7 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container py-5">
 
         <div class="bg-white p-2">
             <form asp-action="Order" asp-controller="Activity" method="get">
@@ -173,7 +171,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Orders)
                     {
                         <tr class="text-center">
                             <th>@item.OrderNumber</th>
@@ -192,8 +190,8 @@
                             </td>
                             <td>
                                 @if(@item.PreOrderStatus == "Awaiting Payment"){
-                                <button type="button" class="btn btn-inout btn-custom me-2 btn-action-status payment-btn" data-id="@item.OrderId" data-total="@item.TotalPrice" data-action="Awaiting Payment">
-                                    <i class="bi bi-credit-card"></i>
+                                    <button type="button" class="btn btn-inout btn-custom me-2 btn-action-status payment-btn" data-id="@item.OrderId" data-total="@item.TotalPrice" data-action="Awaiting Payment">
+                                        <i class="bi bi-credit-card"></i>
                                     </button>
                                 }
                             </td>

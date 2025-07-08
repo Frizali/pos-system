@@ -60,7 +60,7 @@
                     Tempat nongkrong asik khas Jawa dengan berbagai pilihan menu lezat dan harga bersahabat.
                     Cocok untuk kumpul santai bareng teman atau menikmati malam dengan suasana hangat dan tradisional.
                 </h6>
-                <a asp-controller="Po" asp-action="OrderPo" class="btn text-white mt-3" style="background-color: orange;">Lihat Menu</a>
+                <a asp-controller="Menu" asp-action="Index" asp-route-category="All" class="btn text-white mt-3" style="background-color: orange;">Lihat Menu</a>
             </div>
 
             <div class="col-md-6">
@@ -122,7 +122,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a asp-controller="Po" asp-action="OrderPo" class="btn btn-orange">Lihat Semua Menu / Pesan Sekarang</a>
+            <a asp-controller="Menu" asp-action="Index" asp-route-category="All" class="btn btn-orange">Lihat Semua Menu / Pesan Sekarang</a>
         </div>
     </div>
 </section>
@@ -157,7 +157,7 @@
                     <i class="bi bi-calendar-check fs-1 text-primary mb-3"></i>
                     <h5 class="fw-bold text-warning">Sistem PO</h5>
                     <p class="flex-grow-1">Gunakan sistem PO kami untuk pesanan acara atau banyak!</p>
-                    <a asp-controller="Po" asp-action="OrderPo" class="btn btn-warning text-white mt-2">Buat PO Sekarang</a>
+                    <a asp-controller="Menu" asp-action="Index" asp-route-category="All" class="btn btn-warning text-white mt-2">Buat PO Sekarang</a>
                 </div>
             </div>
         </div>

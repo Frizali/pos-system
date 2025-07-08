@@ -104,10 +104,6 @@ namespace pos_system.Controllers
                 {
                     order_id = param.orderId,
                     gross_amount = param.totalAmount
-                },
-                callbacks = new
-                {
-                    finish = Url.Action("CreateOrder", "Order", new { orderId = param.orderId }, Request.Scheme)
                 }
             };
 
@@ -139,6 +135,7 @@ namespace pos_system.Controllers
         public async Task<IActionResult> UpdatePreOrderStatus(string orderId, string status, string? comment)
         {
             await _orderService.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
+            await _orderService.SendPreOrderFeedback(orderId).ConfigureAwait(false);
             if (User.IsInRole("User"))
                 return RedirectToAction("UserOrder", "PreOrder");
             else

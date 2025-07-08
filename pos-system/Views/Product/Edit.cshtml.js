@@ -8,13 +8,15 @@ function renderVariantRow(variant, index) {
         <td><input type="number" class="form-control" name="ProductVariants[${index}].VariantPrice" value="${variant.VariantPrice ?? 0}" /></td>
         <td><input type="number" class="form-control" name="ProductVariants[${index}].VariantStock" value="${variant.VariantStock ?? 0}" /></td>
         <td class="text-center">
-            <input type="checkbox" name="ProductVariants[${index}].IsLimitedStock" ${variant.IsLimitedStock ? 'checked' : ''} />
+            <input class="form-check-input" type="checkbox" name="ProductVariants[${index}].IsLimitedStock" ${variant.IsLimitedStock ? 'checked' : ''} />
         </td>
         <td class="text-center">
-            <input type="checkbox" name="ProductVariants[${index}].IsAvailable" ${variant.IsAvailable ? 'checked' : ''} />
+            <input class="form-check-input" type="checkbox" name="ProductVariants[${index}].IsAvailable" ${variant.IsAvailable ? 'checked' : ''} />
         </td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm remove-variant">Remove</button>
+            <button type="button" class="btn btn-delete btn-custom btn-action-status remove-variant">
+                <i class="bi bi-x"></i>
+            </button>
         </td>
     </tr>`;
 }
