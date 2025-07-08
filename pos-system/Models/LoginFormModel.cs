@@ -1,9 +1,16 @@
-﻿namespace pos_system.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace pos_system.Models
 {
     public class LoginFormModel
     {
-        public string Name { get; set; } = String.Empty;
-        public string Password { get; set; } = String.Empty;
-        public bool RememberMe { get; set; } = false;
+        [Required(ErrorMessage = "Name harus diisi")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Password harus diisi")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

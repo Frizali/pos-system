@@ -234,5 +234,31 @@
         <div class="text-center text-muted">&copy; 2025 Angkringan Omahmu. All rights reserved.</div>
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (TempData["SweetAlert_Icon"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        icon: '@TempData["SweetAlert_Icon"]',
+                        title: '@TempData["SweetAlert_Title"]',
+                        text: '@TempData["SweetAlert_Message"]',
+                        confirmButtonColor: '#3085d6'
+                    });
+        </text>
+    }
+</script>
+<script>
+    @if (TempData["SweetAlert_Icon"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: '@TempData["SweetAlert_Icon"]',
+                    title: '@TempData["SweetAlert_Title"]',
+                    text: '@TempData["SweetAlert_Message"]',
+                    confirmButtonColor: '#3085d6'
+                });
+        </text>
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -25,6 +25,11 @@ public class RegisterUserController(SignInManager<ApplicationUser> signInManager
             {
                 await _userManager.AddToRoleAsync(user, model.Role);
                 await _signInManager.SignInAsync(user, isPersistent: false);
+
+                TempData["SweetAlert_Icon"] = "success";
+                TempData["SweetAlert_Title"] = "Register Berhasil";
+                TempData["SweetAlert_Message"] = $"Akun {user.UserName} berhasil dibuat.";
+
                 return RedirectToAction("Login", "Auth");
             }
 

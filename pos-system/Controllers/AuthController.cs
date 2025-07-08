@@ -48,7 +48,14 @@ namespace pos_system.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                TempData["SweetAlert_Icon"] = "error";
+                TempData["SweetAlert_Title"] = "Login Gagal";
+                TempData["SweetAlert_Message"] = "Mohon lengkapi form dengan benar.";
+                return View(model);
+            }
+
 
             var user = await _userManager.FindByNameAsync(model.Name);
             if (user != null)
@@ -57,6 +64,9 @@ namespace pos_system.Controllers
 
                 if (result.Succeeded)
                 {
+                    TempData["SweetAlert_Icon"] = "success";
+                    TempData["SweetAlert_Title"] = "Login Berhasil";
+                    TempData["SweetAlert_Message"] = $"Selamat datang, {user.UserName}!";
                     var roles = await _userManager.GetRolesAsync(user);
                     var role = roles.FirstOrDefault();
 
@@ -68,6 +78,9 @@ namespace pos_system.Controllers
             }
 
             ModelState.AddModelError("Password", "Invalid login attempt.");
+            TempData["SweetAlert_Icon"] = "error";
+            TempData["SweetAlert_Title"] = "Login Gagal";
+            TempData["SweetAlert_Message"] = "Name atau Password salah.";
             return View(model);
         }
 
@@ -91,7 +104,11 @@ namespace pos_system.Controllers
                     await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if(model.Role != "User")
+                    TempData["SweetAlert_Icon"] = "success";
+                    TempData["SweetAlert_Title"] = "Register Berhasil";
+                    TempData["SweetAlert_Message"] = $"Akun {user.UserName} berhasil dibuat.";
+
+                    if (model.Role != "User")
                         return RedirectToAction("Login", "Auth");
                     else
                         return RedirectToAction("Index", "User");
@@ -113,7 +130,11 @@ namespace pos_system.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Auth");
+            TempData["SweetAlert_Icon"] = "info";
+            TempData["SweetAlert_Title"] = "Logout Berhasil";
+            TempData["SweetAlert_Message"] = "Anda telah keluar dari sistem.";
+
+            return RedirectToAction("Index", "User");
         }
     }
 }

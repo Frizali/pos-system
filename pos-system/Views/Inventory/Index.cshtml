@@ -166,95 +166,6 @@
     </div>
 </div>
 
-
-@* <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold" style="color: #333;">Inventory Item</h2>
-        <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-add btn-custom" asp-action="AddInventory">
-                <i class="bi bi-plus-circle me-1"></i> Add Item
-            </a>
-
-            <a class="btn btn-pdf btn-custom" asp-action="ExportPdf">
-                <i class="bi bi-file-earmark-pdf me-1"></i> Export to PDF
-            </a>
-            <a class="btn btn-excel btn-custom" asp-action="ExportExcel">
-                <i class="bi bi-file-earmark-excel me-1"></i> Export to Excel
-            </a>
-        </div>
-    </div>
-
-    <form asp-action="Index" method="get" class="row mb-4">
-        <div class="col-md-6 mb-2">
-            <input type="text" name="search" class="form-control" placeholder="Search item name..."
-                   value="" />
-        </div>
-        <div class="col-md-4 mb-2">
-            <select name="searchPartType" class="form-select">
-                <option value="">All</option>
-                @foreach(var kat in Model.PartType)
-                {
-                    <option value="@kat.PartTypeName">@kat.PartTypeName</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-2 mb-2">
-            <button type="submit" class="btn btn-secondary w-100"><i class="bi bi-search"></i> Filter</button>
-        </div>
-    </form>
-
-    <div class="custom-card">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover mb-0">
-                <thead>
-                    <tr class="text-center">
-                        <th>Item Name</th>
-                        <th>Category</th>
-                        <th>Unit</th>
-                        <th>Price</th>
-                        <th>Note</th>
-                        <th style="width: 200px;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.PartList != null && Model.PartList.Count > 0)
-                    {
-                        foreach (var item in Model.PartList)
-                        {
-                            <tr>
-                                <td>@item.PartName</td>
-                                <td>@item.PartTypeName</td>
-                                <td class="text-center">@(item.PartQty + " " + item.UnitCd)</td>
-                                <td>@item.Price.ToString("C0", new CultureInfo("id-ID"))</td>
-                                <td>@(string.IsNullOrEmpty(item.Note) ? "-" : item.Note)</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-inout btn-custom me-2" data-part-id="@item.PartId">
-                                        <i class="bi bi-arrow-left-right me-1"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-edit btn-custom me-2" data-part-id="@item.PartId">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <button class="btn btn-delete btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal" data-part-id="@item.PartId">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
-                                <i class="bi bi-info-circle"></i> No inventory items available.
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div> *@
-
 <!-- Modal -->
 <div id="editStockModalContainer"></div>
 
@@ -350,14 +261,42 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert("Gagal menghapus data: " + data.message);
-                }
+                    if (data.success) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Dihapus',
+            text: 'Data berhasil dihapus.',
+            confirmButtonColor: '#3085d6'
+        }).then(() => {
+            location.reload();
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Menghapus',
+            text: data.message || 'Terjadi kesalahan saat menghapus.',
+            confirmButtonColor: '#d33'
+        });
+    }
+
             })
             .catch(error => console.error('Error:', error));
     });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (TempData["SweetAlert_Icon"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: '@TempData["SweetAlert_Icon"]',
+                    title: '@TempData["SweetAlert_Title"]',
+                    text: '@TempData["SweetAlert_Message"]',
+                    confirmButtonColor: '#3085d6'
+                });
+        </text>
+    }
 </script>
 
 <script>

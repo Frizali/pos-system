@@ -22,9 +22,29 @@ namespace pos_system.Controllers
         {
             if (data.Part != null)
             {
+
+
+                if (!ModelState.IsValid)
+                {
+                    TempData["SweetAlert_Icon"] = "error";
+                    TempData["SweetAlert_Title"] = "Gagal Menyimpan";
+                    TempData["SweetAlert_Message"] = "Lengkapi semua data terlebih dahulu.";
+
+                    var listData = await _inventoryService.GetPartTypeAndUnit();
+                    data.PartTypes = listData.PartTypes;
+                    data.Units = listData.Units;
+
+                    return View("AddInventory", data);
+                }
+
                 try
                 {
                     await _inventoryService.Save(data).ConfigureAwait(false);
+
+                    TempData["SweetAlert_Icon"] = "success";
+                    TempData["SweetAlert_Title"] = "Data Berhasil Ditambahkan";
+                    TempData["SweetAlert_Message"] = "Item baru telah ditambahkan ke inventory.";
+
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -71,6 +91,9 @@ namespace pos_system.Controllers
         public async Task<IActionResult> Update(InventoryFormModel data)
         {
             await _inventoryService.Update(data).ConfigureAwait(false);
+            TempData["SweetAlert_Icon"] = "success";
+            TempData["SweetAlert_Title"] = "Update Berhasil";
+            TempData["SweetAlert_Message"] = "Data berhasil diperbarui.";
             return RedirectToAction("Index");
         }
 
@@ -87,6 +110,10 @@ namespace pos_system.Controllers
                 var userName = GetCurrentUserName();
                 data.InputedBy = userName;
                 await _inventoryService.AddPartMovement(data).ConfigureAwait(false);
+
+                TempData["SweetAlert_Icon"] = "success";
+                TempData["SweetAlert_Title"] = "Edit Stok Berhasil";
+                TempData["SweetAlert_Message"] = "Stok berhasil disesuaikan.";
             }
             catch (Exception ex)
             {
