@@ -1,4 +1,4 @@
-﻿@model RegisterUserModel
+﻿@model RegisterFormModel
 @{
     ViewData["Title"] = "Register User";
     Layout = null;
@@ -14,11 +14,10 @@
     }
 </style>
 
-<form asp-action="Register" asp-controller="Auth" method="post">
+<form asp-action="Index" asp-controller="RegisterUser" method="post">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg border-0 rounded-4" style="max-width: 900px; width: 100%;">
             <div class="row g-0">
-                <!-- Kiri: Form Register -->
                 <div class="col-md-7 p-5">
                     <div class="text-center mb-4">
                         <h3 class="fw-bold">Register</h3>
@@ -27,18 +26,22 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input asp-for="Email" type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input asp-for="Name" type="text" class="form-control" id="name" name="name" placeholder="Your Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input asp-for="Password" type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="mb-4">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-warning text-white fw-semibold">Register</button>
@@ -51,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- Kanan: Gambar -->
                 <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center bg-light rounded-end-4">
                     <img src="~/images/Logo omahmu HD.png" alt="Register Image" class="img-fluid p-4" style="max-height: 300px;">
                 </div>

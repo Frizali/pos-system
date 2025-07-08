@@ -30,10 +30,10 @@ public class RegisterUserController(SignInManager<ApplicationUser> signInManager
 
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("Password", error.Description);
+                ModelState.AddModelError(string.Empty, error.Description);
             }
         }
 
-        return View(model);
+        return View("~/Views/Auth/RegisterUser.cshtml", model);
     }
 }
