@@ -158,11 +158,11 @@
                     </td>
                     <td><input type="number" class="form-control variant-stock" name="ProductVariants[${i}].VariantStock"></td>
                     <td>
-                        <input type="hidden" name="ProductVariants[${i}].IsLimitedStock" value="false">
+                        <input type="hidden" name="ProductVariants[${i}].IsLimitedStock" value="true">
                         <input class="form-check-input islimited" type="checkbox" value="true" name="ProductVariants[${i}].IsLimitedStock" checked>
                     </td>
                     <td>
-                        <input type="hidden" name="ProductVariants[${i}].IsAvailable" value="false">
+                        <input type="hidden" name="ProductVariants[${i}].IsAvailable" value="true">
                         <input class="form-check-input isavailable" type="checkbox" value="true" name="ProductVariants[${i}].IsAvailable" checked>
                     </td>
                 </tr>`;

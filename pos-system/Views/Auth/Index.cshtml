@@ -25,6 +25,18 @@
         border: none;
     }
 
+    .btn-active {
+        background-color: #e0fce0;
+        color: #14532d;
+        border: 1px solid #b2f2bb;
+    }
+
+    .btn-inactive {
+        background-color: #ffe5e5;
+        color: #a10000;
+        border: 1px solid #ffcccc;
+    }
+
     .pill-wrapper-success {
         column-gap: .1rem;
         font-size: .8rem;
@@ -37,6 +49,20 @@
         align-items: center;
         justify-content: center;
         background-color: rgba(28, 135, 48, .05);
+    }
+
+    .pill-wrapper-error {
+        column-gap: .1rem;
+        font-size: .8rem;
+        color: #a10000;
+        width: max-content;
+        height: 28px;
+        padding: 0 .7rem 0 .7rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(161, 0, 0, .05);
     }
 </style>
 
@@ -73,7 +99,8 @@
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Name</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Email</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Role</div></th>
-                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Status</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Status</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light mx-0">Action</div></th>
                 </tr>
             </thead>
             <tbody>
@@ -84,9 +111,18 @@
                         <td>@user.Email</td>
                         <td>@user.Role</td>
                         <td>
+                            <div class="@(user.IsActive ? "pill-wrapper-success" : "pill-wrapper-error")" style="margin:auto;">@(user.IsActive ? "Active" : "InActive")</div>
+                        </td>
+                        <td>
                             @if (user.IsActive)
                             {
-                                <div class="pill-wrapper-success" style="margin:auto;">Active</div>
+                                <a href="@Url.Action("InActiveUser", "Auth", new { userId = user.Id })" class="btn btn-inactive btn-custom">
+                                    <i class="bi bi-person-slash"></i>
+                                </a>                                
+                            }else{
+                                <a href="@Url.Action("ActiveUser", "Auth", new { userId = user.Id })" class="btn btn-active btn-custom">
+                                    <i class="bi bi-person-check"></i>
+                                </a>      
                             }
                         </td>
                     </tr>

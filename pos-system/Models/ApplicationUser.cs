@@ -4,5 +4,6 @@ namespace pos_system.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public bool IsActive { get; set; } = true;
     }
 }

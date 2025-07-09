@@ -95,6 +95,18 @@
 </style>
 
 <div class="container">
+    <div class="p-2 bg-white d-flex flex-column gap-2">
+        @foreach(var item in Model.PartList.Where(p => p.PartQty <= p.LowerLimit).ToList())
+        {
+            <div class="toast fade show w-100" role="alert" aria-live="assertive" aria-atomic="true" style="border-color:#ffcccc;box-shadow:none;">
+                <div class="toast-header" style="border-bottom:0;background-color:#ffe5e5;color:#a10000;">
+                    <svg aria-hidden="true" class="bd-placeholder-img rounded me-2" height="20" preserveAspectRatio="xMidYMid slice" width="20" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#FC4A4A"></rect></svg>
+                    <p class="me-auto m-0">Stok <strong>@item.PartName</strong> sudah di bawah batas aman! Tindakan restock segera diperlukan.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+    </div>
     <div class="bg-white p-2">
         <div class="d-flex justify-content-between">
             <div class="d-flex gap-2 align-items-center">
@@ -130,8 +142,8 @@
                 <tr>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Item Name</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Category</div></th>
-                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Unit</div></th>
-                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Price</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Quantity</div></th>
+                    <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Price Per Unit</div></th>
                     <th scope="col" class="p-0"><div class="table-header-cus text-muted bg-light">Note</div></th>
                     <th scope="col" class="p-0" style="width: 200px;"><div class="table-header-cus text-muted bg-light mx-0">Action
     </div></th>
@@ -164,6 +176,7 @@
             </tbody>
         </table>
     </div>
+
 </div>
 
 <!-- Modal -->

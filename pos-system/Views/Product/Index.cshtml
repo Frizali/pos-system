@@ -26,7 +26,7 @@
                     <div>
                         <label for="category" class="form-label">Product Category*</label>
                         <select class="form-select" aria-label="Product Category" id="category" asp-for="Product.CategoryId">
-                            <option selected>Open this select menu</option>
+                            <option value="">Open this select menu</option>
                             @foreach (var category in Model.ProductCategories)
                             {
                                 <option value="@category.CategoryId">@category.CategoryName</option>

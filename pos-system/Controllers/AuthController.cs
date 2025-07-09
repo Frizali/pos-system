@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
+using SixLabors.Fonts;
 using System.Data;
 
 namespace pos_system.Controllers
@@ -19,13 +21,14 @@ namespace pos_system.Controllers
             foreach (var user in userList)
             {
                 var roles = await _userManager.GetRolesAsync(user);
+                if (roles.FirstOrDefault() == "User") continue;
                 Users.Add(new UserModel
                 {
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
                     Role = roles.FirstOrDefault() ?? "-",
-                    IsActive = true
+                    IsActive = user.IsActive
                 });
             }
 
@@ -60,6 +63,14 @@ namespace pos_system.Controllers
             var user = await _userManager.FindByNameAsync(model.Name);
             if (user != null)
             {
+                if (!user.IsActive)
+                {
+                    TempData["SweetAlert_Icon"] = "error";
+                    TempData["SweetAlert_Title"] = "Login Gagal";
+                    TempData["SweetAlert_Message"] = "Akun Anda telah dinonaktifkan.";
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
@@ -121,6 +132,32 @@ namespace pos_system.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> InActiveUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                user.IsActive = false;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> ActiveUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                user.IsActive = true;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

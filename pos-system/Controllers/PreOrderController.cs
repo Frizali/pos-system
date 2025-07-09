@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using pos_system.Models;
 using pos_system.Services;
 
 namespace pos_system.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,User")]
     public class PreOrderController(IOrderService orderService, UserManager<ApplicationUser> userManager) : Controller
     {
         readonly IOrderService _orderService = orderService;

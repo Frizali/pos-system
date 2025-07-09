@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using pos_system.Helpers;
 using pos_system.Models;
+using pos_system.Repository;
 using pos_system.Services;
 using System.Net.Http.Headers;
 using System.Text;
-using Microsoft.Extensions.Options;
-using pos_system.Repository;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Identity;
 
 namespace pos_system.Controllers
 {

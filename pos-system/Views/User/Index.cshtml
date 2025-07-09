@@ -34,19 +34,19 @@
             else
             {
                 <p class="fw-bold mb-0 ms-3">@User.Identity?.Name</p>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light border-0 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" asp-controller="User" asp-action="ManageAcc">Setting</a></li>
+                        <li><a class="dropdown-item" asp-controller="PreOrder" asp-action="UserOrder">Order</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                    </ul>
+                </div>
             }
 
-            <div class="dropdown ms-3">
-                <button class="btn btn-light border-0 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle fs-4"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" asp-controller="User" asp-action="ManageAcc">Setting</a></li>
-                    <li><a class="dropdown-item" asp-controller="PreOrder" asp-action="UserOrder">Order</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Logout</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </nav>
