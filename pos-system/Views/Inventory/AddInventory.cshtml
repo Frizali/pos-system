@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <label for="category" class="form-label">Category Item *</label>
                     <select class="form-select" id="category" name="Part.PartTypeId" required>
-                        <option selected disabled>Choose Category</option>
+                        <option value="" selected disabled>Choose Category</option>
                         @foreach(var type in Model.PartTypes)
                         {
                             <option value="@type.PartTypeId">@type.PartTypeName</option>                            
@@ -36,7 +36,7 @@
                 <div class="mb-3">
                     <label for="unit" class="form-label">Unit *</label>
                     <select class="form-select" id="unit" name="Part.UnitId" required>
-                        <option selected disabled>Choose unit</option>
+                        <option value="" selected disabled>Choose unit</option>
                         @foreach(var unit in Model.Units)
                         {
                             <option value="@unit.UnitId">@unit.UnitName</option>

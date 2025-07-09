@@ -22,21 +22,6 @@ namespace pos_system.Controllers
         {
             if (data.Part != null)
             {
-
-
-                if (!ModelState.IsValid)
-                {
-                    TempData["SweetAlert_Icon"] = "error";
-                    TempData["SweetAlert_Title"] = "Gagal Menyimpan";
-                    TempData["SweetAlert_Message"] = "Lengkapi semua data terlebih dahulu.";
-
-                    var listData = await _inventoryService.GetPartTypeAndUnit();
-                    data.PartTypes = listData.PartTypes;
-                    data.Units = listData.Units;
-
-                    return View("AddInventory", data);
-                }
-
                 try
                 {
                     await _inventoryService.Save(data).ConfigureAwait(false);

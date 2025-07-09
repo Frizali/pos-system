@@ -22,11 +22,27 @@ namespace pos_system.Controllers
         {
             _productService.SetUsername(GetCurrentUserName());
             var viewModel = await _productService.ProductFormModel().ConfigureAwait(false);
+
+            if (productImage != null && productImage.Length > 400 * 1024)
+            {
+                ModelState.AddModelError("Product.ProductImage", "Ukuran gambar tidak boleh lebih dari 400KB");
+                data.ProductCategories = viewModel.ProductCategories;
+                return View("Index", data);
+            }
+            if (productImage == null || productImage.Length == 0)
+            {
+                ModelState.AddModelError("Product.ProductImage", "Gambar produk wajib diunggah");
+                data.ProductCategories = viewModel.ProductCategories;
+                return View("Index", data);
+            }
+
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     await _productService.Save(data, productImage);
+                    TempData["SuccessMessage"] = "Produk berhasil ditambahkan";
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)

@@ -36,8 +36,9 @@
                     </div>
                     <div>
                         <label for="productImage" class="form-label">Product Image</label>
-                        <input type="file" class="form-control" id="productImage" name="ProductImage" accept="image/*">
+                        <input type="file" class="form-control" id="productImage" name="productImage" asp-for="Product.ProductImage" accept="image/*">
                         <span asp-validation-for="Product.ProductImage" class="text-danger"></span>
+
                     </div>
                 </div>
             </div>
@@ -146,5 +147,36 @@
         </div>
     </div>
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses',
+                    text: '@TempData["SuccessMessage"]',
+                    confirmButtonText: 'OK'
+                });
+        </text>
+    }
+</script>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const fileInput = document.getElementById("productImage");
+        const file = fileInput?.files[0];
+
+        if (file && file.size > 400 * 1024) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Ukuran Gambar Terlalu Besar',
+                text: 'Ukuran maksimal gambar adalah 400KB'
+            });
+            return false;
+        }
+    });
+</script>
 
 <script src="~/Views/Product/Index.cshtml.js"></script>
