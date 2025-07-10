@@ -135,6 +135,9 @@ namespace pos_system.Controllers
         {
             await _orderService.UpdatePreOrderStatus(orderId, status, comment).ConfigureAwait(false);
             await _orderService.SendPreOrderFeedback(orderId).ConfigureAwait(false);
+
+            TempData["PreOrderAction"] = status;
+
             if (User.IsInRole("User"))
                 return RedirectToAction("UserOrder", "PreOrder");
             else

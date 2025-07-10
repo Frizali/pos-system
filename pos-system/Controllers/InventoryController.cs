@@ -27,8 +27,8 @@ namespace pos_system.Controllers
                     await _inventoryService.Save(data).ConfigureAwait(false);
 
                     TempData["SweetAlert_Icon"] = "success";
-                    TempData["SweetAlert_Title"] = "Data Berhasil Ditambahkan";
-                    TempData["SweetAlert_Message"] = "Item baru telah ditambahkan ke inventory.";
+                    TempData["SweetAlert_Title"] = "Data added successfully.";
+                    TempData["SweetAlert_Message"] = "A new item has been added to the inventory.";
 
                     return RedirectToAction("Index");
                 }
@@ -77,8 +77,8 @@ namespace pos_system.Controllers
         {
             await _inventoryService.Update(data).ConfigureAwait(false);
             TempData["SweetAlert_Icon"] = "success";
-            TempData["SweetAlert_Title"] = "Update Berhasil";
-            TempData["SweetAlert_Message"] = "Data berhasil diperbarui.";
+            TempData["SweetAlert_Title"] = "Update successful.";
+            TempData["SweetAlert_Message"] = "Data updated successfully.";
             return RedirectToAction("Index");
         }
 
@@ -97,8 +97,8 @@ namespace pos_system.Controllers
                 await _inventoryService.AddPartMovement(data).ConfigureAwait(false);
 
                 TempData["SweetAlert_Icon"] = "success";
-                TempData["SweetAlert_Title"] = "Edit Stok Berhasil";
-                TempData["SweetAlert_Message"] = "Stok berhasil disesuaikan.";
+                TempData["SweetAlert_Title"] = "Stock updated successfully.";
+                TempData["SweetAlert_Message"] = "Stock adjusted successfully.";
             }
             catch (Exception ex)
             {

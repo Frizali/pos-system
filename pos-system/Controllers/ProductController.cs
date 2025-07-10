@@ -25,13 +25,13 @@ namespace pos_system.Controllers
 
             if (productImage != null && productImage.Length > 400 * 1024)
             {
-                ModelState.AddModelError("Product.ProductImage", "Ukuran gambar tidak boleh lebih dari 400KB");
+                ModelState.AddModelError("Product.ProductImage", "The image size must be no more than 400KB.");
                 data.ProductCategories = viewModel.ProductCategories;
                 return View("Index", data);
             }
             if (productImage == null || productImage.Length == 0)
             {
-                ModelState.AddModelError("Product.ProductImage", "Gambar produk wajib diunggah");
+                ModelState.AddModelError("Product.ProductImage", "Product image is required.");
                 data.ProductCategories = viewModel.ProductCategories;
                 return View("Index", data);
             }
@@ -42,7 +42,7 @@ namespace pos_system.Controllers
                 try
                 {
                     await _productService.Save(data, productImage);
-                    TempData["SuccessMessage"] = "Produk berhasil ditambahkan";
+                    TempData["SuccessMessage"] = "Product added successfully.";
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)

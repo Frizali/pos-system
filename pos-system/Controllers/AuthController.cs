@@ -54,8 +54,8 @@ namespace pos_system.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["SweetAlert_Icon"] = "error";
-                TempData["SweetAlert_Title"] = "Login Gagal";
-                TempData["SweetAlert_Message"] = "Mohon lengkapi form dengan benar.";
+                TempData["SweetAlert_Title"] = "Login failed.";
+                TempData["SweetAlert_Message"] = "Please complete the form correctly.";
                 return View(model);
             }
 
@@ -66,8 +66,8 @@ namespace pos_system.Controllers
                 if (!user.IsActive)
                 {
                     TempData["SweetAlert_Icon"] = "error";
-                    TempData["SweetAlert_Title"] = "Login Gagal";
-                    TempData["SweetAlert_Message"] = "Akun Anda telah dinonaktifkan.";
+                    TempData["SweetAlert_Title"] = "Login failed.";
+                    TempData["SweetAlert_Message"] = "Your account has been deactivated.";
                     return View(model);
                 }
 
@@ -76,8 +76,8 @@ namespace pos_system.Controllers
                 if (result.Succeeded)
                 {
                     TempData["SweetAlert_Icon"] = "success";
-                    TempData["SweetAlert_Title"] = "Login Berhasil";
-                    TempData["SweetAlert_Message"] = $"Selamat datang, {user.UserName}!";
+                    TempData["SweetAlert_Title"] = "Login successful.";
+                    TempData["SweetAlert_Message"] = $"Welcome, {user.UserName}!";
                     var roles = await _userManager.GetRolesAsync(user);
                     var role = roles.FirstOrDefault();
 
@@ -90,8 +90,8 @@ namespace pos_system.Controllers
 
             ModelState.AddModelError("Password", "Invalid login attempt.");
             TempData["SweetAlert_Icon"] = "error";
-            TempData["SweetAlert_Title"] = "Login Gagal";
-            TempData["SweetAlert_Message"] = "Name atau Password salah.";
+            TempData["SweetAlert_Title"] = "Login failed.";
+            TempData["SweetAlert_Message"] = "Incorrect username or password.";
             return View(model);
         }
 
@@ -116,8 +116,8 @@ namespace pos_system.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     TempData["SweetAlert_Icon"] = "success";
-                    TempData["SweetAlert_Title"] = "Register Berhasil";
-                    TempData["SweetAlert_Message"] = $"Akun {user.UserName} berhasil dibuat.";
+                    TempData["SweetAlert_Title"] = "Registration successful.";
+                    TempData["SweetAlert_Message"] = $"{user.UserName} account has been successfully created.";
 
                     if (model.Role != "User")
                         return RedirectToAction("Login", "Auth");
@@ -142,6 +142,8 @@ namespace pos_system.Controllers
             {
                 user.IsActive = false;
                 await _userManager.UpdateAsync(user);
+                TempData["StatusMessage"] = $"User {user.UserName} has been deactivated.";
+                TempData["StatusType"] = "warning";
             }
 
             return RedirectToAction("Index");
@@ -155,10 +157,13 @@ namespace pos_system.Controllers
             {
                 user.IsActive = true;
                 await _userManager.UpdateAsync(user);
+                TempData["StatusMessage"] = $"User {user.UserName} has been activated.";
+                TempData["StatusType"] = "success";
             }
 
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public IActionResult NotFoundPage() => View();
@@ -168,8 +173,8 @@ namespace pos_system.Controllers
         {
             await _signInManager.SignOutAsync();
             TempData["SweetAlert_Icon"] = "info";
-            TempData["SweetAlert_Title"] = "Logout Berhasil";
-            TempData["SweetAlert_Message"] = "Anda telah keluar dari sistem.";
+            TempData["SweetAlert_Title"] = "Logout successful.";
+            TempData["SweetAlert_Message"] = "You have been logged out of the system.";
 
             return RedirectToAction("Index", "User");
         }
