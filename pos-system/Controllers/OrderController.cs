@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,13 +14,14 @@ using System.Text;
 namespace pos_system.Controllers
 {
     [Authorize]
-    public class OrderController(IOrderService orderService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration) : Controller
+    public class OrderController(IOrderService orderService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration, IHubContext<OrderHub> hubContext) : Controller
     {
         readonly IOrderService _orderService = orderService;
         readonly IReportService _reportService = reportService;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly MidtransSettings _midtrans = midtrans.Value;
         readonly IConfiguration _configuration= configuration;
+        private readonly IHubContext<OrderHub> _hubContext = hubContext;
 
         public async Task<IActionResult> CreateOrder(string orderId, bool? isTest)
         {
@@ -45,10 +47,10 @@ namespace pos_system.Controllers
                 TotalPrice = snapParam.totalAmount,
                 OrderDate = DateTime.Now,
                 UserID = userId,
-                Type = snapParam.type ?? "Cashier",
+                Type = snapParam.orderType ?? "Cashier",
                 ScheduledAt = snapParam.scheduledAt,
                 Notes = snapParam.notes,
-                PreOrderStatus = snapParam.type == "PreOrder" ? "Pending Approval" : null,
+                PreOrderStatus = snapParam.orderType == "PreOrder" ? "Pending Approval" : null,
                 TblOrderItems = snapParam.TblOrderItems
             };
 
@@ -59,16 +61,19 @@ namespace pos_system.Controllers
                 return StatusCode(200);
             }
 
+            if(order.Type == "Online")
+                await _hubContext.Clients.All.SendAsync("ReceiveOrder", order.OrderId);
+
             ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
-            ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
+            //ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
 
             var pdfBytesCustomer = Convert.FromBase64String(base64PdfCustomer.Data);
-            var pdfBytesDapur = Convert.FromBase64String(base64PdfKitchen.Data);
+            //var pdfBytesDapur = Convert.FromBase64String(base64PdfKitchen.Data);
 
-            var mergedPdf = Unique.MergePdfs(pdfBytesCustomer, pdfBytesDapur);
+            //var mergedPdf = Unique.MergePdfs(pdfBytesCustomer, pdfBytesDapur);
 
             Response.Headers.Add("Content-Disposition", "inline; filename=Order.pdf");
-            return File(mergedPdf, "application/pdf");
+            return File(pdfBytesCustomer, "application/pdf");
         }
 
         public async Task<IActionResult> UserCreateOrder(TblOrder order)

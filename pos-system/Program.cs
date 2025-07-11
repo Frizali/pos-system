@@ -64,6 +64,9 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
+
+
 
 
 var app = builder.Build();
@@ -86,6 +89,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
+
+app.MapHub<OrderHub>("/orderHub");
 
 app.MapControllerRoute(
     name: "default",

@@ -6,7 +6,7 @@
         public decimal totalAmount { get; set; }
         public DateTime? scheduledAt { get; set; }
         public string? notes { get; set; }
-        public string? type { get; set; } = "Cashier";
+        public string? orderType { get; set; } = "Cashier";
         public List<TblOrderItem>? TblOrderItems { get; set; } = new();
     }
 }
