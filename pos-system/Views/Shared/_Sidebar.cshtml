@@ -14,33 +14,10 @@
                     <i class="bi bi-bag me-3"></i>
                     <span>Point of Sales</span>
                 </a>
-@*                 <a class="text-decoration-none text-black" data-bs-toggle="collapse" href="#poMenu" role="button" aria-expanded="false" aria-controls="poMenu">
-                    <i class="bi bi-file-earmark-text me-3"></i>
-                    <span>PO (Pre-Order)</span>
-                    <i class="bi bi-chevron-down float-end"></i>
-                </a>
-                <div class="collapse ps-4" id="poMenu">
-                    <a asp-controller="PreOrder" asp-action="Index" class="text-decoration-none text-black d-block mb-2">• Paid</a>
-                    <a asp-controller="OrderPo" asp-action="Process" class="text-decoration-none text-black d-block mb-2">• Process</a>
-                    <a asp-controller="OrderPo" asp-action="Status" class="text-decoration-none text-black d-block mb-2">• Status</a>
-                </div> *@
-
                 <a asp-controller="PreOrder" asp-action="Index" class="text-decoration-none text-black">
                     <i class="bi bi-file-earmark-text me-3"></i>
                     <span>Pre-Order</span>
                 </a>
-
-@*                 <a class="text-decoration-none text-black" data-bs-toggle="collapse" href="#orderMenu" role="button" aria-expanded="false" aria-controls="orderMenu">
-                    <i class="bi bi-cart-check me-3"></i>
-                    <span>Order Now</span>
-                    <i class="bi bi-chevron-down float-end"></i>
-                </a>
-                <div class="collapse ps-4" id="orderMenu">
-                    <a asp-controller="PreOrder" asp-action="Index" class="text-decoration-none text-black d-block mb-2">• Paid</a>
-                    <a asp-controller="PreOrder" asp-action="Process" class="text-decoration-none text-black d-block mb-2">• Process</a>
-                    <a asp-controller="PreOrder" asp-action="Status" class="text-decoration-none text-black d-block mb-2">• Delivered</a>
-                </div> *@
-
                 <a asp-controller="Activity" asp-action="Order" class="text-decoration-none text-black">
                     <i class="bi bi-activity me-3"></i>
                     <span>Activity</span>
@@ -64,15 +41,6 @@
                         <span>Setup</span>
                     </a>
                 }
-@*                 <a class="text-decoration-none text-black" data-bs-toggle="collapse" href="#historyMenu" role="button" aria-expanded="false" aria-controls="historyMenu">
-                    <i class="bi bi-clock-history me-3"></i>
-                    <span>History</span>
-                    <i class="bi bi-chevron-down float-end"></i>
-                </a> *@
-@*                 <div class="collapse ps-4" id="historyMenu">
-                    <a asp-controller="History" asp-action="Sales" class="text-decoration-none text-black d-block mb-1">• History Sales</a>
-                    <a asp-controller="Inventory" asp-action="GetListPartMovement" class="text-decoration-none text-black d-block">• History Inventory</a>
-                </div> *@
             </div>
             <div>
                 <a asp-controller="Auth" asp-action="Logout" class="text-decoration-none text-black">
