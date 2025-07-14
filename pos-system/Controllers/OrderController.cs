@@ -131,6 +131,18 @@ namespace pos_system.Controllers
             return Json(new { token = snapToken });
         }
 
+        public async Task<IActionResult> SaveOrderToSession([FromBody] SnapTokenModel param)
+        {
+            var orderNumber = await _orderNumberTrackerRepo.GetOrderNumber().ConfigureAwait(false);
+            var cashier = GetCurrentUserName() ?? "";
+
+            HttpContext.Session.SetString("OrderData", JsonConvert.SerializeObject(param));
+            HttpContext.Session.SetString("OrderNumber", orderNumber);
+            HttpContext.Session.SetString("Cashier", cashier);
+
+            return Ok();
+        }
+
         public IActionResult SnapFinish(string orderId)
         {
             ViewBag.OrderId = orderId;
