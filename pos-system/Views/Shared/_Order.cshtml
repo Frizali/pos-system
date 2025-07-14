@@ -32,9 +32,16 @@
             </div>
         </div>
 
-        <button id="btn-pay" class="btn btn-primary w-100 p-3" style="border-radius:0" type="submit">
-            Place Order
-        </button>
+        <div class="d-flex">
+            <button id="btn-cash" class="btn btn-success w-100 p-3" style="border-radius: 0;" type="button">
+                Cash
+            </button>
+
+            <button id="btn-pay" class="btn btn-primary w-100 p-3" style="border-radius:0" type="submit">
+                Transfer / QR
+            </button>
+
+        </div>
     </div>
 }
 
@@ -43,12 +50,12 @@
 </script>
 
 <script>
-    document.getElementById("payment-form").addEventListener("submit", function (e) {
+    const form = document.getElementById("payment-form");
+
+    document.getElementById("btn-pay").addEventListener("click", function (e) {
         e.preventDefault();
 
-        const form = document.getElementById("payment-form");
         const formData = new FormData(form);
-
         const orderItems = [];
         for (let i = 0; ; i++) {
             const productId = formData.get(`TblOrderItems[${i}].ProductId`);
@@ -96,6 +103,51 @@
             .catch(err => {
                 console.error(err);
                 alert("Terjadi kesalahan saat menghubungi server.");
+            });
+    });
+
+    document.getElementById("btn-cash").addEventListener("click", function () {
+        const formData = new FormData(form);
+        const orderItems = [];
+        for (let i = 0; ; i++) {
+            const productId = formData.get(`TblOrderItems[${i}].ProductId`);
+            if (!productId) break;
+
+            orderItems.push({
+                ProductId: productId,
+                VariantId: formData.get(`TblOrderItems[${i}].VariantId`),
+                Quantity: parseInt(formData.get(`TblOrderItems[${i}].Quantity`)),
+                UnitPrice: parseFloat(formData.get(`TblOrderItems[${i}].UnitPrice`)),
+                SubTotal: parseFloat(formData.get(`TblOrderItems[${i}].SubTotal`)),
+                Notes: formData.get(`TblOrderItems[${i}].Notes`) || ""
+            });
+        }
+
+        const data = {
+            orderId: formData.get("OrderId"),
+            totalAmount: parseFloat(document.getElementById("order-total-input").value),
+            orderType: "Cashier",
+            notes: "",
+            tblOrderItems: orderItems
+        };
+
+        // Simpan ke session
+        fetch('@Url.Action("SaveOrderToSession", "Order")', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(data)
+        })
+            .then(() => {
+                form.action = '@Url.Action("CreateOrder", "Order")';
+                form.submit();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Gagal menyimpan data order.");
             });
     });
 </script>
