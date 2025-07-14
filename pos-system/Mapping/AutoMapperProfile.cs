@@ -10,6 +10,8 @@ namespace pos_system.Mapping
         {
             CreateMap<TblProductCategory, ProductCategoryDTO>().ForMember(dest => dest.TotalProducts, opt => opt.MapFrom(src => src.TblProducts.Count()));
             CreateMap<TblProduct, ProductDTO>();
+            CreateMap<TblOrder, OrderDTO>();
+            CreateMap<TblOrderItem, OrderItemDTO>();
             CreateMap<TblProductVariant, ProductVariantDTO>();
         }
     }

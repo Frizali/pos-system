@@ -357,9 +357,10 @@
         .build();
 
     connection.on("ReceiveOrder", function (tblOrder) {
-        const orderLiveContainer = $('#drag-scroll');
-        const orderLiveItem = `<div class="pb-3 h-100"><div style="display:inline-block;width:200px;margin-right:1rem;border:1px solid #ccc;border-radius:8px;padding:1rem;white-space:normal;overflow-wrap:break-word;height:100%">${tblOrder}</div></div>`;
-        orderLiveContainer.append(orderLiveItem)
+        // const orderLiveContainer = $('#drag-scroll');
+        // const orderLiveItem = `<div class="pb-3 h-100"><div style="display:inline-block;width:200px;margin-right:1rem;border:1px solid #ccc;border-radius:8px;padding:1rem;white-space:normal;overflow-wrap:break-word;height:100%">${tblOrder}</div></div>`;
+        // orderLiveContainer.append(orderLiveItem)
+        console.log(tblOrder.orderId);
     });
 
     connection.start().catch(function (err) {

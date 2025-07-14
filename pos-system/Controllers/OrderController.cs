@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using pos_system.DTOs;
 using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
@@ -14,14 +16,15 @@ using System.Text;
 namespace pos_system.Controllers
 {
     [Authorize]
-    public class OrderController(IOrderService orderService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration, IHubContext<OrderHub> hubContext) : Controller
+    public class OrderController(IOrderService orderService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration, IHubContext<OrderHub> hubContext, IMapper mapper) : Controller
     {
         readonly IOrderService _orderService = orderService;
         readonly IReportService _reportService = reportService;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly MidtransSettings _midtrans = midtrans.Value;
         readonly IConfiguration _configuration= configuration;
-        private readonly IHubContext<OrderHub> _hubContext = hubContext;
+        readonly IHubContext<OrderHub> _hubContext = hubContext;
+        readonly IMapper _mapper = mapper;
 
         public async Task<IActionResult> CreateOrder(string orderId, bool? isTest)
         {
@@ -62,7 +65,10 @@ namespace pos_system.Controllers
             }
 
             if(order.Type == "Online")
-                await _hubContext.Clients.All.SendAsync("ReceiveOrder", order.OrderId);
+            {
+                var orderDTO = _mapper.Map<OrderDTO>(order);
+                await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderDTO);
+            }
 
             ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
             //ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
