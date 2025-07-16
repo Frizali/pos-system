@@ -2,6 +2,16 @@
     border-radius: .7rem;
 }
 
+.btn-orange {
+    background-color: orange;
+    color: white;
+}
+
+    .btn-orange:hover {
+        background-color: darkorange;
+        color: white;
+    }
+
 .btn-add-cart {
     border-bottom-left-radius: .7rem;
     border-bottom-right-radius: .7rem;
