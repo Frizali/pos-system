@@ -41,6 +41,27 @@ namespace pos_system.Services
                     return oi;
                 }).ToList();
 
+                foreach (var item in order.TblOrderItems)
+                {
+                    var product = await _productRepo.GetRepo().GetById(item.ProductId).ConfigureAwait(false) ?? throw new ApplicationException("Product not found");
+                    if (item.VariantId is null)
+                    {
+                        var productStock = product.ProductStock;
+                        if (productStock < item.Quantity)
+                            throw new ApplicationException($"Insufficient stock for product {product.ProductName}. Available: {productStock}, Requested: {item.Quantity}");
+                        else if(item.Quantity <= 0)
+                            throw new ApplicationException("Minimum purchase amount 1");
+                    }else if(item.VariantId is not null)
+                    {
+                        var productVariant = await _productVariantRepo.GetRepo().GetById(item.VariantId).ConfigureAwait(false) ?? throw new ApplicationException("Product variant not found");
+                        var variantStock = productVariant.VariantStock;
+                        if (variantStock < item.Quantity)
+                            throw new ApplicationException($"Insufficient stock for product variant {product.ProductName} ({productVariant.Sku}). Available: {variantStock}, Requested: {item.Quantity}");
+                        else if (item.Quantity <= 0)
+                            throw new ApplicationException("Minimum purchase amount 1");
+                    }
+                }
+
                 await _orderRepo.GetRepo().Add(order);
                 await ReduceProductStock(order).ConfigureAwait(false);
                 await _orderNumberTrackerRepo.GenerateOrderNumber();

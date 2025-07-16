@@ -66,3 +66,36 @@ footer h6 {
     }
 }
 
+
+.dropdown-menu {
+    z-index: 9999 !important;
+    position: absolute !important;
+}
+
+
+.dropdown.show .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    min-width: 180px;
+    z-index: 9999;
+}
+
+    .dropdown-menu .dropdown-item {
+        color: #212529 !important;
+    }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+
+
+
+

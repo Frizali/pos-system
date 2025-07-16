@@ -368,3 +368,35 @@
     });
 </script>
 <script src="~/Views/Product/ProductList.cshtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(function () {
+    @if (TempData["SweetAlert_Icon"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        icon: '@TempData["SweetAlert_Icon"]',
+                    title: '@TempData["SweetAlert_Title"]',
+                    text: '@TempData["SweetAlert_Message"]',
+                    timer: 2000,
+                    showConfirmButton: false
+                    });
+        </text>
+    }
+        });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if (TempData["SweetAlert_Icon"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: '@TempData["SweetAlert_Icon"]',
+                title: '@TempData["SweetAlert_Title"]',
+                text: '@TempData["SweetAlert_Message"]',
+                confirmButtonColor: '#3085d6'
+                        });
+        </text>
+    }
+</script>

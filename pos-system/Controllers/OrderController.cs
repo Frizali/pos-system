@@ -28,41 +28,43 @@ namespace pos_system.Controllers
 
         public async Task<IActionResult> CreateOrder(string orderId, bool? isTest)
         {
-            _orderService.SetUsername(GetCurrentUserName());
-            var orderDataJson = HttpContext.Session.GetString("OrderData");
-            var orderNumber = HttpContext.Session.GetString("OrderNumber") ?? "ORD-000";
-            var cashier = HttpContext.Session.GetString("Cashier") ?? "unknown";
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(orderDataJson))
-                return BadRequest("Order data not found.");
-
-            var snapParam = JsonConvert.DeserializeObject<SnapTokenModel>(orderDataJson);
-            if (snapParam == null)
-                return BadRequest("Invalid order data.");
-
-            var order = new TblOrder
+            try
             {
-                OrderId = orderId,
-                OrderNumber = orderNumber,
-                Status = "Success",
-                Cashier = cashier,
-                TotalPrice = snapParam.totalAmount,
-                OrderDate = DateTime.Now,
-                UserID = userId,
-                Type = snapParam.orderType ?? "Cashier",
-                ScheduledAt = snapParam.scheduledAt,
-                Notes = snapParam.notes,
-                PreOrderStatus = snapParam.orderType == "PreOrder" ? "Pending Approval" : null,
-                TblOrderItems = snapParam.TblOrderItems
-            };
+                _orderService.SetUsername(GetCurrentUserName());
+                var orderDataJson = HttpContext.Session.GetString("OrderData");
+                var orderNumber = HttpContext.Session.GetString("OrderNumber") ?? "ORD-000";
+                var cashier = HttpContext.Session.GetString("Cashier") ?? "unknown";
+                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
-            await _orderService.CreateOrder(order);
+                if (string.IsNullOrEmpty(orderDataJson))
+                    return BadRequest("Order data not found.");
 
-            if(isTest!= null && isTest == true)
-            {
-                return StatusCode(200);
-            }
+                var snapParam = JsonConvert.DeserializeObject<SnapTokenModel>(orderDataJson);
+                if (snapParam == null)
+                    return BadRequest("Invalid order data.");
+
+                var order = new TblOrder
+                {
+                    OrderId = orderId,
+                    OrderNumber = orderNumber,
+                    Status = "Success",
+                    Cashier = cashier,
+                    TotalPrice = snapParam.totalAmount,
+                    OrderDate = DateTime.Now,
+                    UserID = userId,
+                    Type = snapParam.orderType ?? "Cashier",
+                    ScheduledAt = snapParam.scheduledAt,
+                    Notes = snapParam.notes,
+                    PreOrderStatus = snapParam.orderType == "PreOrder" ? "Pending Approval" : null,
+                    TblOrderItems = snapParam.TblOrderItems
+                };
+
+                await _orderService.CreateOrder(order);
+
+                if (isTest != null && isTest == true)
+                {
+                    return StatusCode(200);
+                }
 
             if(order.Type == "Online")
             {
@@ -70,16 +72,24 @@ namespace pos_system.Controllers
                 await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderDTO);
             }
 
-            ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
-            //ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
+                ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
+                ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
 
-            var pdfBytesCustomer = Convert.FromBase64String(base64PdfCustomer.Data);
-            //var pdfBytesDapur = Convert.FromBase64String(base64PdfKitchen.Data);
+                var pdfBytesCustomer = Convert.FromBase64String(base64PdfCustomer.Data);
+                var pdfBytesKitchen = Convert.FromBase64String(base64PdfKitchen.Data);
 
-            //var mergedPdf = Unique.MergePdfs(pdfBytesCustomer, pdfBytesDapur);
+                var mergedPdf = Unique.MergePdfs(pdfBytesCustomer, pdfBytesKitchen);
 
-            Response.Headers.Add("Content-Disposition", "inline; filename=Order.pdf");
-            return File(pdfBytesCustomer, "application/pdf");
+                Response.Headers.Add("Content-Disposition", "inline; filename=Order.pdf");
+                return File(pdfBytesCustomer, "application/pdf");
+            }
+            catch(Exception ex)
+            {
+                TempData["SweetAlert_Icon"] = "error";
+                TempData["SweetAlert_Title"] = "Create order failed.";
+                TempData["SweetAlert_Message"] = ex.Message;
+                return RedirectToAction("ProductList", "Product");
+            }
         }
 
         public async Task<IActionResult> UserCreateOrder(TblOrder order)

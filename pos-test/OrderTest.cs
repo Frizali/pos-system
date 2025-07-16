@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MailKit;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using pos_system.Data;
 using pos_system.Helpers;
 using pos_system.Models;
@@ -22,7 +24,7 @@ namespace pos_test
         public void GlobalSetup()
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer("Server=LAPTOP-C24PFO2E\\SQLEXPRESS;Database=POS;Trusted_Connection=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=POS;Trusted_Connection=true;TrustServerCertificate=True;");
             _context = new AppDbContext(optionsBuilder.Options);
             _orderId = Unique.ID();
         }
@@ -44,12 +46,18 @@ namespace pos_test
             var prodVariantRepo = new ProductVariantRepo(_context, crudProdVariantRepo);
             var prodRepo = new ProductRepo(_context, null, crudProdRepo);
             var orderNumTracRepo = new OrderNumberTrackerRepo(_context);
+            var mailService = new Mock<IEmailService>();
+            var setupService = new Mock<ISetupService>();
+            var productService = new Mock<IProductService>();
 
             var service = new OrderService(
                 orderRepo,
                 prodVariantRepo,
                 prodRepo,
-                orderNumTracRepo
+                orderNumTracRepo,
+                productService.Object,
+                mailService.Object,
+                setupService.Object
             );
 
             _service = service;
@@ -62,8 +70,8 @@ namespace pos_test
 
             TblOrderItem[] tblOrderItems =
             [
-                new TblOrderItem { ProductId = "bfd581c3-f2ba-44f8-8e8c-2b314305a056", Quantity = 3, UnitPrice = 2000, Notes = "-" },
-                new TblOrderItem { ProductId = "c41f2f36-9d8b-430d-8c3c-f20a4d448f0b", Quantity = 5, UnitPrice = 7000, Notes = "-" }
+                new TblOrderItem { ProductId = "4ac9b2e4-d086-42cb-8555-6d37b9fe3583", VariantId = "4fd6383f-e31b-4ce0-8e12-7969e9ef829d", Quantity = 2, UnitPrice = 16000, Notes = "-" },
+                new TblOrderItem { ProductId = "4ac9b2e4-d086-42cb-8555-6d37b9fe3583", VariantId = "607624b7-2b18-4484-b688-2f3091e71f2f", Quantity = 1000, UnitPrice = 7000, Notes = "-" }
             ];
 
             TblOrder data = new()
