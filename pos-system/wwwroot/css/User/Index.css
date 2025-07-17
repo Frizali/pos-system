@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     font-family: "Urbanist", sans-serif;
 }
 
@@ -10,11 +11,25 @@
         height: 100%;
         width: 100%;
         object-fit: cover;
+        object-position: center;
+    }
+
+#foodCarousel .carousel-inner,
+#foodCarousel .carousel-item {
+    height: 300px;
+}
+
+    #foodCarousel .carousel-item img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
 .btn-orange {
     background-color: orange;
     color: white;
+    display: inline-block; 
 }
 
     .btn-orange:hover {
@@ -44,47 +59,14 @@ footer h6 {
     color: #ff6600;
 }
 
-@media (max-width: 768px) {
-    h1 .display-5 {
-        font-size: 1.8rem;
-    }
-
-    .carousel-inner {
-        height: 200px;
-    }
-
-    .menu-img {
-        height: 150px;
-    }
-
-    .card-text {
-        font-size: 0.9rem;
-    }
-
-    .btn-orange, .btn-warning {
-        width: 100%;
-    }
-}
-
-
 .dropdown-menu {
     z-index: 9999 !important;
     position: absolute !important;
-}
-
-
-.dropdown.show .dropdown-menu {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.dropdown-menu {
     background-color: #ffffff !important;
     color: #000000 !important;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     min-width: 180px;
-    z-index: 9999;
 }
 
     .dropdown-menu .dropdown-item {
@@ -95,7 +77,109 @@ footer h6 {
             background-color: #f8f9fa;
         }
 
+.dropdown.show .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
+@media (max-width: 768px) {
+
+    h1.display-5,
+    h2, h5,
+    .lead,
+    .card-text,
+    .card-title {
+        text-align: center !important;
+    }
+
+    .navbar-nav,
+    .navbar .dropdown-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn,
+    .btn-orange {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+    }
+
+    #foodCarousel .carousel-inner,
+    #foodCarousel .carousel-item {
+        height: 180px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    #home .col-md-6.mb-4.mb-md-0 {
+        text-align: center !important;
+    }
+        #home .col-md-6.mb-4.mb-md-0 .btn {
+            display: inline-block;
+            margin: 1rem auto 0;
+        }
 
 
+    footer .row > div,
+    footer .list-unstyled a,
+    footer p {
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    footer .bi {
+        font-size: 1.2rem;
+    }
+
+    .dropdown-toggle .user-name {
+        font-size: 0.9rem;
+    }
+
+    #service .col-md-3,
+    #menu .col-md-4,
+    #review .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .col-md-6.mb-4.mb-md-0:first-child .btn-orange {
+        margin: 1rem auto 0;
+    }
+}
+
+@media (min-width: 769px) {
+    
+    section#home h1.display-5,
+    section#home h6.lead {
+        text-align: left !important;
+    }
+
+    #menu .card-title,
+    #menu .card-text {
+        text-align: left !important;
+    }
+}
+
+#review,
+#testimoni {
+
+}
+
+    #review .row.text-center > .col-12,
+    #review .row.text-center > .col-sm-6,
+    #review .row.text-center > .col-md-4,
+    #testimoni .row.text-center > .col-12,
+    #testimoni .row.text-center > .col-sm-6,
+    #testimoni .row.text-center > .col-md-4 {
+        text-align: center !important;
+    }
+
+    #review .row.text-center img,
+    #testimoni .row.text-center img {
+        display: block;
+        margin: 0 auto 1rem;
+    }
