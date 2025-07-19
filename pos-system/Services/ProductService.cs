@@ -171,7 +171,7 @@ namespace pos_system.Services
             return await _productRepo.ProductDetailByID(id).ConfigureAwait(false);
         }
 
-        public async Task<List<PreOrderItemDTO>> GetPreOrderItem(TblOrder order)
+        public async Task<List<OrderItemDecsDTO>> GetOrderDescDTO(TblOrder order)
         {
             var productDTOs = await _productRepo.ProductDetailsDTO().ConfigureAwait(false);
             var orderProductID = order.TblOrderItems.Where(oi => oi.VariantId is null).Select(oi => new { ProductID = oi.ProductId, oi.Quantity }).ToList();
@@ -185,7 +185,7 @@ namespace pos_system.Services
                                  p
                              } into joined
                              group joined by joined.op.ProductID into g
-                             select new PreOrderItemDTO()
+                             select new OrderItemDecsDTO()
                              {
                                  ProductName = g.First().p.ProductName,
                                  Quantity = g.Sum(x => x.op.Quantity),
@@ -196,7 +196,7 @@ namespace pos_system.Services
                              join p in productDTOs on v.ProductId equals p.ProductId
                              select new { p, v, ov } into vpJoined
                              group vpJoined by vpJoined.v.VariantId into g
-                             select new PreOrderItemDTO()
+                             select new OrderItemDecsDTO()
                              {
                                  ProductName = g.First().p.ProductName + $" ({g.First().v.Sku})",
                                  Quantity = g.Sum(x => x.ov.Quantity),

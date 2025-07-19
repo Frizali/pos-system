@@ -10,7 +10,7 @@ namespace pos_system.Services
         Task<ProductListViewModel> ProductListViewModel(string? category, string? product);
         Task Save(ProductFormModel data, IFormFile? productImage);
         Task<TblProduct> ProductDetailByID(string id);
-        Task<List<PreOrderItemDTO>> GetPreOrderItem(TblOrder order);
+        Task<List<OrderItemDecsDTO>> GetOrderDescDTO(TblOrder order);
         Task<ProductFormModel> EditData(string id);
         Task EditProduct(ProductFormModel data, IFormFile? productImage);
     }

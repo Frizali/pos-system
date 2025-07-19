@@ -47,7 +47,7 @@ namespace pos_system.Services
             await SendNotificationAsync(toEmail, "Peringatan: Stok Barang Menipis!", htmlBody);
         }
 
-        public async Task SendPreOrderNotification(PreOrderMailDTO order, string toEmail)
+        public async Task SendPreOrderNotification(OrderDescDTO order, string toEmail)
         {
             string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "MailBody", "PreOrderNotification.txt");
             string templateContent = await System.IO.File.ReadAllTextAsync(templatePath);

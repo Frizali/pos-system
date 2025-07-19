@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <!-- Scrollable Area -->
-                <div class="scroll-container bg-white px-3 pt-1 rounded"
+                <div class="scroll-container bg-white px-3 pt-1 rounded d-flex"
                      id="drag-scroll"
                      style="height: calc(270px - 60px); overflow-x: auto; white-space: nowrap;">
                 </div>
@@ -251,9 +251,6 @@
             var productId = $(this).attr('data-prodid');
             const product = products.find(p => p.id == productId);
 
-            console.log(product)
-
-
             orderItems.push({
                 ProductID: product.id,
                 VariantID: "",
@@ -269,7 +266,6 @@
         }else if(totalGroups == totalSelected){
             var selectedItem = [];
             var dataProductId = $(this).attr('data-prodid');
-            console.log(dataProductId);
             $('.option-selected').each(function (index) {
                 selectedItem.push($(this).text().trim());
             });
@@ -338,7 +334,6 @@
         });
 
         let totalOrder = orderItems.map(item => item.SubTotal).reduce((prev, next) => prev + next);
-        console.log(totalOrder);
 
         $('#productDetailModal').modal('hide');
         var input = $("input[name='Quantity']");
@@ -352,15 +347,92 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const savedOrders = JSON.parse(localStorage.getItem("orderList")) || [];
+        const orderLiveContainer = $('#drag-scroll');
+
+        savedOrders.forEach(orderDescDTO => {
+            let itemsHtml = '';
+            orderDescDTO.items.forEach(item => {
+                itemsHtml +=
+                `<div class="d-flex gap-1">
+                    <p class="mb-0 text-muted">${item.quantity}x</p>
+                    <p class="mb-0 text-muted">${item.productName}</p>
+                </div>`;
+            });
+
+            const orderLiveItem =
+            `<div class="pb-3 h-100">
+                <div style="display:inline-block;width:200px;margin-right:1rem;border:1px solid #ccc;border-radius:8px;padding:1rem;white-space:normal;overflow-wrap:break-word;height:100%">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="m-0">
+                                ${orderDescDTO.username}
+                            </h6>
+                            <div class="d-flex g-1">
+                                <button class="text-primary text-decoration-underline order-detail-download bg-transparent border-0" data-id="${orderDescDTO.orderId}">
+                                    Detail
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mt-2" style="max-height: 100px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
+                            ${itemsHtml}
+                        </div>
+                        <button class="text-success text-decoration-underline done-order bg-transparent border-0 text-end" data-id="${orderDescDTO.orderId}">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+
+            orderLiveContainer.append(orderLiveItem);
+        });
+    });
+
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/orderHub")
         .build();
 
-    connection.on("ReceiveOrder", function (tblOrder) {
-        // const orderLiveContainer = $('#drag-scroll');
-        // const orderLiveItem = `<div class="pb-3 h-100"><div style="display:inline-block;width:200px;margin-right:1rem;border:1px solid #ccc;border-radius:8px;padding:1rem;white-space:normal;overflow-wrap:break-word;height:100%">${tblOrder}</div></div>`;
-        // orderLiveContainer.append(orderLiveItem)
-        console.log(tblOrder.orderId);
+    connection.on("ReceiveOrder", function (orderDescDTO) {
+        let orders = JSON.parse(localStorage.getItem("orderList")) || [];
+        orders.push(orderDescDTO);
+        localStorage.setItem("orderList", JSON.stringify(orders));
+
+        const orderLiveContainer = $('#drag-scroll');
+
+        let itemsHtml = '';
+        orderDescDTO.items.forEach(item => {
+            itemsHtml += 
+            `<div class="d-flex gap-1">
+                <p class="mb-0 text-muted">${item.quantity}x</p>
+                <p class="mb-0 text-muted">${item.productName}</p>
+            </div>`;
+        });
+
+        const orderLiveItem = 
+        `<div class="pb-3 h-100">
+            <div style="display:inline-block;width:200px;margin-right:1rem;border:1px solid #ccc;border-radius:8px;padding:1rem;white-space:normal;overflow-wrap:break-word;height:100%">
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="m-0">
+                            ${orderDescDTO.username}
+                        </h6>
+                        <div class="d-flex g-1">
+                            <button class="text-primary text-decoration-underline order-detail-download bg-transparent border-0" data-id="${orderDescDTO.orderId}">
+                                Detail
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column mt-2" style="max-height: 100px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
+                        ${itemsHtml}
+                    </div>
+                    <button class="text-success text-decoration-underline done-order bg-transparent border-0 text-end" data-id="${orderDescDTO.orderId}">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        orderLiveContainer.append(orderLiveItem)
     });
 
     connection.start().catch(function (err) {
@@ -370,6 +442,18 @@
 <script src="~/Views/Product/ProductList.cshtml.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    $(document).on('click', '.done-order', function () {
+        const orderId = $(this).data('id');
+
+        let orders = JSON.parse(localStorage.getItem("orderList")) || [];
+
+        orders = orders.filter(order => order.orderId !== orderId);
+
+        localStorage.setItem("orderList", JSON.stringify(orders));
+
+        $(this).closest('.pb-3').remove();
+    });
+
     $(function () {
     @if (TempData["SweetAlert_Icon"] != null)
     {
@@ -399,4 +483,26 @@
                         });
         </text>
     }
+</script>
+
+<script>
+    $(document).on("click", ".order-detail-download", function () {
+        const reportName = "Order Detail";
+        const id = $(this).data("id");
+        const fromDate = "";
+        const toDate = "";
+
+        fetch('/Dashboard/DownloadReport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ FromDate: fromDate, ToDate: toDate, ReportName: reportName, ID: id })
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        });
+    });
 </script>

@@ -68,9 +68,9 @@ namespace pos_system.Services
 
                 if(order.Type == "PreOrder")
                 {
-                    var preOrderItemList = await _productService.GetPreOrderItem(order).ConfigureAwait(false);
+                    var preOrderItemList = await _productService.GetOrderDescDTO(order).ConfigureAwait(false);
                     var setup = await _setupService.GetSetup().ConfigureAwait(false);
-                    var data = new PreOrderMailDTO()
+                    var data = new OrderDescDTO()
                     {
                         Username = _username,
                         TotalPrice = order.TotalPrice,

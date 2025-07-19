@@ -16,9 +16,10 @@ using System.Text;
 namespace pos_system.Controllers
 {
     [Authorize]
-    public class OrderController(IOrderService orderService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration, IHubContext<OrderHub> hubContext, IMapper mapper) : Controller
+    public class OrderController(IOrderService orderService, IProductService productService, IReportService reportService, IOrderNumberTrackerRepo orderNumberTrackerRepo, IOptions<MidtransSettings> midtrans, IConfiguration configuration, IHubContext<OrderHub> hubContext, IMapper mapper) : Controller
     {
         readonly IOrderService _orderService = orderService;
+        readonly IProductService _productService = productService;
         readonly IReportService _reportService = reportService;
         readonly IOrderNumberTrackerRepo _orderNumberTrackerRepo = orderNumberTrackerRepo;
         readonly MidtransSettings _midtrans = midtrans.Value;
@@ -66,11 +67,18 @@ namespace pos_system.Controllers
                     return StatusCode(200);
                 }
 
-            if(order.Type == "Online")
-            {
-                var orderDTO = _mapper.Map<OrderDTO>(order);
-                await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderDTO);
-            }
+                if(order.Type == "Online")
+                {
+                    var orderItemsDTO = await _productService.GetOrderDescDTO(order).ConfigureAwait(false);
+                    OrderDescDTO orderDescDTO = new OrderDescDTO()
+                    {
+                        OrderId = order.OrderId,
+                        Username = order.Cashier,
+                        TotalPrice = order.TotalPrice,
+                        items = orderItemsDTO
+                    };
+                    await _hubContext.Clients.All.SendAsync("ReceiveOrder", orderDescDTO);
+                }
 
                 ReportModel base64PdfCustomer = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order" }).ConfigureAwait(false);
                 ReportModel base64PdfKitchen = await _reportService.GenerateReportPDF(new ReportParamModel() { ID = order.OrderId, FromDate = "", ToDate = "", ReportName = "Order Kitchen" }).ConfigureAwait(false);
@@ -81,7 +89,7 @@ namespace pos_system.Controllers
                 var mergedPdf = Unique.MergePdfs(pdfBytesCustomer, pdfBytesKitchen);
 
                 Response.Headers.Add("Content-Disposition", "inline; filename=Order.pdf");
-                return File(pdfBytesCustomer, "application/pdf");
+                return File((order.Type == "Online") ? pdfBytesCustomer : mergedPdf, "application/pdf");
             }
             catch(Exception ex)
             {

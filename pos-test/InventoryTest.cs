@@ -1,16 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Moq;
 using pos_system.Data;
 using pos_system.Helpers;
 using pos_system.Models;
 using pos_system.Repository;
 using pos_system.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pos_test
 {

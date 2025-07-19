@@ -8,7 +8,7 @@
     var fromDate = Model.FromDate ?? DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
     var toDate = Model.ToDate ?? DateTime.Now.ToString("yyyy-MM-dd");
 }
-<link rel="stylesheet" href="/wwwroot/css/Dashboard/index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Dashboard/index.css" asp-append-version="true" />
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
 <div class="container">
@@ -32,7 +32,6 @@
             <select class="form-select" aria-label="Default select example" style="border-radius:50px;padding:.5rem 2.25rem .5rem 1.5rem;border-color:rgba(108, 117, 125, .2);" id="report-name" name="ReportName">
                 <option value="Sales Analytics">Sales Analytics</option>
                 <option value="Order Detail">Order Detail</option>
-                <option value="Favorite Product">Favorite Product</option>
             </select>
         </div>
     </div>
@@ -172,6 +171,30 @@
                     <div class="value-container d-flex justify-content-between align-items-baseline mt-auto">
                         <h2 class="card-value">@Model.SalesAnalytics.TotalCustomers.Amount</h2>
                         <span class="card-unit">Persons</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-left" : "pill-wrapper-danger-left")">
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-plus" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-dash" style="font-size:.8rem"></i>
+                            }
+                            @Model.SalesAnalytics.TotalCustomers.GrowthAmount Persons
+                        </div>
+                        <div class="@(Model.SalesAnalytics.TotalCustomers.IsGrowth? "pill-wrapper-success-right" : "pill-wrapper-danger-right")">
+                            @Model.SalesAnalytics.TotalCustomers.GrowthPercentage%
+                            @if (Model.SalesAnalytics.TotalCustomers.IsGrowth)
+                            {
+                                <i class="bi bi-arrow-up" style="font-size:.8rem"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-arrow-down" style="font-size:.8rem"></i>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
