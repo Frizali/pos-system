@@ -10,6 +10,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\Dashboard\NewFile.txt" />
     <Content Remove="wwwroot\css\Order\NewFile.txt" />
+    <Content Remove="wwwroot\js\Index.cshtml.js" />
   </ItemGroup>
 
   <ItemGroup>
