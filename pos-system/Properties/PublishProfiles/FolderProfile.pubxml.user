@@ -2,8 +2,8 @@
 <!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>D:\[04] Publish</_PublishTargetUrl>
-    <History>True|2025-07-14T02:02:21.2393174Z||;</History>
+    <_PublishTargetUrl>C:\Users\EliteDesk\Documents\pos-system\publish</_PublishTargetUrl>
+    <History>True|2025-07-19T15:33:21.0522046Z||;False|2025-07-19T22:31:40.0522881+07:00||;True|2025-07-14T09:02:21.2393174+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
